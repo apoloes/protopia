@@ -1,12 +1,12 @@
 <template lang="html">
   <div id="parentx">
 
-    <vs-button @click="active=!active" color="primary" type="filled"><vs-icon icon="menu"></vs-icon></vs-button>
+    <vs-button @click="active=!active" color="primary" type="filled">Protopia helloooooooooooooooooooo<vs-icon icon="menu"></vs-icon></vs-button>
     <vs-sidebar parent="body" default-index="1"  color="primary" class="sidebarx" spacer v-model="active">
 
       <div class="header-sidebar" slot="header">
-        <!--        <vs-avatar  size="60px" src="https://randomuser.me/api/portraits/men/85.jpg"/>-->
-        <vs-avatar size="large" color="primary" icon="person"/>
+                <vs-avatar  size="60px" src="https://ca.slack-edge.com/TN2RCKUVD-UMPFSAJE7-g0a95dac88e4-48"/>
+<!--        <vs-avatar size="large" color="primary" icon="person"/>-->
         <h4>
           Protopia
           <!--          <vs-button color="primary" type="flat"><vs-icon icon="more-vert"></vs-icon></vs-button>-->
@@ -34,6 +34,7 @@
 
         <vs-sidebar-item index="4" icon="verified_user">
 <!--          <router-link Configurations-->
+          Configurations
         </vs-sidebar-item>
         <vs-sidebar-item index="5" icon="account_box">
           Profile

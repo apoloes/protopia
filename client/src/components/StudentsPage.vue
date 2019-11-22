@@ -6,12 +6,12 @@
 </template>
 
 <script>
-    import student_graphs from "./Students";
+    import StudentGraphs from "./Students";
     export default {
         props: ["cleanAskData"],
         name: "students_page",
         components: {
-            'student_graphs' : student_graphs
+            'student_graphs' : StudentGraphs
         }
     }
 </script>

@@ -306,6 +306,19 @@ body {
   color: #000000 !important;
   padding: 5px !important;
 }
+
+
+/* NEW SIDEBAR STYLING */
+.vs-sidebar--item a{
+  font-size: 1em !important;
+}
+.vs-sidebar--item a i{
+  font-size: 1em !important;
+  padding-right: 5px;
+}
+.footer-sidebar button i{
+
+}
 /********************************************************************************/
 @media only screen and (min-width: 768px) {
   #sidebar {

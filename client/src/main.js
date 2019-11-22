@@ -27,13 +27,13 @@ import VueFusionCharts from 'vue-fusioncharts'
 
 import { vsSideBar, vsButton, vsSelect, vsPopup, vsDivider, vsIcon, vsAvatar } from 'vuesax';
 import 'vuesax/dist/vuesax.css'; //Vuesax styles
-// import 'material-icons/iconfont/material-icons.css';
+import 'material-icons/iconfont/material-icons.css';
 
-library.add(faUserSecret, faAddressCard, faCoffee, faGraduationCap, faIdCard)  ;
+// library.add(faUserSecret, faAddressCard, faCoffee, faGraduationCap, faIdCard)  ;
 
-Vue.component('font-awesome-icon', FontAwesomeIcon)
+// Vue.component('font-awesome-icon', FontAwesomeIcon)
 
-// Vue.config.productionTip = false;
+Vue.config.productionTip = false;
 
 // Resolve the dependencies
 Charts(FusionCharts);

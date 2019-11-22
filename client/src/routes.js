@@ -1,6 +1,6 @@
-import Students_page from './components/students_page.vue';
-import Alumni_page from './components/alumni_page.vue';
-import home from './components/home.vue';
+import Students_page from './components/StudentsPage.vue';
+import Alumni_page from './components/AlumniPage.vue';
+import home from './components/Home.vue';
 
 
 

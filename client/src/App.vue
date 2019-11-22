@@ -18,20 +18,18 @@ Style: This section is for CSS styling that applies to the HTML of the page (wri
 </template>
 
 <script>
-import Content from './components/Content.vue'
 import SideBar from './components/SideBar';
-import home from './components/home';
-import students_page from './components/students_page';
-import alumni_page from './components/alumni_page';
+import Home from './components/Home';
+import StudentsPage from './components/StudentsPage';
+import AlumniPage from './components/AlumniPage';
 
 export default {
   name: 'app',
   components: {
-    'dashboard-content': Content,
       'sidebar' : SideBar,
-      'home' : home,
-      'students' : students_page,
-      'alumni' : alumni_page
+      'home' : Home,
+      'students' : StudentsPage,
+      'alumni' : AlumniPage
   },
   data () {
     return {
