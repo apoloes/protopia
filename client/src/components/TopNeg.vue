@@ -1,6 +1,6 @@
 <template>
   <div class="custom-card header-card card">
-    <div class="card-body pt-0">
+    <div class="card-body pb-0">
       <fusioncharts id="topneggraph"
         type="bar2d"
         width="100%"

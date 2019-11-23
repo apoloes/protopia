@@ -1,6 +1,6 @@
 <template>
-  <div class="highlights-item col-md-4 col-sm-6 col-xs-12 border-top">
-    <div>
+  <div class="custom-card header-card card">
+    <div class="card-body pb-0">
       <fusioncharts
         :type="type"
         :width="width"
@@ -8,7 +8,8 @@
         :container-background-opacity="containerbackgroundopacity"
         :data-format="dataformat"
         :data-source="datasource"
-      ></fusioncharts>
+      >
+      </fusioncharts>
     </div>
   </div>
 </template>
