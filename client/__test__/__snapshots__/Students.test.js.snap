@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Students.vue matches snapshot 1`] = `
+<div>
+  <dailyask-dashboard-stub></dailyask-dashboard-stub>
+  <hourlyask-dashboard-stub></hourlyask-dashboard-stub>
+  <status-dashboard-stub></status-dashboard-stub>
+  <community-dashboard-stub></community-dashboard-stub>
+  <sentiment-dashboard-stub></sentiment-dashboard-stub>
+</div>
+`;

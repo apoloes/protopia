@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OpenRate.vue matches snapshot 1`] = `
+<div>
+  <p>The child components of Students.vue are:</p>
+  <ul>
+    <li>AskRate.vue</li>
+    <li>OpenRate.vue</li>
+    <li>ResponseRate.vue</li>
+  </ul>
+</div>
+`;

@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AskSentiment.vue matches snapshot 1`] = `
+<div class="custom-content-card content-card card">
+  <div class="card-body pb-0">
+    <div class="content-header h4 text-center pt-2 pb-3">Highlights</div>
+    <pos-neg-stub></pos-neg-stub>
+    <top-pos-stub></top-pos-stub>
+    <top-neg-stub></top-neg-stub>
+  </div>
+</div>
+`;
