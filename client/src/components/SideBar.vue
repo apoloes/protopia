@@ -33,7 +33,6 @@
         </vs-divider>
 
         <vs-sidebar-item index="4" icon="verified_user">
-<!--          <router-link Configurations-->
           Configurations
         </vs-sidebar-item>
         <vs-sidebar-item index="5" icon="account_box">
