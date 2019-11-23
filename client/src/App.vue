@@ -35,6 +35,7 @@ export default {
     return {
       filename: 'App.vue',
       rawAskData: '',
+      rawSendGridData: '',
       cleanAskData: {
         askDayCount: [
           // gets added dynamically by this.getSetDailyAsks()
@@ -85,6 +86,18 @@ export default {
           return axios.get(server + path).then(function(response) {
               if (response.status === 200) {
                 self.rawAskData = response.data.asks;
+              }
+          });
+      },
+      fetchSendGridData: async function() {
+          const axios = require('axios');
+          let self = this;
+          let path = "/api/open/";
+          let server = await self.setDevServer(axios, path);
+
+          return axios.get(server + path).then(function(response) {
+              if (response.status === 200) {
+                  self.rawSendGridData = response.data.messages;
               }
           });
       },
@@ -210,7 +223,9 @@ export default {
       organizeAllDetails: async function() {
       // top level organization
         await this.fetchStudentAskData();
-        console.log(this.rawAskData)
+        await this.fetchSendGridData();
+        console.log(this.rawAskData);
+        console.log(this.rawSendGridData);
         this.getSetDailyAsks();
         this.getSetHourlyAsks();
         this.getSetStatusCount();
