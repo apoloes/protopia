@@ -18,25 +18,19 @@
 <script>
     export default {
         props: ["cleanRequestData"],
-        components: {},
         data() {
           return {
             dailyAskRateChartData: {
               chart: {
                 caption: "Daily Open and Click Rates",
-                showHoverEffect: "1",
-                theme: "fusion",
-                // showaxislines: "1",
-                drawCrossLine: "1",
-                plotToolText: "$label<br><hr><b>$dataValue</b>",
-                showAxisLines: "1",
-                showYAxisValues: "1",
-                labelFontSize: "13",
-                labelAlpha: "65",
-                labelFontBold: "0",
+                yaxisname: "Frequency",
+                subcaption: "Last week",
+                numdivlines: "3",
+                showvalues: "0",
                 rotateLabels: "1",
                 slantLabels: "1",
-                canvasPadding: "20"
+                plotToolText: "$label<br><hr><b>$dataValue</b>",
+                theme: "fusion"
               },
               categories: [
                 {
@@ -79,12 +73,81 @@
             this.dailyAskRateChartData.categories[0].category = categories
             this.dailyAskRateChartData.dataset[0].data = opens
             this.dailyAskRateChartData.dataset[1].data = clicks
-            
-            
           },
         },
-        mounted: function() {
-          this.setChartData();
+        mounted:function() {
+          var clicks = [
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                  ]
+          var opens = clicks
+          var categories = [
+                    {label: "0"},
+                    {label: "1"},
+                    {label: "2"},
+                    {label: "3"},
+                    {label: "4"},
+                    {label: "5"},
+                    {label: "6"},
+                    {label: "7"},
+                    {label: "8"},
+                    {label: "9"},
+                    {label: "10"},
+                    {label: "11"},
+                    {label: "12"},
+                    {label: "13"},
+                    {label: "14"},
+                    {label: "15"},
+                    {label: "16"},
+                    {label: "17"},
+                    {label: "18"},
+                    {label: "19"},
+                    {label: "20"},
+                    {label: "21"},
+                    {label: "22"},
+                    {label: "23"},
+                    {label: "24"},
+                    {label: "25"},
+                    {label: "26"},
+                    {label: "27"},
+                    {label: "28"},
+                    {label: "29"},
+                    {label: "30"},
+                    {label: "31"}
+                  ]
+          this.dailyAskRateChartData.categories[0].category = categories
+          this.dailyAskRateChartData.dataset[0].data = opens
+          this.dailyAskRateChartData.dataset[1].data = clicks
+          
         },
         watch: {
           cleanRequestData: {

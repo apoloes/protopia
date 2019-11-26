@@ -2,7 +2,7 @@
   <div class="custom-card header-card card">
     <div class="card-body pt-0">
       <fusioncharts id="hourlyaskrategraph"
-        type="spline"
+        type="msspline"
         width="100%"
         height="100%"
         data-format="json"
@@ -17,61 +17,125 @@
 
 <script>
     export default {
-        props: ["cleanAskData"],
-        components: {},
+        props: ["cleanRequestData"],
         data() {
           return {
-            hourlyAskRateChartData: {
+           hourlyAskRateChartData: {
               chart: {
-                "yAxisMinValue": "0",
-                caption: "Hourly Ask Count",
-                captionFontBold: "0",
-                captionFontColor: "#000000",
-                captionPadding: "30",
-                baseFont: "Roboto",
-                chartTopMargin: "30",
-                showHoverEffect: "1",
-                theme: "fusion",
-                // showaxislines: "1",
-                anchorBgColor: "#6297d9",
-                paletteColors: "#6297d9",
-                drawCrossLine: "1",
-                plotToolText: "$label<br><hr><b>$dataValue</b>",
-                showAxisLines: "1",
-                showYAxisValues: "1",
-                anchorRadius: "4",
-                divLineAlpha: "0",
-                labelFontSize: "13",
-                labelAlpha: "65",
-                labelFontBold: "0",
+                caption: "Hourly Open and Click Rates",
+                yaxisname: "Frequency",
+                subcaption: "Last week",
+                numdivlines: "3",
+                showvalues: "0",
                 rotateLabels: "1",
                 slantLabels: "1",
-                canvasPadding: "20"
+                plotToolText: "$label<br><hr><b>$dataValue</b>",
+                theme: "fusion"
               },
-              data: [],
-            },
+              categories: [
+                {
+                  category: []
+                }
+              ],
+              dataset: [
+                {
+                  seriesname: "Opens",
+                  data: []
+                },
+                {
+                  seriesname: "Clicks",
+                  data: []
+                }
+              ]
+              }
           };
         },
         methods: {
           setChartData: function() {
-            var data = [];
-
-            for (var i = 0; i < this.cleanAskData.askHourCount.length; i++) {
-              var dataObject = {
-                label: i.toString(),
-                value: this.cleanAskData.askHourCount[i]
+            var categories = [];
+            var opens = [];
+            var clicks = [];
+            console.log(this.cleanRequestData)
+            for (var i = 0; i < this.cleanRequestData.hourlyOpenCount.length; i++) {
+              var categoryObject = {
+                label: this.cleanRequestData.hourlyOpenCount[i].hour,
               };
-              data.push(dataObject);
+              var opensObject = {
+                value: this.cleanRequestData.hourlyOpenCount[i].counts,
+              };
+              var clicksObject = {
+                value: this.cleanRequestData.hourlyClicksCount[i].counts,
+              };
+              categories.push(categoryObject);
+              opens.push(opensObject);
+              clicks.push(clicksObject);
             }
-            
-            this.hourlyAskRateChartData.data = data;
+            this.hourlyAskRateChartData.categories[0].category = categories
+            this.hourlyAskRateChartData.dataset[0].data = opens
+            this.hourlyAskRateChartData.dataset[1].data = clicks
           },
         },
         mounted: function() {
-          this.setChartData();
+          var clicks = [
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                    {value: "0"},
+                  ]
+          var opens = clicks
+          var categories = [
+                    {label: "0"},
+                    {label: "1"},
+                    {label: "2"},
+                    {label: "3"},
+                    {label: "4"},
+                    {label: "5"},
+                    {label: "6"},
+                    {label: "7"},
+                    {label: "8"},
+                    {label: "9"},
+                    {label: "10"},
+                    {label: "11"},
+                    {label: "12"},
+                    {label: "13"},
+                    {label: "14"},
+                    {label: "15"},
+                    {label: "16"},
+                    {label: "17"},
+                    {label: "18"},
+                    {label: "19"},
+                    {label: "20"},
+                    {label: "21"},
+                    {label: "22"},
+                    {label: "23"}
+                  ]
+          this.hourlyAskRateChartData.categories[0].category = categories
+          this.hourlyAskRateChartData.dataset[0].data = opens
+          this.hourlyAskRateChartData.dataset[1].data = clicks
+          
         },
         watch: {
-          cleanAskData: {
+          cleanRequestData: {
             handler: function() {
               this.setChartData();
             },

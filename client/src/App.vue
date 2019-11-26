@@ -36,29 +36,6 @@ export default {
       filename: 'App.vue',
       rawAskData: '',
       rawSendGridData: '',
-      cleanAskData: {
-        askDayCount: [
-          // gets added dynamically by this.getSetDailyAsks()
-        ],
-        askHourCount:[
-          // gets added dynamically by this.getSetHourlyAsks()
-        ],
-        statusCount: [
-          // gets added dynamically by this.getSetStatusCount()
-        ],
-        communityCount: [
-          // gets added dynamically by this.getSetCommunityCount()
-        ],
-        PosNeg:[
-
-        ],
-        TopPos: [
-
-        ],
-        TopNeg: [
-
-        ]
-      },
       rawRequestData: '',
       rawResponseData: '',
       cleanRequestData: {
@@ -66,6 +43,12 @@ export default {
 
         ],
         clicksCount: [
+
+        ],
+        hourlyOpenCount: [
+
+        ],
+        hourlyClicksCount: [
 
         ]
       },
@@ -75,6 +58,12 @@ export default {
         ],
         clicksCount: [
 
+        ],
+        hourlyOpenCount: [
+
+        ],
+        hourlyClicksCount: [
+          
         ]
       }
     }
@@ -158,7 +147,34 @@ export default {
               this.cleanRequestData.clicksCount.push({date:i,counts:clicks_count[i]});
             }
           }
-          console.log(this.cleanRequestData)
+
+          let hourly_opens_count = {};
+          let hourly_clicks_count = {};
+          for (let i = 0; i < numRequests; i++) {
+            let hour = this.rawRequestData[i].last_event_time.substring(11,13);
+            
+            if (hour.substring(0,1) == "0"){
+              //console.log(hour.substring(0,1))
+              //console.log(hour.substring(1,2))
+              hour = hour.substring(1,2);
+            }
+            hourly_opens_count[hour] = hourly_opens_count[hour] || 0;
+            hourly_opens_count[hour] += this.rawRequestData[i].opens_count;
+            hourly_clicks_count[hour] = hourly_clicks_count[hour] || 0;
+            hourly_clicks_count[hour] += this.rawRequestData[i].clicks_count;
+          }
+
+          for (let i in hourly_opens_count) {
+            if (hourly_opens_count.hasOwnProperty(i)) {
+              this.cleanRequestData.hourlyOpenCount.push({hour:i,counts:hourly_opens_count[i]});
+            }
+          }
+          for (let i in hourly_clicks_count) {
+            if (hourly_clicks_count.hasOwnProperty(i)) {
+              this.cleanRequestData.hourlyClicksCount.push({hour:i,counts:hourly_clicks_count[i]});
+            }
+          }
+        
         }
       },
       getSetResponseFields: function() {
@@ -187,103 +203,7 @@ export default {
           }
         }
       },
-      getSetHourlyAsks: function() {
-        var arr = new Array(24).fill(0);
-        for (let i = 0; i < this.rawAskData.length; i++) {
-          var s = this.rawAskData[i].createdAt.substring(11, 13);
-          arr[s.replace(/^0+/, '')] = arr[s.replace(/^0+/, '')] + 1;
-        }
-
-        this.cleanAskData.askHourCount = arr;
-      },
-      getSetStatusCount: function() {
-        let arr = [];
-        for (let i = 0; i < this.rawAskData.length; i++) {
-          arr.push(this.rawAskData[i].status.toString());
-        }
-
-        let results = {}, i;
-
-        for (i=0; i<arr.length; i++) {
-          results[arr[i]] = results[arr[i]] || 0;
-          results[arr[i]]++;
-        }
-
-        for (i in results) {
-          if (results.hasOwnProperty(i)) {
-            this.cleanAskData.statusCount.push({status:i,counts:results[i]});
-          }
-        }
-      },
-      getSetCommunityCount: function() {
-        let arr = [];
-        for (let i = 0; i < this.rawAskData.length; i++) {
-          arr.push(this.rawAskData[i].community.name.toString());
-        }
-
-        let results = {}, i;
-
-        for (i=0; i<arr.length; i++) {
-          results[arr[i]] = results[arr[i]] || 0;
-          results[arr[i]]++;
-        }
-
-        for (i in results) {
-          if (results.hasOwnProperty(i)) {
-            this.cleanAskData.communityCount.push({community:i,counts:results[i]});
-          }
-        }
-      },
-      getSetPosNeg: function(){
-        var string = ""
-        for (var i = 0; i < this.rawAskData.length; i++) {
-          var text = this.rawAskData[i].text;
-          text = text.replace(/([^.@\s]+)(\.[^.@\s]+)*@([^.@\s]+\.)+([^.@\s]+)/g,"");
-          text = text.replace(/(\r\n|\n|\r)/gm," ");
-          text = text.replace(/[^\w\s]/gi, '');
-          text = text.replace(/\s\s+/g, ' ');
-          text = text.replace(/[0-9]/g, '');
-          string = string + " " + text.trim();
-        }
-
-        var sw = require('stopword');
-
-        var newString = sw.removeStopwords(string.split(' '));
-
-        var Sentiment = require('sentiment');
-        var sentiment = new Sentiment();
-
-        var result = sentiment.analyze(newString.join(' '));
-
-        this.cleanAskData.PosNeg.push(result.comparative);
-
-        var results = {}, i;
-
-        for (i=0; i<result.positive.length; i++) {
-          results[result.positive[i]] = results[result.positive[i]] || 0;
-          results[result.positive[i]]++;
-        }
-
-        for (i in results) {
-          if (results.hasOwnProperty(i)) {
-            this.cleanAskData.TopPos.push({word:i,counts:results[i]});
-          }
-        }
-
-        var results = {}, i;
-
-        for (i=0; i<result.negative.length; i++) {
-          results[result.negative[i]] = results[result.negative[i]] || 0;
-          results[result.negative[i]]++;
-        }
-
-        for (i in results) {
-          if (results.hasOwnProperty(i)) {
-            this.cleanAskData.TopNeg.push({word:i,counts:results[i]});
-          }
-        }
-
-      },
+      
       organizeAllDetails: async function() {
       // top level organization
       //   await this.fetchStudentAskData();
@@ -291,11 +211,6 @@ export default {
         await this.getSetRequestsResponses();
         this.getSetRequestFields();
         this.getSetRequestsResponses();
-        // this.getSetDailyAsks();
-        // this.getSetHourlyAsks();
-        // this.getSetStatusCount();
-        // this.getSetCommunityCount();
-        // this.getSetPosNeg();
     },
   },
   mounted: async function() {

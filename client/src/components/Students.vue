@@ -14,7 +14,7 @@
 <!--      </div>-->
 <!--      <div class="right">-->
           <dailyask-dashboard v-bind:cleanRequestData="cleanRequestData"></dailyask-dashboard>
-<!--          <hourlyask-dashboard v-bind:cleanAskData="cleanRequestData"></hourlyask-dashboard>-->
+          <hourlyask-dashboard v-bind:cleanRequestData="cleanRequestData"></hourlyask-dashboard>
 <!--          <status-dashboard v-bind:cleanAskData="cleanRequestData"></status-dashboard>-->
 <!--          <community-dashboard v-bind:cleanAskData="cleanRequestData"></community-dashboard>-->
 <!--          <sentiment-dashboard v-bind:cleanAskData="cleanRequestData"></sentiment-dashboard>-->
