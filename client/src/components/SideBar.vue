@@ -48,13 +48,13 @@
       </div>
 
     </vs-sidebar>
-    <router-view v-bind:cleanRequestData="cleanRequestData" ></router-view>
+    <router-view v-bind:cleanData="cleanData" ></router-view>
   </div>
 </template>
 
 <script>
     export default {
-        props: ["cleanRequestData"],
+        props: ["cleanData"],
         data:()=>({
             active:false,
         })

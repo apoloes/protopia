@@ -1,13 +1,13 @@
 <template>
   <div class="custom-card header-card card">
     <div class="card-body pt-0">
-      <fusioncharts id="askrategraph"
+      <fusioncharts id="hourlyrequestrategraph"
         type="msspline"
         width="100%"
         height="100%"
         data-format="json"
         dataEmptyMessage="i-https://i.postimg.cc/R0QCk9vV/Rolling-0-9s-99px.gif"
-        :data-source="dailyAskRateChartData"
+        :data-source="hourlyRequestRateChartData"
       >
       </fusioncharts>
     </div>
@@ -17,12 +17,12 @@
 
 <script>
     export default {
-        props: ["cleanRequestData"],
+        props: ["cleanData"],
         data() {
           return {
-            dailyAskRateChartData: {
+           hourlyRequestRateChartData: {
               chart: {
-                caption: "Daily Open and Click Rates",
+                caption: "Hourly Open and Click Rates",
                 yaxisname: "Frequency",
                 subcaption: "Last week",
                 numdivlines: "3",
@@ -48,7 +48,7 @@
                 }
               ]
               }
-                      };
+          };
         },
         methods: {
           setChartData: function() {
@@ -56,27 +56,29 @@
             var opens = [];
             var clicks = [];
 
-            for (var i = 0; i < this.cleanRequestData.openCount.length; i++) {
+            for (var i = 0; i < this.cleanData.cleanRequestData.hourlyOpenCount.length; i++) {
               var categoryObject = {
-                label: this.cleanRequestData.openCount[i].date,
+                label: this.cleanData.cleanRequestData.hourlyOpenCount[i].hour,
               };
               var opensObject = {
-                value: this.cleanRequestData.openCount[i].counts,
+                value: this.cleanData.cleanRequestData.hourlyOpenCount[i].counts,
               };
               var clicksObject = {
-                value: this.cleanRequestData.clicksCount[i].counts,
+                value: this.cleanData.cleanRequestData.hourlyClicksCount[i].counts,
               };
               categories.push(categoryObject);
               opens.push(opensObject);
               clicks.push(clicksObject);
             }
-            this.dailyAskRateChartData.categories[0].category = categories
-            this.dailyAskRateChartData.dataset[0].data = opens
-            this.dailyAskRateChartData.dataset[1].data = clicks
+            this.hourlyRequestRateChartData.categories[0].category = categories;
+            this.hourlyRequestRateChartData.dataset[0].data = opens;
+            this.hourlyRequestRateChartData.dataset[1].data = clicks
           },
         },
-        mounted:function() {
-          var clicks = [
+        mounted: function() {
+            if (this.cleanData.cleanRequestData.hourlyClicksCount.length == 0
+                || this.cleanData.cleanRequestData.hourlyOpenCount.length == 0) {
+                var clicks = [
                     {value: "0"},
                     {value: "0"},
                     {value: "0"},
@@ -101,16 +103,9 @@
                     {value: "0"},
                     {value: "0"},
                     {value: "0"},
-                    {value: "0"},
-                    {value: "0"},
-                    {value: "0"},
-                    {value: "0"},
-                    {value: "0"},
-                    {value: "0"},
-                    {value: "0"},
-                  ]
-          var opens = clicks
-          var categories = [
+                ]
+                var opens = clicks;
+                var categories = [
                     {label: "0"},
                     {label: "1"},
                     {label: "2"},
@@ -134,23 +129,17 @@
                     {label: "20"},
                     {label: "21"},
                     {label: "22"},
-                    {label: "23"},
-                    {label: "24"},
-                    {label: "25"},
-                    {label: "26"},
-                    {label: "27"},
-                    {label: "28"},
-                    {label: "29"},
-                    {label: "30"},
-                    {label: "31"}
-                  ]
-          this.dailyAskRateChartData.categories[0].category = categories
-          this.dailyAskRateChartData.dataset[0].data = opens
-          this.dailyAskRateChartData.dataset[1].data = clicks
-          
+                    {label: "23"}
+                ];
+                this.hourlyRequestRateChartData.categories[0].category = categories;
+                this.hourlyRequestRateChartData.dataset[0].data = opens;
+                this.hourlyRequestRateChartData.dataset[1].data = clicks;
+            } else {
+                this.setChartData();
+            }
         },
         watch: {
-          cleanRequestData: {
+            cleanData: {
             handler: function() {
               this.setChartData();
             },
