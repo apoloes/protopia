@@ -20,16 +20,16 @@ Style: This section is for CSS styling that applies to the HTML of the page (wri
 <script>
 import SideBar from './components/SideBar';
 import Home from './components/Home';
-import StudentsPage from './components/StudentsPage';
-import AlumniPage from './components/AlumniPage';
+import ResponsesPage from './components/ResponsesPage';
+import RequestsPage from './components/RequestsPage';
 
 export default {
   name: 'app',
   components: {
       'sidebar' : SideBar,
       'home' : Home,
-      'students' : StudentsPage,
-      'alumni' : AlumniPage
+      'responses' : ResponsesPage,
+      'requests' : RequestsPage
   },
   data () {
     return {

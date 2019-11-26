@@ -261,6 +261,13 @@ body {
 /*.raphael-group-30-canvas {*/
 /*  background-color: #7da7e2;*/
 /*}*/
+.globaltitle{
+  text-align: center;
+}
+.pagetitle{
+  text-align: center;
+  font-weight: normal;
+}
 #askrategraph svg:first-child {
   /*padding-left:100px !important;*/
 

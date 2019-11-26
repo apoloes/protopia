@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h2 class="pagetitle">Student page</h2>
+    <h2 class="pagetitle">Responses page</h2>
     <student_graphs v-bind:cleanAskData="cleanAskData"></student_graphs>
   </div>
 </template>
@@ -9,7 +9,7 @@
     import StudentGraphs from "./Students";
     export default {
         props: ["cleanAskData"],
-        name: "StudentsPage",
+        name: "ResponsesPage",
         components: {
             'student_graphs' : StudentGraphs
         }

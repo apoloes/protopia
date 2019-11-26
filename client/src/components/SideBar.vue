@@ -1,7 +1,8 @@
 <template lang="html">
   <div id="parentx">
 
-    <vs-button @click="active=!active" color="primary" type="filled">Protopia helloooooooooooooooooooo<vs-icon icon="menu"></vs-icon></vs-button>
+    <vs-button @click="active=!active" color="primary" type="filled"><vs-icon icon="menu"></vs-icon></vs-button>
+    <h1 class="globaltitle">Protopia</h1>
     <vs-sidebar parent="body" default-index="1"  color="primary" class="sidebarx" spacer v-model="active">
 
       <div class="header-sidebar" slot="header">
@@ -20,12 +21,11 @@
         </vs-sidebar-item>
 
         <vs-sidebar-item index="2" size="medium" icon="assignment_ind">
-          <router-link to="/students">Student Dashboard</router-link>
+          <router-link to="/requests">Requests Dashboard</router-link>
         </vs-sidebar-item>
 
         <vs-sidebar-item index="3" size="medium" icon="school">
-          <!--        <vs-icon icon="school" size="large" color="red"></vs-icon>-->
-          <router-link to="/alumni">Alumni Dashboard</router-link>
+          <router-link to="/responses">Responses Dashboard</router-link>
         </vs-sidebar-item>
 
         <vs-divider position="left">

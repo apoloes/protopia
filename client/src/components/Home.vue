@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1>Protopia project homepage</h1>
+    <h2 class="pagetitle">Protopia project homepage</h2>
   </div>
 </template>
 
@@ -10,6 +10,6 @@
     }
 </script>
 
-<style scoped>
+<style>
 
 </style>

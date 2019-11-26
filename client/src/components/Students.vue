@@ -1,25 +1,10 @@
 <template>
   <div>
-<!--    <p>The child components of Students.vue are:</p>-->
-<!--    <ul>-->
-<!--      <li v-for="child in childComponents">{{ child }}</li>-->
-<!--    </ul>-->
-<!--    <open-dashboard></open-dashboard>-->
-<!--    <response-dashboard></response-dashboard>-->
-<!--    <div id="wrapper">-->
-<!--      <div class="left">-->
-<!--        <div id="sidebar">-->
-<!--          <p>Sidebar</p>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="right">-->
           <dailyask-dashboard v-bind:cleanAskData="cleanAskData"></dailyask-dashboard>
           <hourlyask-dashboard v-bind:cleanAskData="cleanAskData"></hourlyask-dashboard>
           <status-dashboard v-bind:cleanAskData="cleanAskData"></status-dashboard>
           <community-dashboard v-bind:cleanAskData="cleanAskData"></community-dashboard>
           <sentiment-dashboard v-bind:cleanAskData="cleanAskData"></sentiment-dashboard>
-<!--      </div>-->
-<!--    </div>-->
   </div>
 </template>
 
