@@ -76,61 +76,17 @@
           },
         },
         mounted:function() {
-            if (this.cleanData.cleanRequestData.clicksCount.length == 0
-                || this.cleanData.cleanRequestData.openCount.length == 0) {
-                var clicks = [
-                    {value: "0"},
-                    {value: "0"},
-                    {value: "0"},
-                    {value: "0"},
-                    {value: "0"},
-                    {value: "0"},
-                    {value: "0"},
-                    {value: "0"},
-                    {value: "0"},
-                    {value: "0"},
-                    {value: "0"},
-                    {value: "0"},
-                    {value: "0"},
-                    {value: "0"},
-                    {value: "0"},
-                    {value: "0"},
-                    {value: "0"},
-                    {value: "0"},
-                    {value: "0"},
-                    {value: "0"},
-                    {value: "0"},
-                    {value: "0"},
-                    {value: "0"},
-                    {value: "0"},
-                ]
-                var opens = clicks;
-                var categories = [
-                    {label: "0"},
-                    {label: "1"},
-                    {label: "2"},
-                    {label: "3"},
-                    {label: "4"},
-                    {label: "5"},
-                    {label: "6"},
-                    {label: "7"},
-                    {label: "8"},
-                    {label: "9"},
-                    {label: "10"},
-                    {label: "11"},
-                    {label: "12"},
-                    {label: "13"},
-                    {label: "14"},
-                    {label: "15"},
-                    {label: "16"},
-                    {label: "17"},
-                    {label: "18"},
-                    {label: "19"},
-                    {label: "20"},
-                    {label: "21"},
-                    {label: "22"},
-                    {label: "23"}
-                ];
+            if (this.cleanData.cleanRequestData.clicksCount.length === 0
+                || this.cleanData.cleanRequestData.openCount.length === 0) {
+                var clicks = [];
+                var opens = [];
+                var categories = [];
+                for (var i = 0; i < 32; i++){
+                    clicks.push({value: "0"});
+                    opens.push({value: "0"});
+                    categories.push({label: i});
+                }
+
                 this.dailyRequestRateChartData.categories[0].category = categories;
                 this.dailyRequestRateChartData.dataset[0].data = opens;
                 this.dailyRequestRateChartData.dataset[1].data = clicks;
