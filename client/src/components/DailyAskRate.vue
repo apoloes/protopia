@@ -2,7 +2,7 @@
   <div class="custom-card header-card card">
     <div class="card-body pt-0">
       <fusioncharts id="askrategraph"
-        type="spline"
+        type="msspline"
         width="100%"
         height="100%"
         data-format="json"
@@ -23,23 +23,14 @@
           return {
             dailyAskRateChartData: {
               chart: {
-                caption: "Daily Ask Count",
-                captionFontBold: "0",
-                captionFontColor: "#000000",
-                captionPadding: "30",
-                baseFont: "Roboto",
-                chartTopMargin: "30",
+                caption: "Daily Open and Click Rates",
                 showHoverEffect: "1",
                 theme: "fusion",
                 // showaxislines: "1",
-                anchorBgColor: "#6297d9",
-                paletteColors: "#6297d9",
                 drawCrossLine: "1",
                 plotToolText: "$label<br><hr><b>$dataValue</b>",
                 showAxisLines: "1",
                 showYAxisValues: "1",
-                anchorRadius: "4",
-                divLineAlpha: "0",
                 labelFontSize: "13",
                 labelAlpha: "65",
                 labelFontBold: "0",
@@ -47,22 +38,49 @@
                 slantLabels: "1",
                 canvasPadding: "20"
               },
-              data: [],
-            },
-          };
+              categories: [
+                {
+                  category: []
+                }
+              ],
+              dataset: [
+                {
+                  seriesname: "Opens",
+                  data: []
+                },
+                {
+                  seriesname: "Clicks",
+                  data: []
+                }
+              ]
+              }
+                      };
         },
         methods: {
           setChartData: function() {
-            var data = [];
+            var categories = [];
+            var opens = [];
+            var clicks = [];
 
             for (var i = 0; i < this.cleanRequestData.openCount.length; i++) {
-              var dataObject = {
+              var categoryObject = {
                 label: this.cleanRequestData.openCount[i].date,
-                value: this.cleanRequestData.openCount[i].counts
               };
-              data.push(dataObject);
+              var opensObject = {
+                value: this.cleanRequestData.openCount[i].counts,
+              };
+              var clicksObject = {
+                value: this.cleanRequestData.clicksCount[i].counts,
+              };
+              categories.push(categoryObject);
+              opens.push(opensObject);
+              clicks.push(clicksObject);
             }
-            this.dailyAskRateChartData.data = data;
+            this.dailyAskRateChartData.categories[0].category = categories
+            this.dailyAskRateChartData.dataset[0].data = opens
+            this.dailyAskRateChartData.dataset[1].data = clicks
+            
+            
           },
         },
         mounted: function() {

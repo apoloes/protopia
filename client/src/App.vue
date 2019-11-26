@@ -158,6 +158,7 @@ export default {
               this.cleanRequestData.clicksCount.push({date:i,counts:clicks_count[i]});
             }
           }
+          console.log(this.cleanRequestData)
         }
       },
       getSetResponseFields: function() {
