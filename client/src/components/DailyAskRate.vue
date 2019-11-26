@@ -17,7 +17,7 @@
 
 <script>
     export default {
-        props: ["cleanAskData"],
+        props: ["cleanRequestData"],
         components: {},
         data() {
           return {
@@ -55,10 +55,10 @@
           setChartData: function() {
             var data = [];
 
-            for (var i = 0; i < this.cleanAskData.askDayCount.length; i++) {
+            for (var i = 0; i < this.cleanRequestData.openCount.length; i++) {
               var dataObject = {
-                label: this.cleanAskData.askDayCount[i].date,
-                value: this.cleanAskData.askDayCount[i].counts
+                label: this.cleanRequestData.openCount[i].date,
+                value: this.cleanRequestData.openCount[i].counts
               };
               data.push(dataObject);
             }
@@ -69,7 +69,7 @@
           this.setChartData();
         },
         watch: {
-          cleanAskData: {
+          cleanRequestData: {
             handler: function() {
               this.setChartData();
             },

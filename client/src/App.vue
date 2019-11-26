@@ -9,7 +9,7 @@ Style: This section is for CSS styling that applies to the HTML of the page (wri
 <!--    <p>This component’s code is in {{ filename }}</p>-->
 <!--    <sidebar></sidebar>-->
 
-    <sidebar v-bind:cleanAskData="cleanAskData"></sidebar>
+    <sidebar v-bind:cleanRequestData="cleanRequestData"></sidebar>
 <!--    <home></home>-->
 <!--    <router-view></router-view>-->
 <!--    <students_graphs ></students_graphs>-->
@@ -59,13 +59,23 @@ export default {
 
         ]
       },
-      cleanSendGridData: {
-        requests: [
+      rawRequestData: '',
+      rawResponseData: '',
+      cleanRequestData: {
+        openCount: [
 
         ],
-        responses: [
+        clicksCount: [
+
+        ]
+      },
+      cleanResponseData: {
+        openCount: [
 
         ],
+        clicksCount: [
+
+        ]
       }
     }
   },
@@ -109,43 +119,69 @@ export default {
               }
           });
       },
-      getSetRequests: function() {
+      getSetRequestsResponses: function() {
         let requests = [];
+        let responses = [];
         for (let message of this.rawSendGridData) {
             if (message['subject'].includes("Can you help")) {
                 requests.push(message);
-            }
-        }
-        this.cleanSendGridData.requests = requests;
-      },
-      getSetResponses: function() {
-        let responses = [];
-        for (let message of this.rawSendGridData) {
-            if (message['subject'].includes("FYI, we've got a new response") ||
+            } else if (message['subject'].includes("FYI, we've got a new response") ||
                 message['subject'].includes("You have help!") ||
                 message['subject'].includes("We've received new feedback from a member")) {
                 responses.push(message);
             }
         }
-        this.cleanSendGridData.responses = responses;
+        this.rawRequestData = requests;
+        this.rawResponseData = responses;
       },
-      getSetDailyAsks: function() {
-        let numAsks = this.rawAskData.length;
-        if (this.rawAskData.length > 0){
-          let arr = [];
-          for (let i = 0; i < numAsks; i++) {
-            arr.push(this.rawAskData[i].createdAt.substring(0, 10));
+      getSetRequestFields: function() {
+        let numRequests = this.rawRequestData.length;
+
+        if (numRequests > 0) {
+          let opens_count = {};
+          let clicks_count = {};
+          for (let i = 0; i < numRequests; i++) {
+            let date = this.rawRequestData[i].last_event_time.substring(0,10);
+            opens_count[date] = opens_count[date] || 0;
+            opens_count[date] += this.rawRequestData[i].opens_count;
+            clicks_count[date] = clicks_count[date] || 0;
+            clicks_count[date] += this.rawRequestData[i].clicks_count;
           }
 
-          let results = {};
-          for (let date of arr) {
-            results[date] = results[date] || 0;
-            results[date]++;
+          for (let i in opens_count) {
+            if (opens_count.hasOwnProperty(i)) {
+              this.cleanRequestData.openCount.push({date:i,counts:opens_count[i]});
+            }
+          }
+          for (let i in clicks_count) {
+            if (clicks_count.hasOwnProperty(i)) {
+              this.cleanRequestData.clicksCount.push({date:i,counts:clicks_count[i]});
+            }
+          }
+        }
+      },
+      getSetResponseFields: function() {
+        let numResponses = this.rawResponseData.length;
+
+        if (numResponses > 0) {
+          let opens_count = {};
+          let clicks_count = {};
+          for (let i = 0; i < numResponses; i++) {
+            let date = this.rawResponseData[i].last_event_time.substring(0,10);
+            opens_count[date] = opens_count[date] || 0;
+            opens_count[date] += this.rawResponseData[i].opens_count;
+            clicks_count[date] = clicks_count[date] || 0;
+            clicks_count[date] += this.rawResponseData[i].clicks_count;
           }
 
-          for (let i in results) {
-            if (results.hasOwnProperty(i)) {
-              this.cleanAskData.askDayCount.push({date:i,counts:results[i]});
+          for (let i in opens_count) {
+            if (opens_count.hasOwnProperty(i)) {
+              this.cleanResponseData.openCount.push({date:i,counts:opens_count[i]});
+            }
+          }
+          for (let i in clicks_count) {
+            if (clicks_count.hasOwnProperty(i)) {
+              this.cleanResponseData.clicksCount.push({date:i,counts:clicks_count[i]});
             }
           }
         }
@@ -249,17 +285,16 @@ export default {
       },
       organizeAllDetails: async function() {
       // top level organization
-        await this.fetchStudentAskData();
+      //   await this.fetchStudentAskData();
         await this.fetchSendGridData();
-        this.getSetRequests();
-        this.getSetResponses();
-        console.log(this.cleanSendGridData.requests);
-        console.log(this.cleanSendGridData.responses);
-        this.getSetDailyAsks();
-        this.getSetHourlyAsks();
-        this.getSetStatusCount();
-        this.getSetCommunityCount();
-        this.getSetPosNeg();
+        await this.getSetRequestsResponses();
+        this.getSetRequestFields();
+        this.getSetRequestsResponses();
+        // this.getSetDailyAsks();
+        // this.getSetHourlyAsks();
+        // this.getSetStatusCount();
+        // this.getSetCommunityCount();
+        // this.getSetPosNeg();
     },
   },
   mounted: async function() {
