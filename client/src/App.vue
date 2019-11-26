@@ -59,6 +59,14 @@ export default {
 
         ]
       },
+      cleanSendGridData: {
+        requests: [
+
+        ],
+        responses: [
+
+        ],
+      }
     }
   },
   methods: {
@@ -100,6 +108,26 @@ export default {
                   self.rawSendGridData = response.data.messages;
               }
           });
+      },
+      getSetRequests: function() {
+        let requests = [];
+        for (let message of this.rawSendGridData) {
+            if (message['subject'].includes("Can you help")) {
+                requests.push(message);
+            }
+        }
+        this.cleanSendGridData.requests = requests;
+      },
+      getSetResponses: function() {
+        let responses = [];
+        for (let message of this.rawSendGridData) {
+            if (message['subject'].includes("FYI, we've got a new response") ||
+                message['subject'].includes("You have help!") ||
+                message['subject'].includes("We've received new feedback from a member")) {
+                responses.push(message);
+            }
+        }
+        this.cleanSendGridData.responses = responses;
       },
       getSetDailyAsks: function() {
         let numAsks = this.rawAskData.length;
@@ -181,7 +209,6 @@ export default {
           string = string + " " + text.trim();
         }
 
-        console.log(string);
         var sw = require('stopword');
 
         var newString = sw.removeStopwords(string.split(' '));
@@ -224,8 +251,10 @@ export default {
       // top level organization
         await this.fetchStudentAskData();
         await this.fetchSendGridData();
-        console.log(this.rawAskData);
-        console.log(this.rawSendGridData);
+        this.getSetRequests();
+        this.getSetResponses();
+        console.log(this.cleanSendGridData.requests);
+        console.log(this.cleanSendGridData.responses);
         this.getSetDailyAsks();
         this.getSetHourlyAsks();
         this.getSetStatusCount();
