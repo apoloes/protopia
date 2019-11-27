@@ -6,8 +6,8 @@
     <vs-sidebar parent="body" default-index="1"  color="primary" class="sidebarx" spacer v-model="active">
 
       <div class="header-sidebar" slot="header">
-                <vs-avatar  size="60px" src="https://ca.slack-edge.com/TN2RCKUVD-UMPFSAJE7-g0a95dac88e4-48"/>
-<!--        <vs-avatar size="large" color="primary" icon="person"/>-->
+<!--                <vs-avatar  size="60px" src="https://ca.slack-edge.com/TN2RCKUVD-UMPFSAJE7-g0a95dac88e4-48"/>-->
+        <vs-avatar size="large" color="primary" icon="person"/>
         <h4>
           Protopia
           <!--          <vs-button color="primary" type="flat"><vs-icon icon="more-vert"></vs-icon></vs-button>-->
@@ -28,16 +28,16 @@
           <router-link to="/responses">Responses Dashboard</router-link>
         </vs-sidebar-item>
 
-        <vs-divider position="left">
-          <vs-icon icon="person" size="medium"></vs-icon>
-        </vs-divider>
+<!--        <vs-divider position="left">-->
+<!--          <vs-icon icon="person" size="medium"></vs-icon>-->
+<!--        </vs-divider>-->
 
-        <vs-sidebar-item index="4" icon="verified_user">
-          Configurations
-        </vs-sidebar-item>
-        <vs-sidebar-item index="5" icon="account_box">
-          Profile
-        </vs-sidebar-item>
+<!--        <vs-sidebar-item index="4" icon="verified_user">-->
+<!--          Configurations-->
+<!--        </vs-sidebar-item>-->
+<!--        <vs-sidebar-item index="5" icon="account_box">-->
+<!--          Profile-->
+<!--        </vs-sidebar-item>-->
         <!--        <vs-sidebar-item index="6">-->
         <!--          Card-->
         <!--        </vs-sidebar-item>-->
@@ -48,13 +48,13 @@
       </div>
 
     </vs-sidebar>
-    <router-view v-bind:cleanAskData="cleanAskData" ></router-view>
+    <router-view v-bind:cleanRequestData="cleanRequestData" ></router-view>
   </div>
 </template>
 
 <script>
     export default {
-        props: ["cleanAskData"],
+        props: ["cleanRequestData"],
         data:()=>({
             active:false,
         })

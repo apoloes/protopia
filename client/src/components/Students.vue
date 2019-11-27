@@ -1,10 +1,31 @@
 <template>
   <div>
-          <dailyask-dashboard v-bind:cleanAskData="cleanAskData"></dailyask-dashboard>
-          <hourlyask-dashboard v-bind:cleanAskData="cleanAskData"></hourlyask-dashboard>
-          <status-dashboard v-bind:cleanAskData="cleanAskData"></status-dashboard>
-          <community-dashboard v-bind:cleanAskData="cleanAskData"></community-dashboard>
-          <sentiment-dashboard v-bind:cleanAskData="cleanAskData"></sentiment-dashboard>
+          <dailyask-dashboard v-bind:cleanRequestData="cleanRequestData"></dailyask-dashboard>
+          <hourlyask-dashboard v-bind:cleanRequestData="cleanRequestData"></hourlyask-dashboard>
+          <status-dashboard v-bind:cleanRequestData="cleanRequestData"></status-dashboard>
+          <community-dashboard v-bind:cleanRequestData="cleanRequestData"></community-dashboard>
+          <sentiment-dashboard v-bind:cleanRequestData="cleanRequestData"></sentiment-dashboard>
+
+<!--    <p>The child components of Students.vue are:</p>-->
+<!--    <ul>-->
+<!--      <li v-for="child in childComponents">{{ child }}</li>-->
+<!--    </ul>-->
+<!--    <open-dashboard></open-dashboard>-->
+<!--    <response-dashboard></response-dashboard>-->
+<!--    <div id="wrapper">-->
+<!--      <div class="left">-->
+<!--        <div id="sidebar">-->
+<!--          <p>Sidebar</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="right">-->
+          <dailyask-dashboard v-bind:cleanRequestData="cleanRequestData"></dailyask-dashboard>
+<!--          <hourlyask-dashboard v-bind:cleanAskData="cleanRequestData"></hourlyask-dashboard>-->
+<!--          <status-dashboard v-bind:cleanAskData="cleanRequestData"></status-dashboard>-->
+<!--          <community-dashboard v-bind:cleanAskData="cleanRequestData"></community-dashboard>-->
+<!--          <sentiment-dashboard v-bind:cleanAskData="cleanRequestData"></sentiment-dashboard>-->
+<!--      </div>-->
+<!--    </div>-->
   </div>
 </template>
 
@@ -18,7 +39,7 @@ import CommunityDist from "./CommunityDist.vue";
 import AskSentiment from "./AskSentiment.vue";
 
 export default {
-  props: ["cleanAskData"],
+  props: ["cleanRequestData"],
   components: {
     'open-dashboard': OpenRate,
     'response-dashboard': ResponseRate,
@@ -30,7 +51,7 @@ export default {
   },
   data () {
     return {
-      childComponents: ['DailyAskRate.vue','HourlyAskRate.vue' , 'OpenRate.vue', 'ResponseRate.vue', 'StatusDist.vue', 'CommunityDist.vue', 'AskSentiment.vue']
+      childComponents: ['DailyAskRate.vue','HourlyAskRate.vue', 'OpenRate.vue', 'ResponseRate.vue', 'StatusDist.vue', 'CommunityDist.vue', 'AskSentiment.vue']
     }
   },
   methods: {
@@ -38,7 +59,7 @@ export default {
   },
   computed: {
 
-  },
+  }
 }
 </script>
 

@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  props: ["cleanAskData"],
+  props: ["cleanRequestData"],
   components: {},
   data() {
     return {
@@ -51,7 +51,7 @@ export default {
         "dials": {
             "dial": [
                 {
-                    "value": this.cleanAskData.PosNeg[0]
+                    "value": this.cleanRequestData.PosNeg[0]
                 }
             ]
         }
@@ -59,9 +59,9 @@ export default {
     }
   },
   watch: {
-    cleanAskData: {
+    cleanRequestData: {
         handler: function() {
-            this.datasource.dials.dial[0].value = this.cleanAskData.PosNeg[0]
+            this.datasource.dials.dial[0].value = this.cleanRequestData.PosNeg[0]
         },
         deep: true
     },

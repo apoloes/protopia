@@ -18,7 +18,7 @@
 
 <script>
     export default {
-        props: ["cleanAskData"],
+        props: ["cleanRequestData"],
         components: {},
         data() {
           return {
@@ -60,10 +60,10 @@
           setChartData: function() {
             var data = [];
 
-            for (var i = 0; i < this.cleanAskData.communityCount.length; i++) {
+            for (var i = 0; i < this.cleanRequestData.communityCount.length; i++) {
               var dataObject = {
-                label: this.cleanAskData.communityCount[i].community,
-                value: this.cleanAskData.communityCount[i].counts
+                label: this.cleanRequestData.communityCount[i].community,
+                value: this.cleanRequestData.communityCount[i].counts
               };
               data.push(dataObject);
             }
@@ -74,7 +74,7 @@
           this.setChartData();
         },
         watch: {
-          cleanAskData: {
+          cleanRequestData: {
             handler: function() {
               this.setChartData();
             },

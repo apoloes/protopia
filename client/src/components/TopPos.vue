@@ -18,7 +18,7 @@
 
 <script>
     export default {
-        props: ["cleanAskData"],
+        props: ["cleanRequestData"],
         components: {},
         data() {
           return {
@@ -54,13 +54,13 @@
         },
         methods: {
           setChartData: function() {
-            if(this.cleanAskData.TopPos.length > 0){
+            if(this.cleanRequestData.TopPos.length > 0){
               var data = [];
 
               for (var i = 0; i < 10; i++) {
                 var dataObject = {
-                  label: this.cleanAskData.TopPos[i].word,
-                  value: this.cleanAskData.TopPos[i].counts
+                  label: this.cleanRequestData.TopPos[i].word,
+                  value: this.cleanRequestData.TopPos[i].counts
                 };
                 data.push(dataObject);
               }
@@ -72,7 +72,7 @@
           this.setChartData();
         },
         watch: {
-          cleanAskData: {
+          cleanRequestData: {
             handler: function() {
               this.setChartData();
             },
