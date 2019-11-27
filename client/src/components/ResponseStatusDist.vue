@@ -1,13 +1,13 @@
 <template>
   <div class="custom-card header-card card">
     <div class="card-body pt-0">
-      <fusioncharts id="hourlyaskrategraph"
-        type="spline"
+      <fusioncharts
+        type="pie2d"
         width="100%"
         height="100%"
         data-format="json"
         dataEmptyMessage="i-https://i.postimg.cc/R0QCk9vV/Rolling-0-9s-99px.gif"
-        :data-source="hourlyAskRateChartData"
+        :data-source="statusDistChartData"
       >
       </fusioncharts>
     </div>
@@ -15,16 +15,20 @@
   </div>
 </template>
 
+
 <script>
     export default {
+<<<<<<< HEAD:client/src/components/HourlyAskRate.vue
         props: ["cleanRequestData"],
+=======
+        props: ["cleanData"],
+>>>>>>> fd1508433935b47d4444d0ffdfc00c1db46e5a7f:client/src/components/ResponseStatusDist.vue
         components: {},
         data() {
           return {
-            hourlyAskRateChartData: {
+            statusDistChartData: {
               chart: {
-                "yAxisMinValue": "0",
-                caption: "Hourly Ask Count",
+                caption: "Response Status Distribution",
                 captionFontBold: "0",
                 captionFontColor: "#000000",
                 captionPadding: "30",
@@ -32,20 +36,24 @@
                 chartTopMargin: "30",
                 showHoverEffect: "1",
                 theme: "fusion",
-                // showaxislines: "1",
+                showaxislines: "1",
                 anchorBgColor: "#6297d9",
-                paletteColors: "#6297d9",
+                paletteColors: "#5adea1, #6297d9",
                 drawCrossLine: "1",
-                plotToolText: "$label<br><hr><b>$dataValue</b>",
-                showAxisLines: "1",
-                showYAxisValues: "1",
+                plottooltext: "<b>$percentValue</b> of asks have a status of $label",
+                showAxisLines: "0",
+                showYAxisValues: "0",
                 anchorRadius: "4",
                 divLineAlpha: "0",
-                labelFontSize: "13",
+                labelFontSize: "18",
                 labelAlpha: "65",
                 labelFontBold: "0",
                 rotateLabels: "1",
                 slantLabels: "1",
+                showlegend: "1",
+                showpercentvalues: "1",
+                legendposition: "bottom",
+                usedataplotcolorforlabels: "1",
                 canvasPadding: "20"
               },
               data: [],
@@ -55,6 +63,7 @@
         methods: {
           setChartData: function() {
             var data = [];
+<<<<<<< HEAD:client/src/components/HourlyAskRate.vue
 
             for (var i = 0; i < this.cleanRequestData.askHourCount.length; i++) {
               var dataObject = {
@@ -65,6 +74,17 @@
             }
 
             this.hourlyAskRateChartData.data = data;
+=======
+            console.log(this.cleanData.cleanResponseData)
+            for (var i = 0; i < this.cleanData.cleanResponseData.statusCount.length; i++) {
+              var dataObject = {
+                label: this.cleanData.cleanResponseData.statusCount[i].status,
+                value: this.cleanData.cleanResponseData.statusCount[i].counts
+              };
+              data.push(dataObject);
+            }
+            this.statusDistChartData.data = data;
+>>>>>>> fd1508433935b47d4444d0ffdfc00c1db46e5a7f:client/src/components/ResponseStatusDist.vue
           },
         },
         mounted: function() {

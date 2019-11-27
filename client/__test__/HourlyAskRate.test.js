@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils'
-import HourlyAskRate from '../src/components/HourlyAskRate'
+import HourlyAskRate from '../src/components/HourlyRequestRate'
 
-describe('HourlyAskRate.vue', () => {
+describe('HourlyRequestRate.vue', () => {
   it('renders item in props.items', () => {
     const wrapper = shallowMount(HourlyAskRate);
     expect(wrapper.vm.$options._propKeys).toHaveLength(1)

@@ -1,13 +1,12 @@
 <template lang="html">
   <div id="parentx">
 
-    <vs-button @click="active=!active" color="primary" type="filled"><vs-icon icon="menu"></vs-icon></vs-button>
-    <h1 class="globaltitle">Protopia</h1>
+    <vs-button @click="active=!active" color="primary" type="filled">Protopia<vs-icon icon="menu"></vs-icon></vs-button>
     <vs-sidebar parent="body" default-index="1"  color="primary" class="sidebarx" spacer v-model="active">
 
       <div class="header-sidebar" slot="header">
-<!--                <vs-avatar  size="60px" src="https://ca.slack-edge.com/TN2RCKUVD-UMPFSAJE7-g0a95dac88e4-48"/>-->
-        <vs-avatar size="large" color="primary" icon="person"/>
+                <vs-avatar  size="60px" src="https://ca.slack-edge.com/TN2RCKUVD-UMPFSAJE7-g0a95dac88e4-48"/>
+<!--        <vs-avatar size="large" color="primary" icon="person"/>-->
         <h4>
           Protopia
           <!--          <vs-button color="primary" type="flat"><vs-icon icon="more-vert"></vs-icon></vs-button>-->
@@ -21,23 +20,24 @@
         </vs-sidebar-item>
 
         <vs-sidebar-item index="2" size="medium" icon="assignment_ind">
-          <router-link to="/requests">Requests Dashboard</router-link>
+          <router-link to="/students">Student Dashboard</router-link>
         </vs-sidebar-item>
 
         <vs-sidebar-item index="3" size="medium" icon="school">
-          <router-link to="/responses">Responses Dashboard</router-link>
+          <!--        <vs-icon icon="school" size="large" color="red"></vs-icon>-->
+          <router-link to="/alumni">Alumni Dashboard</router-link>
         </vs-sidebar-item>
 
-<!--        <vs-divider position="left">-->
-<!--          <vs-icon icon="person" size="medium"></vs-icon>-->
-<!--        </vs-divider>-->
+        <vs-divider position="left">
+          <vs-icon icon="person" size="medium"></vs-icon>
+        </vs-divider>
 
-<!--        <vs-sidebar-item index="4" icon="verified_user">-->
-<!--          Configurations-->
-<!--        </vs-sidebar-item>-->
-<!--        <vs-sidebar-item index="5" icon="account_box">-->
-<!--          Profile-->
-<!--        </vs-sidebar-item>-->
+        <vs-sidebar-item index="4" icon="verified_user">
+          Configurations
+        </vs-sidebar-item>
+        <vs-sidebar-item index="5" icon="account_box">
+          Profile
+        </vs-sidebar-item>
         <!--        <vs-sidebar-item index="6">-->
         <!--          Card-->
         <!--        </vs-sidebar-item>-->
@@ -48,13 +48,13 @@
       </div>
 
     </vs-sidebar>
-    <router-view v-bind:cleanRequestData="cleanRequestData" ></router-view>
+    <router-view v-bind:cleanData="cleanData" ></router-view>
   </div>
 </template>
 
 <script>
     export default {
-        props: ["cleanRequestData"],
+        props: ["cleanData"],
         data:()=>({
             active:false,
         })

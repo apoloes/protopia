@@ -9,7 +9,7 @@ Style: This section is for CSS styling that applies to the HTML of the page (wri
 <!--    <p>This component’s code is in {{ filename }}</p>-->
 <!--    <sidebar></sidebar>-->
 
-    <sidebar v-bind:cleanRequestData="cleanRequestData"></sidebar>
+    <sidebar v-bind:cleanData="cleanData"></sidebar>
 <!--    <home></home>-->
 <!--    <router-view></router-view>-->
 <!--    <students_graphs ></students_graphs>-->
@@ -20,62 +20,43 @@ Style: This section is for CSS styling that applies to the HTML of the page (wri
 <script>
 import SideBar from './components/SideBar';
 import Home from './components/Home';
-import ResponsesPage from './components/ResponsesPage';
-import RequestsPage from './components/RequestsPage';
+import StudentsPage from './components/StudentsPage';
+import AlumniPage from './components/AlumniPage';
 
 export default {
   name: 'app',
   components: {
       'sidebar' : SideBar,
       'home' : Home,
-      'responses' : ResponsesPage,
-      'requests' : RequestsPage
+      'students' : StudentsPage,
+      'alumni' : AlumniPage
   },
   data () {
     return {
       filename: 'App.vue',
       rawAskData: '',
       rawSendGridData: '',
-      cleanRequestData: {
-        askDayCount: [
-          // gets added dynamically by this.getSetDailyAsks()
-        ],
-        askHourCount:[
-          // gets added dynamically by this.getSetHourlyAsks()
-        ],
-        statusCount: [
-          // gets added dynamically by this.getSetStatusCount()
-        ],
-        communityCount: [
-          // gets added dynamically by this.getSetCommunityCount()
-        ],
-        PosNeg:[
-
-        ],
-        TopPos: [
-
-        ],
-        TopNeg: [
-
-        ]
-      },
       rawRequestData: '',
       rawResponseData: '',
-      cleanRequestData: {
-        openCount: [
-
-        ],
-        clicksCount: [
-
-        ]
-      },
-      cleanResponseData: {
-        openCount: [
-
-        ],
-        clicksCount: [
-
-        ]
+      cleanData: {
+        cleanRequestData: {
+            numOpens: '',
+            numClicks: '',
+            openCount: [],
+            clicksCount: [],
+            hourlyOpenCount: [],
+            hourlyClicksCount: [],
+            statusCount: []
+        },
+        cleanResponseData: {
+            numOpens: '',
+            numClicks: '',
+            openCount: [],
+            clicksCount: [],
+            hourlyOpenCount: [],
+            hourlyClicksCount: [],
+            statusCount: []
+        }
       }
     }
   },
@@ -94,18 +75,6 @@ export default {
                           .catch(err => alert(err.message));
           });
         });
-      },
-    fetchStudentAskData: async function() {
-          const axios = require('axios');
-          let self = this;
-          let path = "/api/asks/";
-          let server = await self.setDevServer(axios, path);
-
-          return axios.get(server + path).then(function(response) {
-              if (response.status === 200) {
-                self.rawAskData = response.data.asks;
-              }
-          });
       },
       fetchSendGridData: async function() {
           const axios = require('axios');
@@ -134,8 +103,10 @@ export default {
         this.rawRequestData = requests;
         this.rawResponseData = responses;
       },
-      getSetRequestFields: function() {
+      getSetRequestDailyOpensClicks: function() {
         let numRequests = this.rawRequestData.length;
+        let numOpens = 0;
+        let numClicks = 0;
 
         if (numRequests > 0) {
           let opens_count = {};
@@ -144,24 +115,63 @@ export default {
             let date = this.rawRequestData[i].last_event_time.substring(0,10);
             opens_count[date] = opens_count[date] || 0;
             opens_count[date] += this.rawRequestData[i].opens_count;
+            numOpens += this.rawRequestData[i].opens_count;
             clicks_count[date] = clicks_count[date] || 0;
             clicks_count[date] += this.rawRequestData[i].clicks_count;
+            numClicks += this.rawRequestData[i].clicks_count;
           }
+
+          this.cleanData.cleanRequestData.numOpens = numOpens;
+          this.cleanData.cleanRequestData.numClicks = numClicks;
 
           for (let i in opens_count) {
             if (opens_count.hasOwnProperty(i)) {
-              this.cleanRequestData.openCount.push({date:i,counts:opens_count[i]});
+              this.cleanData.cleanRequestData.openCount.push({date:i,counts:opens_count[i]});
             }
           }
           for (let i in clicks_count) {
             if (clicks_count.hasOwnProperty(i)) {
-              this.cleanRequestData.clicksCount.push({date:i,counts:clicks_count[i]});
+              this.cleanData.cleanRequestData.clicksCount.push({date:i,counts:clicks_count[i]});
             }
           }
         }
       },
-      getSetResponseFields: function() {
+      getSetRequestHourlyOpensClicks: function() {
+        let numRequests = this.rawRequestData.length;
+
+        if (numRequests > 0) {
+            let hourly_opens_count = {};
+            let hourly_clicks_count = {};
+            for (let i = 0; i < numRequests; i++) {
+                let hour = this.rawRequestData[i].last_event_time.substring(11,13);
+
+                if (hour.substring(0,1) == "0"){
+                    //console.log(hour.substring(0,1))
+                    //console.log(hour.substring(1,2))
+                    hour = hour.substring(1,2);
+                }
+                hourly_opens_count[hour] = hourly_opens_count[hour] || 0;
+                hourly_opens_count[hour] += this.rawRequestData[i].opens_count;
+                hourly_clicks_count[hour] = hourly_clicks_count[hour] || 0;
+                hourly_clicks_count[hour] += this.rawRequestData[i].clicks_count;
+            }
+
+            for (let i in hourly_opens_count) {
+                if (hourly_opens_count.hasOwnProperty(i)) {
+                    this.cleanData.cleanRequestData.hourlyOpenCount.push({hour:i,counts:hourly_opens_count[i]});
+                }
+            }
+            for (let i in hourly_clicks_count) {
+                if (hourly_clicks_count.hasOwnProperty(i)) {
+                    this.cleanData.cleanRequestData.hourlyClicksCount.push({hour:i,counts:hourly_clicks_count[i]});
+                }
+            }
+        }
+      },
+      getSetResponseDailyOpensClicks: function() {
         let numResponses = this.rawResponseData.length;
+        let numOpens = 0;
+        let numClicks = 0;
 
         if (numResponses > 0) {
           let opens_count = {};
@@ -170,131 +180,108 @@ export default {
             let date = this.rawResponseData[i].last_event_time.substring(0,10);
             opens_count[date] = opens_count[date] || 0;
             opens_count[date] += this.rawResponseData[i].opens_count;
+            numOpens += this.rawRequestData[i].opens_count;
             clicks_count[date] = clicks_count[date] || 0;
             clicks_count[date] += this.rawResponseData[i].clicks_count;
+            numClicks += this.rawResponseData[i].clicks_count;
           }
 
+          this.cleanData.cleanResponseData.numOpens = numOpens;
+          this.cleanData.cleanResponseData.numClicks = numClicks;
           for (let i in opens_count) {
             if (opens_count.hasOwnProperty(i)) {
-              this.cleanResponseData.openCount.push({date:i,counts:opens_count[i]});
+              this.cleanData.cleanResponseData.openCount.push({date:i,counts:opens_count[i]});
             }
           }
           for (let i in clicks_count) {
             if (clicks_count.hasOwnProperty(i)) {
-              this.cleanResponseData.clicksCount.push({date:i,counts:clicks_count[i]});
+              this.cleanData.cleanResponseData.clicksCount.push({date:i,counts:clicks_count[i]});
             }
           }
         }
       },
-      getSetHourlyAsks: function() {
-        var arr = new Array(24).fill(0);
-        for (let i = 0; i < this.rawAskData.length; i++) {
-          var s = this.rawAskData[i].createdAt.substring(11, 13);
-          arr[s.replace(/^0+/, '')] = arr[s.replace(/^0+/, '')] + 1;
-        }
+      getSetResponseHourlyOpensClicks: function() {
+          let numResponses = this.rawResponseData.length;
 
-        this.cleanRequestData.askHourCount = arr;
+          if (numResponses > 0) {
+              let hourly_opens_count = {};
+              let hourly_clicks_count = {};
+              for (let i = 0; i < numResponses; i++) {
+                  let hour = this.rawResponseData[i].last_event_time.substring(11,13);
+
+                  if (hour.substring(0,1) == "0"){
+                      //console.log(hour.substring(0,1))
+                      //console.log(hour.substring(1,2))
+                      hour = hour.substring(1,2);
+                  }
+                  hourly_opens_count[hour] = hourly_opens_count[hour] || 0;
+                  hourly_opens_count[hour] += this.rawResponseData[i].opens_count;
+                  hourly_clicks_count[hour] = hourly_clicks_count[hour] || 0;
+                  hourly_clicks_count[hour] += this.rawResponseData[i].clicks_count;
+              }
+
+              for (let i in hourly_opens_count) {
+                  if (hourly_opens_count.hasOwnProperty(i)) {
+                      this.cleanData.cleanResponseData.hourlyOpenCount.push({hour:i,counts:hourly_opens_count[i]});
+                  }
+              }
+              for (let i in hourly_clicks_count) {
+                  if (hourly_clicks_count.hasOwnProperty(i)) {
+                      this.cleanData.cleanResponseData.hourlyClicksCount.push({hour:i,counts:hourly_clicks_count[i]});
+                  }
+              }
+          }
       },
-      getSetStatusCount: function() {
-        let arr = [];
-        for (let i = 0; i < this.rawAskData.length; i++) {
-          arr.push(this.rawAskData[i].status.toString());
-        }
+      getSetRequestStatusCounts: function(){
+        let numResponses = this.rawRequestData.length
 
-        let results = {}, i;
-
-        for (i=0; i<arr.length; i++) {
-          results[arr[i]] = results[arr[i]] || 0;
-          results[arr[i]]++;
-        }
-
-        for (i in results) {
-          if (results.hasOwnProperty(i)) {
-            this.cleanRequestData.statusCount.push({status:i,counts:results[i]});
-          }
-        }
-      },
-      getSetCommunityCount: function() {
-        let arr = [];
-        for (let i = 0; i < this.rawAskData.length; i++) {
-          arr.push(this.rawAskData[i].community.name.toString());
-        }
-
-        let results = {}, i;
-
-        for (i=0; i<arr.length; i++) {
-          results[arr[i]] = results[arr[i]] || 0;
-          results[arr[i]]++;
-        }
-
-        for (i in results) {
-          if (results.hasOwnProperty(i)) {
-            this.cleanRequestData.communityCount.push({community:i,counts:results[i]});
-          }
+        if (numResponses > 0) {
+          console.log(this.rawRequestData)
+          let request_status_count = {};
+          for (let i = 0; i < numResponses; i++) {
+              let request_status = this.rawRequestData[i].status;
+              request_status_count[request_status] = request_status_count[request_status] || 0;
+              request_status_count[request_status] += 1;
+            }
+          for (let i in request_status_count) {
+                  if (request_status_count.hasOwnProperty(i)) {
+                      this.cleanData.cleanRequestData.statusCount.push({status:i,counts:request_status_count[i]});
+                  }
+              }
+          console.log( this.cleanData.cleanRequestData.statusCount)
         }
       },
-      getSetPosNeg: function(){
-        var string = ""
-        for (var i = 0; i < this.rawAskData.length; i++) {
-          var text = this.rawAskData[i].text;
-          text = text.replace(/([^.@\s]+)(\.[^.@\s]+)*@([^.@\s]+\.)+([^.@\s]+)/g,"");
-          text = text.replace(/(\r\n|\n|\r)/gm," ");
-          text = text.replace(/[^\w\s]/gi, '');
-          text = text.replace(/\s\s+/g, ' ');
-          text = text.replace(/[0-9]/g, '');
-          string = string + " " + text.trim();
+      getSetResponseStatusCounts: function(){
+        let numResponses = this.rawResponseData.length
+
+        if (numResponses > 0) {
+          console.log(this.rawResponseData)
+          let response_status_count = {};
+          for (let i = 0; i < numResponses; i++) {
+              let response_status = this.rawResponseData[i].status;
+              response_status_count[response_status] = response_status_count[response_status] || 0;
+              response_status_count[response_status] += 1;
+            }
+          for (let i in response_status_count) {
+                  if (response_status_count.hasOwnProperty(i)) {
+                      this.cleanData.cleanResponseData.statusCount.push({status:i,counts:response_status_count[i]});
+                  }
+              }
+          console.log( this.cleanData.cleanResponseData.statusCount)
         }
-
-        var sw = require('stopword');
-
-        var newString = sw.removeStopwords(string.split(' '));
-
-        var Sentiment = require('sentiment');
-        var sentiment = new Sentiment();
-
-        var result = sentiment.analyze(newString.join(' '));
-
-        this.cleanRequestData.PosNeg.push(result.comparative);
-
-        var results = {}, i;
-
-        for (i=0; i<result.positive.length; i++) {
-          results[result.positive[i]] = results[result.positive[i]] || 0;
-          results[result.positive[i]]++;
-        }
-
-        for (i in results) {
-          if (results.hasOwnProperty(i)) {
-            this.cleanRequestData.TopPos.push({word:i,counts:results[i]});
-          }
-        }
-
-        var results = {}, i;
-
-        for (i=0; i<result.negative.length; i++) {
-          results[result.negative[i]] = results[result.negative[i]] || 0;
-          results[result.negative[i]]++;
-        }
-
-        for (i in results) {
-          if (results.hasOwnProperty(i)) {
-            this.cleanRequestData.TopNeg.push({word:i,counts:results[i]});
-          }
-        }
-
       },
       organizeAllDetails: async function() {
       // top level organization
       //   await this.fetchStudentAskData();
         await this.fetchSendGridData();
         await this.getSetRequestsResponses();
-        this.getSetRequestFields();
-        this.getSetRequestsResponses();
-        // this.getSetDailyAsks();
-        // this.getSetHourlyAsks();
-        // this.getSetStatusCount();
-        // this.getSetCommunityCount();
-        // this.getSetPosNeg();
+        console.log(this.cleanData);
+        this.getSetRequestDailyOpensClicks();
+        this.getSetRequestHourlyOpensClicks();
+        this.getSetResponseDailyOpensClicks();
+        this.getSetResponseHourlyOpensClicks();
+        this.getSetRequestStatusCounts();
+        this.getSetResponseStatusCounts();
     },
   },
   mounted: async function() {
