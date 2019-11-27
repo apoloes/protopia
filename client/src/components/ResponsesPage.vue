@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h1 class="globaltitle">Protopia</h1>
-    <h2 class="pagetitle">Responses page</h2>
+    <h2 class="pagetitle">Responses Page</h2>
 <!--    <student_graphs v-bind:cleanRequestData="cleanRequestData"></student_graphs>-->
     <dailyrequest-dashboard v-bind:cleanData="cleanData"></dailyrequest-dashboard>
     <hourlyrequest-dashboard v-bind:cleanData="cleanData"></hourlyrequest-dashboard>
