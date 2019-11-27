@@ -1,28 +1,11 @@
 <template>
-  <div>
-    <div id="app">
-      <h1>Student Page</h1>
-    </div>
-    <!--    <p>The child components of Students.vue are:</p>-->
-    <!--    <ul>-->
-    <!--      <li v-for="child in childComponents">{{ child }}</li>-->
-    <!--    </ul>-->
-    <!--    <open-dashboard></open-dashboard>-->
-    <!--    <response-dashboard></response-dashboard>-->
-    <!--    <div id="wrapper">-->
-    <!--      <div class="left">-->
-    <!--        <div id="sidebar">-->
-    <!--          <p>Sidebar</p>-->
-    <!--        </div>-->
-    <!--      </div>-->
-    <!--      <div class="right">-->
+  <div id="app">
+    <h1 class="globaltitle">Protopia</h1>
+    <h2 class="pagetitle">Requests Page</h2>
+
     <dailyrequest-dashboard v-bind:cleanData="cleanData"></dailyrequest-dashboard>
     <hourlyrequest-dashboard v-bind:cleanData="cleanData"></hourlyrequest-dashboard>
     <statusrequest-dashboard v-bind:cleanData="cleanData"></statusrequest-dashboard>
-    <!--          <community-dashboard v-bind:cleanAskData="cleanRequestData"></community-dashboard>-->
-    <!--          <sentiment-dashboard v-bind:cleanAskData="cleanRequestData"></sentiment-dashboard>-->
-    <!--      </div>-->
-    <!--    </div>-->
   </div>
 </template>
 

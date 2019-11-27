@@ -18,11 +18,8 @@
 
 <script>
     export default {
-<<<<<<< HEAD:client/src/components/HourlyAskRate.vue
-        props: ["cleanRequestData"],
-=======
+
         props: ["cleanData"],
->>>>>>> fd1508433935b47d4444d0ffdfc00c1db46e5a7f:client/src/components/ResponseStatusDist.vue
         components: {},
         data() {
           return {
@@ -63,18 +60,7 @@
         methods: {
           setChartData: function() {
             var data = [];
-<<<<<<< HEAD:client/src/components/HourlyAskRate.vue
 
-            for (var i = 0; i < this.cleanRequestData.askHourCount.length; i++) {
-              var dataObject = {
-                label: i.toString(),
-                value: this.cleanRequestData.askHourCount[i]
-              };
-              data.push(dataObject);
-            }
-
-            this.hourlyAskRateChartData.data = data;
-=======
             console.log(this.cleanData.cleanResponseData)
             for (var i = 0; i < this.cleanData.cleanResponseData.statusCount.length; i++) {
               var dataObject = {
@@ -84,7 +70,6 @@
               data.push(dataObject);
             }
             this.statusDistChartData.data = data;
->>>>>>> fd1508433935b47d4444d0ffdfc00c1db46e5a7f:client/src/components/ResponseStatusDist.vue
           },
         },
         mounted: function() {

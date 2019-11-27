@@ -18,11 +18,7 @@
 
 <script>
     export default {
-<<<<<<< HEAD:client/src/components/StatusDist.vue
-        props: ["cleanRequestData"],
-=======
         props: ["cleanData"],
->>>>>>> fd1508433935b47d4444d0ffdfc00c1db46e5a7f:client/src/components/RequestStatusDist.vue
         components: {},
         data() {
           return {
@@ -63,19 +59,12 @@
         methods: {
           setChartData: function() {
             var data = [];
-<<<<<<< HEAD:client/src/components/StatusDist.vue
 
-            for (var i = 0; i < this.cleanRequestData.statusCount.length; i++) {
-              var dataObject = {
-                label: this.cleanRequestData.statusCount[i].status,
-                value: this.cleanRequestData.statusCount[i].counts
-=======
             console.log(this.cleanData.cleanRequestData)
             for (var i = 0; i < this.cleanData.cleanRequestData.statusCount.length; i++) {
               var dataObject = {
                 label: this.cleanData.cleanRequestData.statusCount[i].status,
                 value: this.cleanData.cleanRequestData.statusCount[i].counts
->>>>>>> fd1508433935b47d4444d0ffdfc00c1db46e5a7f:client/src/components/RequestStatusDist.vue
               };
               data.push(dataObject);
             }

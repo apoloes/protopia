@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <h1>Protopia Home</h1>
+    <h1 class="globaltitle">Protopia</h1>
+    <h2 class="pagetitle">Home</h2>
     <div class="parent-card">
       <div class="widget-card" style="text-align: center">
         <p class="card-heading">Monthly request/response opens: </p>
