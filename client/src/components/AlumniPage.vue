@@ -18,7 +18,7 @@
     <!--      <div class="right">-->
     <dailyresponse-dashboard v-bind:cleanData="cleanData"></dailyresponse-dashboard>
     <hourlyresponse-dashboard v-bind:cleanData="cleanData"></hourlyresponse-dashboard>
-    <!--          <status-dashboard v-bind:cleanAskData="cleanRequestData"></status-dashboard>-->
+    <statusresponse-dashboard v-bind:cleanData="cleanData"></statusresponse-dashboard>
     <!--          <community-dashboard v-bind:cleanAskData="cleanRequestData"></community-dashboard>-->
     <!--          <sentiment-dashboard v-bind:cleanAskData="cleanRequestData"></sentiment-dashboard>-->
     <!--      </div>-->
@@ -29,16 +29,18 @@
 <script>
     import DailyResponseRate from "./DailyResponseRate.vue";
     import HourlyResponseRate from "./HourlyResponseRate.vue";
+    import ResponseStatusDist from "./ResponseStatusDist.vue";
 
     export default {
         props: ["cleanData"],
         components: {
             'dailyresponse-dashboard': DailyResponseRate,
             'hourlyresponse-dashboard': HourlyResponseRate,
+            'statusresponse-dashboard': ResponseStatusDist,
         },
         data () {
             return {
-                childComponents: ['DailyResponseRate.vue','HourlyResponseRate.vue']
+                childComponents: ['DailyResponseRate.vue','HourlyResponseRate.vue','ResponseStatusDist.vue']
             }
         },
         methods: {
