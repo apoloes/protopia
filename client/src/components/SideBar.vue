@@ -9,23 +9,25 @@
 <!--        <vs-avatar size="large" color="primary" icon="person"/>-->
         <h4>
           Protopia
-          <!--          <vs-button color="primary" type="flat"><vs-icon icon="more-vert"></vs-icon></vs-button>-->
+          <!--   <vs-button color="primary" type="flat"><vs-icon icon="more-vert"></vs-icon></vs-button>-->
         </h4>
 
       </div>
 
       <div class="items-sidebar">
-        <vs-sidebar-item index="1" icon="assessment">
+        <vs-sidebar-item index="1" icon="home" to="/">
           <router-link to="/">Home</router-link>
+<!--          Home-->
         </vs-sidebar-item>
 
-        <vs-sidebar-item index="2" size="medium" icon="assignment_ind">
+        <vs-sidebar-item index="2" size="medium" icon="send" to="/requests">
           <router-link to="/requests">Requests Dashboard</router-link>
+<!--          Requests Dashboard-->
         </vs-sidebar-item>
 
-        <vs-sidebar-item index="3" size="medium" icon="school">
-          <!--        <vs-icon icon="school" size="large" color="red"></vs-icon>-->
+        <vs-sidebar-item index="3" size="medium" icon="reply" to="/responses">
           <router-link to="/responses">Responses Dashboard</router-link>
+<!--          Responses Dashboard-->
         </vs-sidebar-item>
 
 <!--        <vs-divider position="left">-->
