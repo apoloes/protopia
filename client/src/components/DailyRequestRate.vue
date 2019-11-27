@@ -47,8 +47,8 @@
                   data: []
                 }
               ]
-              }
-                      };
+            }
+          };
         },
         methods: {
           setChartData: function() {
@@ -56,7 +56,7 @@
             var opens = [];
             var clicks = [];
 
-            for (var i = 0; i < this.cleanData.cleanRequestData.openCount.length; i++) {
+            for (var i = this.cleanData.cleanRequestData.openCount.length-1; i >= 0; i--) {
               var categoryObject = {
                 label: this.cleanData.cleanRequestData.openCount[i].date,
               };

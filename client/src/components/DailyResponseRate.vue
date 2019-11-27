@@ -56,7 +56,7 @@
                 var opens = [];
                 var clicks = [];
 
-                for (var i = 0; i < this.cleanData.cleanResponseData.openCount.length; i++) {
+                for (var i = this.cleanData.cleanResponseData.openCount.length-1; i >= 0; i--) {
                     var categoryObject = {
                         label: this.cleanData.cleanResponseData.openCount[i].date,
                     };
