@@ -18,13 +18,13 @@
 
 <script>
     export default {
-        props: ["cleanAskData"],
+        props: ["cleanData"],
         components: {},
         data() {
           return {
             statusDistChartData: {
               chart: {
-                caption: "Student Ask Status Distribution",
+                caption: "Response Status Distribution",
                 captionFontBold: "0",
                 captionFontColor: "#000000",
                 captionPadding: "30",
@@ -59,11 +59,11 @@
         methods: {
           setChartData: function() {
             var data = [];
-
-            for (var i = 0; i < this.cleanAskData.statusCount.length; i++) {
+            console.log(this.cleanData.cleanResponseData)
+            for (var i = 0; i < this.cleanData.cleanResponseData.statusCount.length; i++) {
               var dataObject = {
-                label: this.cleanAskData.statusCount[i].status,
-                value: this.cleanAskData.statusCount[i].counts
+                label: this.cleanData.cleanResponseData.statusCount[i].status,
+                value: this.cleanData.cleanResponseData.statusCount[i].counts
               };
               data.push(dataObject);
             }

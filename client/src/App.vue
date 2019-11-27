@@ -251,6 +251,25 @@ export default {
           console.log( this.cleanData.cleanRequestData.statusCount)
         }
       },
+      getSetResponseStatusCounts: function(){
+        let numResponses = this.rawResponseData.length
+
+        if (numResponses > 0) {
+          console.log(this.rawResponseData)
+          let response_status_count = {};
+          for (let i = 0; i < numResponses; i++) {
+              let response_status = this.rawResponseData[i].status;
+              response_status_count[response_status] = response_status_count[response_status] || 0;
+              response_status_count[response_status] += 1;
+            }
+          for (let i in response_status_count) {
+                  if (response_status_count.hasOwnProperty(i)) {
+                      this.cleanData.cleanResponseData.statusCount.push({status:i,counts:response_status_count[i]});
+                  }
+              }
+          console.log( this.cleanData.cleanResponseData.statusCount)
+        }
+      },
       organizeAllDetails: async function() {
       // top level organization
       //   await this.fetchStudentAskData();
@@ -262,6 +281,7 @@ export default {
         this.getSetResponseDailyOpensClicks();
         this.getSetResponseHourlyOpensClicks();
         this.getSetRequestStatusCounts();
+        this.getSetResponseStatusCounts();
     },
   },
   mounted: async function() {
