@@ -24,7 +24,7 @@
                     chart: {
                         caption: "Daily Open and Click Rates",
                         yaxisname: "Frequency",
-                        subcaption: "Last week",
+                        subcaption: "Last Month",
                         numdivlines: "3",
                         showvalues: "0",
                         rotateLabels: "1",
