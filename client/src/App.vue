@@ -45,7 +45,8 @@ export default {
             openCount: [],
             clicksCount: [],
             hourlyOpenCount: [],
-            hourlyClicksCount: []
+            hourlyClicksCount: [],
+            statusCount: []
         },
         cleanResponseData: {
             numOpens: '',
@@ -53,7 +54,8 @@ export default {
             openCount: [],
             clicksCount: [],
             hourlyOpenCount: [],
-            hourlyClicksCount: []
+            hourlyClicksCount: [],
+            statusCount: []
         }
       }
     }
@@ -230,6 +232,25 @@ export default {
               }
           }
       },
+      getSetRequestStatusCounts: function(){
+        let numResponses = this.rawRequestData.length
+
+        if (numResponses > 0) {
+          console.log(this.rawRequestData)
+          let request_status_count = {};
+          for (let i = 0; i < numResponses; i++) {
+              let request_status = this.rawRequestData[i].status;
+              request_status_count[request_status] = request_status_count[request_status] || 0;
+              request_status_count[request_status] += 1;
+            }
+          for (let i in request_status_count) {
+                  if (request_status_count.hasOwnProperty(i)) {
+                      this.cleanData.cleanRequestData.statusCount.push({status:i,counts:request_status_count[i]});
+                  }
+              }
+          console.log( this.cleanData.cleanRequestData.statusCount)
+        }
+      },
       organizeAllDetails: async function() {
       // top level organization
       //   await this.fetchStudentAskData();
@@ -239,7 +260,8 @@ export default {
         this.getSetRequestDailyOpensClicks();
         this.getSetRequestHourlyOpensClicks();
         this.getSetResponseDailyOpensClicks();
-        this.getSetResponseHourlyOpensClicks()
+        this.getSetResponseHourlyOpensClicks();
+        this.getSetRequestStatusCounts();
     },
   },
   mounted: async function() {
