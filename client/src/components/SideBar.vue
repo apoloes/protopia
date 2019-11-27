@@ -1,7 +1,7 @@
 <template lang="html">
   <div id="parentx">
 
-    <vs-button @click="active=!active" color="primary" type="filled">Protopia helloooooooooooooooooooo<vs-icon icon="menu"></vs-icon></vs-button>
+    <vs-button @click="active=!active" color="primary" type="filled">Protopia<vs-icon icon="menu"></vs-icon></vs-button>
     <vs-sidebar parent="body" default-index="1"  color="primary" class="sidebarx" spacer v-model="active">
 
       <div class="header-sidebar" slot="header">

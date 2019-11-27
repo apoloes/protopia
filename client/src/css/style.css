@@ -271,6 +271,19 @@ body {
   fill: none;
 }
 
+.widget-card {
+  display: inline-block !important;
+  background-color: #ffffff !important;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2) !important;
+  margin: auto !important;
+}
+
+.parent-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* Text labels at the bottom */
 .raphael-group-10-axisbottom{
   padding-left: 50px !important;

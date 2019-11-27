@@ -40,12 +40,16 @@ export default {
       rawResponseData: '',
       cleanData: {
         cleanRequestData: {
+            numOpens: '',
+            numClicks: '',
             openCount: [],
             clicksCount: [],
             hourlyOpenCount: [],
             hourlyClicksCount: []
         },
         cleanResponseData: {
+            numOpens: '',
+            numClicks: '',
             openCount: [],
             clicksCount: [],
             hourlyOpenCount: [],
@@ -99,6 +103,8 @@ export default {
       },
       getSetRequestDailyOpensClicks: function() {
         let numRequests = this.rawRequestData.length;
+        let numOpens = 0;
+        let numClicks = 0;
 
         if (numRequests > 0) {
           let opens_count = {};
@@ -107,9 +113,14 @@ export default {
             let date = this.rawRequestData[i].last_event_time.substring(0,10);
             opens_count[date] = opens_count[date] || 0;
             opens_count[date] += this.rawRequestData[i].opens_count;
+            numOpens += this.rawRequestData[i].opens_count;
             clicks_count[date] = clicks_count[date] || 0;
             clicks_count[date] += this.rawRequestData[i].clicks_count;
+            numClicks += this.rawRequestData[i].clicks_count;
           }
+
+          this.cleanData.cleanRequestData.numOpens = numOpens;
+          this.cleanData.cleanRequestData.numClicks = numClicks;
 
           for (let i in opens_count) {
             if (opens_count.hasOwnProperty(i)) {
@@ -157,6 +168,8 @@ export default {
       },
       getSetResponseDailyOpensClicks: function() {
         let numResponses = this.rawResponseData.length;
+        let numOpens = 0;
+        let numClicks = 0;
 
         if (numResponses > 0) {
           let opens_count = {};
@@ -165,10 +178,14 @@ export default {
             let date = this.rawResponseData[i].last_event_time.substring(0,10);
             opens_count[date] = opens_count[date] || 0;
             opens_count[date] += this.rawResponseData[i].opens_count;
+            numOpens += this.rawRequestData[i].opens_count;
             clicks_count[date] = clicks_count[date] || 0;
             clicks_count[date] += this.rawResponseData[i].clicks_count;
+            numClicks += this.rawResponseData[i].clicks_count;
           }
 
+          this.cleanData.cleanResponseData.numOpens = numOpens;
+          this.cleanData.cleanResponseData.numClicks = numClicks;
           for (let i in opens_count) {
             if (opens_count.hasOwnProperty(i)) {
               this.cleanData.cleanResponseData.openCount.push({date:i,counts:opens_count[i]});
