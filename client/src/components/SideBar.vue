@@ -95,4 +95,7 @@
     border-radius: 0px !important;
   }
 
+  .vs-sidebar-primary .vs-sidebar-item-active a {
+    color: #9178a0 !important;
+  }
 </style>
