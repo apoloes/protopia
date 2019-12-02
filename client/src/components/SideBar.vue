@@ -77,6 +77,7 @@
     justify-content: center;
     width: 100%;
     font-size: 1.7em;
+    color: white;
   }
   .header-sidebar h4 > button {
     margin-left: 10px;
