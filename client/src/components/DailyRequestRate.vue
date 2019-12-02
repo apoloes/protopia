@@ -46,24 +46,45 @@
                   seriesname: "Clicks",
                   data: []
                 }
-              ]
+              ],
+              trendlines: [{
+                "line": [{
+                  "startvalue": "",
+                  "color": "#5D62B5",
+                  "valueOnRight": "1",
+                  "dashed": "1",
+                  "displayvalue": ""
+                },
+                {
+                  "startvalue": "",
+                  "color": "#29C3BE",
+                  "valueOnRight": "1",
+                  "dashed": "1",
+                  "displayvalue": ""
+                },
+                ]
+              }]
             }
           };
         },
         methods: {
           setChartData: function() {
-            var categories = [];
-            var opens = [];
-            var clicks = [];
+            let categories = [];
+            let opens = [];
+            let clicks = [];
 
-            for (var i = this.cleanData.cleanRequestData.openCount.length-1; i >= 0; i--) {
-              var categoryObject = {
+            let avgClicks = 0;
+            let avgOpens = 0;
+            for (let i = this.cleanData.cleanRequestData.openCount.length-1; i >= 0; i--) {
+              let categoryObject = {
                 label: this.cleanData.cleanRequestData.openCount[i].date,
               };
-              var opensObject = {
+              avgOpens = avgOpens + this.cleanData.cleanRequestData.openCount[i].counts
+              let opensObject = {
                 value: this.cleanData.cleanRequestData.openCount[i].counts,
               };
-              var clicksObject = {
+              avgClicks = avgClicks + this.cleanData.cleanRequestData.clicksCount[i].counts
+              let clicksObject = {
                 value: this.cleanData.cleanRequestData.clicksCount[i].counts,
               };
               categories.push(categoryObject);
@@ -73,15 +94,19 @@
             this.dailyRequestRateChartData.categories[0].category = categories;
             this.dailyRequestRateChartData.dataset[0].data = opens;
             this.dailyRequestRateChartData.dataset[1].data = clicks;
+            this.dailyRequestRateChartData.trendlines[0].line[0].startvalue = avgOpens / this.cleanData.cleanRequestData.openCount.length
+            this.dailyRequestRateChartData.trendlines[0].line[1].startvalue = avgClicks / this.cleanData.cleanRequestData.openCount.length
+            this.dailyRequestRateChartData.trendlines[0].line[0].displayvalue = "Avg. Opens: ".concat(Math.round(this.dailyRequestRateChartData.trendlines[0].line[0].startvalue.toString()))
+            this.dailyRequestRateChartData.trendlines[0].line[1].displayvalue = "Avg. Clicks: ".concat(Math.round(this.dailyRequestRateChartData.trendlines[0].line[1].startvalue.toString()))
           },
         },
         mounted:function() {
             if (this.cleanData.cleanRequestData.clicksCount.length === 0
                 || this.cleanData.cleanRequestData.openCount.length === 0) {
-                var clicks = [];
-                var opens = [];
-                var categories = [];
-                for (var i = 0; i < 32; i++){
+                let clicks = [];
+                let opens = [];
+                let categories = [];
+                for (let i = 0; i < 32; i++){
                     clicks.push({value: "0"});
                     opens.push({value: "0"});
                     categories.push({label: i});
