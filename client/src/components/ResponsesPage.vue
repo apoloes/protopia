@@ -6,7 +6,7 @@
     <dailyresponse-dashboard v-bind:cleanData="cleanData"></dailyresponse-dashboard>
     <hourlyresponse-dashboard v-bind:cleanData="cleanData"></hourlyresponse-dashboard>
     <statusresponse-dashboard v-bind:cleanData="cleanData"></statusresponse-dashboard>
-  <div>
+  </div>
 </template>
 
 <script>
