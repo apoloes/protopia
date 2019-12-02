@@ -56,7 +56,7 @@
         },
         watch: {
           cleanData: {
-            handler: function() {
+            handler: function() 
               this.setChartData();
             },
             deep: true
