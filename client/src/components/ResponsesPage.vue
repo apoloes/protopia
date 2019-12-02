@@ -56,6 +56,11 @@
 </script>
 
 <style scoped>
+  #pieCharts{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .openNum{
     text-align: left;
     padding: 5px;
