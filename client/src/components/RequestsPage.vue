@@ -2,7 +2,23 @@
   <div id="app">
     <h1 class="globaltitle">Protopia</h1>
     <h2 class="pagetitle">Requests Page</h2>
+    <div class="parent-card">
+      <div class="widget-card" style="text-align: center">
+        <p class="card-heading">Monthly request opens: </p>
 
+        <div id="openDiv">
+          <h1 class="openNum">{{cleanData.cleanRequestData.numOpens}}</h1>
+          <vs-icon icon="drafts"></vs-icon>
+        </div>
+      </div>
+      <div class="widget-card" style="text-align: center">
+        <p class="card-heading">Monthly request clicks: </p>
+        <div id="clickDiv">
+          <h1 class="clicksNum">{{cleanData.cleanRequestData.numClicks}}</h1>
+          <vs-icon icon="touch_app"></vs-icon>
+        </div>
+      </div>
+    </div>
     <dailyrequest-dashboard v-bind:cleanData="cleanData"></dailyrequest-dashboard>
     <hourlyrequest-dashboard v-bind:cleanData="cleanData"></hourlyrequest-dashboard>
     <statusrequest-dashboard v-bind:cleanData="cleanData"></statusrequest-dashboard>
@@ -38,7 +54,43 @@
     }
 </script>
 
-<style>
-
-
+<style scoped>
+  .openNum{
+    text-align: left;
+    padding: 5px;
+    /*color: #cba8e0;*/
+  }
+  .clicksNum{
+    text-align: left;
+    padding: 5px;
+    /*color: #cba8e0;*/
+  }
+  .card-heading{
+    padding: 5px;
+    font-weight: lighter;
+    color: black;
+  }
+  .parent-card{
+    /*margin-top: 20px;*/
+    width: 80%;
+    margin: auto;
+    padding: 30px;
+  }
+  #openDiv{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    color: #9178a0;
+  }
+  #clickDiv{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    color: #9178a0;
+  }
+  .widget-card{
+    border-radius: 5px;
+    background: none !important;
+    box-shadow: none !important;
+  }
 </style>
