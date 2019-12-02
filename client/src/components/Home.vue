@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <h1 class="globaltitle">Protopia</h1>
-    <h2 class="pagetitle"><router-link to="/requests">Home</router-link></h2>
+    <h1 class="globaltitle"><router-link to="/">Protopia</router-link></h1>
+    <h2 class="pagetitle">Home</h2>
     <div class="parent-card">
       <div class="widget-card" style="text-align: center">
         <p class="card-heading">Monthly request/response opens: </p>
