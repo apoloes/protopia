@@ -26,32 +26,13 @@
             statusDistChartData: {
               chart: {
                 caption: "Response Status Distribution",
-                captionFontBold: "0",
-                captionFontColor: "#000000",
-                captionPadding: "30",
-                baseFont: "Roboto",
-                chartTopMargin: "30",
-                showHoverEffect: "1",
-                theme: "fusion",
-                showaxislines: "1",
-                anchorBgColor: "#6297d9",
-                paletteColors: "#5adea1, #6297d9",
-                drawCrossLine: "1",
                 plottooltext: "<b>$percentValue</b> of asks have a status of $label",
-                showAxisLines: "0",
-                showYAxisValues: "0",
-                anchorRadius: "4",
-                divLineAlpha: "0",
-                labelFontSize: "18",
-                labelAlpha: "65",
-                labelFontBold: "0",
-                rotateLabels: "1",
-                slantLabels: "1",
                 showlegend: "1",
                 showpercentvalues: "1",
                 legendposition: "bottom",
                 usedataplotcolorforlabels: "1",
-                canvasPadding: "20"
+                showlabels: "0",
+                theme: "fusion"
               },
               data: [],
             },
@@ -76,7 +57,7 @@
           this.setChartData();
         },
         watch: {
-          cleanRequestData: {
+          cleanData: {
             handler: function() {
               this.setChartData();
             },
