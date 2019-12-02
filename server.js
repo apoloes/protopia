@@ -37,36 +37,36 @@ app.use(cors({
 // const bucket = storage.bucket('protopia-comp523');
 
 /* ---------- Routes ---------- */
-app.get('/api/asks', (req, res)=>{
-    request({
-        url: SERVER + '/asks/all',
-        json: true
-    }, function (error, response, body) {
-        if (error) {
-            console.log(error);
-        } else {
-            res.send(body);
-            // const jsonString = JSON.stringify(body);
-            // fs.writeFile('./file.json', jsonString, err => {
-            //     if (err) {
-            //         console.log('Error writing file', err)
-            //     } else {
-            //         console.log('Successfully wrote file');
-            //         res.send(body);
-            //         const filename = './file.json';
-            //
-            //         bucket.upload(filename, {
-            //             gzip: true,
-            //             metadata: {
-            //                 cacheControl: 'no-cache',
-            //             },
-            //         });
-            //         console.log(`${filename} uploaded to ` + bucket.);
-            //     }
-            // });
-        }
-    });
-});
+// app.get('/api/asks', (req, res)=>{
+//     request({
+//         url: SERVER + '/asks/all',
+//         json: true
+//     }, function (error, response, body) {
+//         if (error) {
+//             console.log(error);
+//         } else {
+//             res.send(body);
+//             // const jsonString = JSON.stringify(body);
+//             // fs.writeFile('./file.json', jsonString, err => {
+//             //     if (err) {
+//             //         console.log('Error writing file', err)
+//             //     } else {
+//             //         console.log('Successfully wrote file');
+//             //         res.send(body);
+//             //         const filename = './file.json';
+//             //
+//             //         bucket.upload(filename, {
+//             //             gzip: true,
+//             //             metadata: {
+//             //                 cacheControl: 'no-cache',
+//             //             },
+//             //         });
+//             //         console.log(`${filename} uploaded to ` + bucket.);
+//             //     }
+//             // });
+//         }
+//     });
+// });
 
 app.get('/api/open', (req, res)=>{
     request({

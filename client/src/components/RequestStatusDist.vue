@@ -60,7 +60,6 @@
           setChartData: function() {
             var data = [];
 
-            console.log(this.cleanData.cleanRequestData)
             for (var i = 0; i < this.cleanData.cleanRequestData.statusCount.length; i++) {
               var dataObject = {
                 label: this.cleanData.cleanRequestData.statusCount[i].status,

@@ -1,12 +1,12 @@
 <template>
   <div id="app">
     <h1 class="globaltitle">Protopia</h1>
-    <h2 class="pagetitle">Responses page</h2>
-<!--    <student_graphs v-bind:cleanResponseData="cleanResponseData"></student_graphs>-->
+
+    <h2 class="pagetitle">Responses Page</h2>
     <dailyresponse-dashboard v-bind:cleanData="cleanData"></dailyresponse-dashboard>
     <hourlyresponse-dashboard v-bind:cleanData="cleanData"></hourlyresponse-dashboard>
     <statusresponse-dashboard v-bind:cleanData="cleanData"></statusresponse-dashboard>
-  </div>
+  <div>
 </template>
 
 <script>

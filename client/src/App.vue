@@ -146,8 +146,6 @@ export default {
                 let hour = this.rawRequestData[i].last_event_time.substring(11,13);
 
                 if (hour.substring(0,1) == "0"){
-                    //console.log(hour.substring(0,1))
-                    //console.log(hour.substring(1,2))
                     hour = hour.substring(1,2);
                 }
                 hourly_opens_count[hour] = hourly_opens_count[hour] || 0;
@@ -210,8 +208,6 @@ export default {
                   let hour = this.rawResponseData[i].last_event_time.substring(11,13);
 
                   if (hour.substring(0,1) == "0"){
-                      //console.log(hour.substring(0,1))
-                      //console.log(hour.substring(1,2))
                       hour = hour.substring(1,2);
                   }
                   hourly_opens_count[hour] = hourly_opens_count[hour] || 0;
@@ -236,7 +232,6 @@ export default {
         let numResponses = this.rawRequestData.length
 
         if (numResponses > 0) {
-          console.log(this.rawRequestData)
           let request_status_count = {};
           for (let i = 0; i < numResponses; i++) {
               let request_status = this.rawRequestData[i].status;
@@ -248,14 +243,12 @@ export default {
                       this.cleanData.cleanRequestData.statusCount.push({status:i,counts:request_status_count[i]});
                   }
               }
-          console.log( this.cleanData.cleanRequestData.statusCount)
         }
       },
       getSetResponseStatusCounts: function(){
         let numResponses = this.rawResponseData.length
 
         if (numResponses > 0) {
-          console.log(this.rawResponseData)
           let response_status_count = {};
           for (let i = 0; i < numResponses; i++) {
               let response_status = this.rawResponseData[i].status;
@@ -267,7 +260,6 @@ export default {
                       this.cleanData.cleanResponseData.statusCount.push({status:i,counts:response_status_count[i]});
                   }
               }
-          console.log( this.cleanData.cleanResponseData.statusCount)
         }
       },
       organizeAllDetails: async function() {
@@ -275,7 +267,6 @@ export default {
       //   await this.fetchStudentAskData();
         await this.fetchSendGridData();
         await this.getSetRequestsResponses();
-        console.log(this.cleanData);
         this.getSetRequestDailyOpensClicks();
         this.getSetRequestHourlyOpensClicks();
         this.getSetResponseDailyOpensClicks();
