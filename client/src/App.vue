@@ -46,7 +46,8 @@ export default {
             clicksCount: [],
             hourlyOpenCount: [],
             hourlyClicksCount: [],
-            statusCount: []
+            statusCount: [],
+            emailCount: [],
         },
         cleanResponseData: {
             numOpens: '',
@@ -55,7 +56,8 @@ export default {
             clicksCount: [],
             hourlyOpenCount: [],
             hourlyClicksCount: [],
-            statusCount: []
+            statusCount: [],
+            emailCount: [],
         }
       }
     }
@@ -262,6 +264,43 @@ export default {
               }
         }
       },
+      getSetRequestEmailCounts: function(){
+        let numResponses = this.rawRequestData.length
+
+        if (numResponses > 0) {
+          let from_email_count = {};
+          for (let i = 0; i < numResponses; i++) {
+              let from_email = this.rawRequestData[i].from_email;
+              from_email_count[from_email] = from_email_count[from_email] || 0;
+              from_email_count[from_email] += 1;
+            }
+          
+          for (let i in from_email_count) {
+                  if (from_email_count.hasOwnProperty(i)) {
+                      this.cleanData.cleanRequestData.emailCount.push({email:i,counts:from_email_count[i]});
+                  }
+              }
+        }
+      },
+      getSetResponseEmailCounts: function(){
+        let numResponses = this.rawResponseData.length
+
+        if (numResponses > 0) {
+          let from_email_count = {};
+          for (let i = 0; i < numResponses; i++) {
+              let from_email = this.rawResponseData[i].from_email;
+              from_email_count[from_email] = from_email_count[from_email] || 0;
+              from_email_count[from_email] += 1;
+            }
+          
+          for (let i in from_email_count) {
+                  if (from_email_count.hasOwnProperty(i)) {
+                      this.cleanData.cleanResponseData.emailCount.push({email:i,counts:from_email_count[i]});
+                  }
+              }
+          console.log(this.cleanData.cleanResponseData.emailCount)
+        }
+      },
       organizeAllDetails: async function() {
       // top level organization
       //   await this.fetchStudentAskData();
@@ -273,6 +312,8 @@ export default {
         this.getSetResponseHourlyOpensClicks();
         this.getSetRequestStatusCounts();
         this.getSetResponseStatusCounts();
+        this.getSetRequestEmailCounts();
+        this.getSetResponseEmailCounts();
     },
   },
   mounted: async function() {

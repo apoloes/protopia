@@ -7,7 +7,7 @@
         height="100%"
         data-format="json"
         dataEmptyMessage="i-https://i.postimg.cc/R0QCk9vV/Rolling-0-9s-99px.gif"
-        :data-source="statusDistChartData"
+        :data-source="emailDistChartData"
       >
       </fusioncharts>
     </div>
@@ -22,10 +22,10 @@
         components: {},
         data() {
           return {
-            statusDistChartData: {
+            emailDistChartData: {
               chart: {
-                caption: "Request Distribution of Status",
-                plottooltext: "<b>$percentValue</b> of emails with status of $label",
+                caption: "Request Distribution of From Emails",
+                plottooltext: "<b>$percentValue</b> of requests received from this $label",
                 showlegend: "1",
                 showpercentvalues: "1",
                 legendposition: "bottom",
@@ -41,14 +41,14 @@
           setChartData: function() {
             var data = [];
 
-            for (var i = 0; i < this.cleanData.cleanRequestData.statusCount.length; i++) {
+            for (var i = 0; i < this.cleanData.cleanRequestData.emailCount.length; i++) {
               var dataObject = {
-                label: this.cleanData.cleanRequestData.statusCount[i].status,
-                value: this.cleanData.cleanRequestData.statusCount[i].counts
+                label: this.cleanData.cleanRequestData.emailCount[i].email,
+                value: this.cleanData.cleanRequestData.emailCount[i].counts
               };
               data.push(dataObject);
             }
-            this.statusDistChartData.data = data;
+            this.emailDistChartData.data = data;
           },
         },
         mounted: function() {
@@ -56,7 +56,7 @@
         },
         watch: {
           cleanData: {
-            handler: function() {
+            handler: function() 
               this.setChartData();
             },
             deep: true
