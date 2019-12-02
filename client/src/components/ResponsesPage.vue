@@ -6,10 +6,7 @@
     <dailyresponse-dashboard v-bind:cleanData="cleanData"></dailyresponse-dashboard>
     <hourlyresponse-dashboard v-bind:cleanData="cleanData"></hourlyresponse-dashboard>
     <statusresponse-dashboard v-bind:cleanData="cleanData"></statusresponse-dashboard>
-<<<<<<< HEAD
-=======
     <fromemail-dashboard v-bind:cleanData="cleanData"></fromemail-dashboard>
->>>>>>> cfc97131dfef015b61973734628b7fb9ec978299
   </div>
 </template>
 
