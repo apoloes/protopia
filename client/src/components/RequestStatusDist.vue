@@ -26,7 +26,7 @@
               chart: {
                 caption: "Request Distribution of Status",
                 plottooltext: "<b>$percentValue</b> of emails with status of $label",
-                showlegend: "1",
+                showlegend: "0",
                 showpercentvalues: "1",
                 legendposition: "bottom",
                 usedataplotcolorforlabels: "1",

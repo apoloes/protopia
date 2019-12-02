@@ -268,15 +268,12 @@ hr {
 
 /***********************************  NEW CODE ********************************************/
 body {
-  /*background-color: #f5f5f5;*/
   background-color: white;
 }
 .vs-sidebar--item .vs-sidebar-item-active{
   color: #9178a0 !important;
 }
-/*.raphael-group-30-canvas {*/
-/*  background-color: #7da7e2;*/
-/*}*/
+
 .vs-component.vs-button.vs-button-primary.vs-button-filled {
   background: #9178a0 !important;
 }
@@ -304,7 +301,10 @@ a{
   font-weight: lighter;
   font-size: 1.6em;
   color: #9178a0;
-
+}
+.pagetitle a:hover{
+  text-decoration: none !important;
+  font-weight: normal;
 }
 #askrategraph svg:first-child {
   /*padding-left:100px !important;*/

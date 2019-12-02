@@ -27,7 +27,7 @@
               chart: {
                 caption: "Response Status Distribution",
                 plottooltext: "<b>$percentValue</b> of asks have a status of $label",
-                showlegend: "1",
+                showlegend: "0",
                 showpercentvalues: "1",
                 legendposition: "bottom",
                 usedataplotcolorforlabels: "1",

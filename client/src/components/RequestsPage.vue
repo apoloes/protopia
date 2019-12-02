@@ -5,8 +5,11 @@
 
     <dailyrequest-dashboard v-bind:cleanData="cleanData"></dailyrequest-dashboard>
     <hourlyrequest-dashboard v-bind:cleanData="cleanData"></hourlyrequest-dashboard>
-    <statusrequest-dashboard v-bind:cleanData="cleanData"></statusrequest-dashboard>
-    <fromemail-dashboard v-bind:cleanData="cleanData"></fromemail-dashboard>
+
+    <div id="pieCharts">
+      <statusrequest-dashboard v-bind:cleanData="cleanData"></statusrequest-dashboard>
+      <fromemail-dashboard v-bind:cleanData="cleanData"></fromemail-dashboard>
+    </div>
   </div>
 </template>
 
@@ -39,6 +42,10 @@
 </script>
 
 <style>
-
+  #pieCharts{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
 </style>

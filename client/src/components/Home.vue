@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h1 class="globaltitle">Protopia</h1>
-    <h2 class="pagetitle">Home</h2>
+    <h2 class="pagetitle"><router-link to="/requests">Home</router-link></h2>
     <div class="parent-card">
       <div class="widget-card" style="text-align: center">
         <p class="card-heading">Monthly request/response opens: </p>
@@ -30,6 +30,7 @@
 </script>
 
 <style scoped>
+
   .openNum{
     text-align: left;
     padding: 5px;
@@ -43,6 +44,7 @@
   .card-heading{
     padding: 5px;
     font-weight: lighter;
+    font-size: 1.3em;
     color: black;
   }
   .parent-card{

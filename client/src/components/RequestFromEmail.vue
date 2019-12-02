@@ -26,9 +26,9 @@
               chart: {
                 caption: "Request Distribution of From Emails",
                 plottooltext: "<b>$percentValue</b> of requests received from this $label",
-                showlegend: "1",
+                showlegend: "0",
                 showpercentvalues: "1",
-                legendposition: "bottom",
+                legendposition: "right",
                 usedataplotcolorforlabels: "1",
                 showlabels: "0",
                 theme: "fusion"
@@ -56,7 +56,7 @@
         },
         watch: {
           cleanData: {
-            handler: function() 
+            handler: function(){
               this.setChartData();
             },
             deep: true

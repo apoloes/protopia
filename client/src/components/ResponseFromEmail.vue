@@ -26,7 +26,7 @@
               chart: {
                 caption: "Response Distribution of From Emails",
                 plottooltext: "<b>$percentValue</b> of responses received from this $label",
-                showlegend: "1",
+                showlegend: "0",
                 showpercentvalues: "1",
                 legendposition: "bottom",
                 usedataplotcolorforlabels: "1",

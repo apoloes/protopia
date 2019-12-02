@@ -2,7 +2,7 @@
   <div id="parentx">
 
     <vs-button @click="active=!active" color="primary" type="filled"><vs-icon icon="menu"></vs-icon></vs-button>
-    <vs-sidebar parent="body" default-index="1"  color="primary" class="sidebarx" spacer v-model="active">
+    <vs-sidebar parent="body" default-index="1"  class="sidebarx" spacer v-model="active">
 
       <div class="header-sidebar" slot="header">
                 <vs-avatar  size="60px" src="https://ca.slack-edge.com/TN2RCKUVD-UMPFSAJE7-g0a95dac88e4-48"/>
@@ -17,17 +17,14 @@
       <div class="items-sidebar">
         <vs-sidebar-item index="1" icon="home" to="/">
           <router-link to="/">Home</router-link>
-<!--          Home-->
         </vs-sidebar-item>
 
         <vs-sidebar-item index="2" size="medium" icon="send" to="/requests">
           <router-link to="/requests">Requests Dashboard</router-link>
-<!--          Requests Dashboard-->
         </vs-sidebar-item>
 
         <vs-sidebar-item index="3" size="medium" icon="reply" to="/responses">
           <router-link to="/responses">Responses Dashboard</router-link>
-<!--          Responses Dashboard-->
         </vs-sidebar-item>
 
 <!--        <vs-divider position="left">-->
@@ -76,7 +73,8 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    font-size: 1.7em;
+    font-size: 1.6em;
+    font-weight: normal;
     color: white;
   }
   .header-sidebar h4 > button {
@@ -94,5 +92,18 @@
     border-left: 1px solid rgba(0, 0, 0, 0.07) !important;
     border-radius: 0px !important;
   }
-
+  .vs-sidebar-primary .vs-sidebar-item-active a{
+    color: #9178a0 !important;
+    font-weight: bolder;
+  }
+  .vs-sidebar-primary {
+    font-weight: normal;
+  }
+  .vs-sidebar-primary .vs-sidebar-item-active{
+    border-right: 3px solid #9178a0 !important;
+  }
+  .vs-button-primary.vs-button-filled:hover {
+    -webkit-box-shadow: 0 8px 25px -8px #9178a0;
+    box-shadow: 0 8px 25px -8px #9178a0;
+  }
 </style>
