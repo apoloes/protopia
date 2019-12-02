@@ -2,28 +2,28 @@
   <div id="app">
     <h1 class="globaltitle">Protopia</h1>
     <h2 class="pagetitle">Responses page</h2>
-<!--    <student_graphs v-bind:cleanRequestData="cleanRequestData"></student_graphs>-->
-    <dailyrequest-dashboard v-bind:cleanData="cleanData"></dailyrequest-dashboard>
-    <hourlyrequest-dashboard v-bind:cleanData="cleanData"></hourlyrequest-dashboard>
-    <statusrequest-dashboard v-bind:cleanData="cleanData"></statusrequest-dashboard>
+<!--    <student_graphs v-bind:cleanResponseData="cleanResponseData"></student_graphs>-->
+    <dailyresponse-dashboard v-bind:cleanData="cleanData"></dailyresponse-dashboard>
+    <hourlyresponse-dashboard v-bind:cleanData="cleanData"></hourlyresponse-dashboard>
+    <statusresponse-dashboard v-bind:cleanData="cleanData"></statusresponse-dashboard>
   </div>
 </template>
 
 <script>
-    import DailyRequestRate from "./DailyRequestRate.vue";
-    import HourlyRequestRate from "./HourlyRequestRate.vue";
-    import RequestStatusDist from "./RequestStatusDist.vue";
+    import DailyResponseRate from "./DailyResponseRate.vue";
+    import HourlyResponseRate from "./HourlyResponseRate.vue";
+    import ResponseStatusDist from "./ResponseStatusDist.vue";
 
     export default {
         props: ["cleanData"],
         components: {
-            'dailyrequest-dashboard': DailyRequestRate,
-            'hourlyrequest-dashboard': HourlyRequestRate,
-            'statusrequest-dashboard': RequestStatusDist,
+            'dailyresponse-dashboard': DailyResponseRate,
+            'hourlyresponse-dashboard': HourlyResponseRate,
+            'statusresponse-dashboard': ResponseStatusDist,
         },
         data () {
             return {
-                childComponents: ['DailyRequestRate.vue','HourlyRequestRate.vue', 'RequestStatusDist.vue']
+                childComponents: ['DailyResponseRate.vue','HourlyResponseRate.vue', 'ResponseStatusDist.vue']
             }
         },
         methods: {
