@@ -9,7 +9,6 @@
 <!--        <vs-avatar size="large" color="primary" icon="person"/>-->
         <h4>
           Protopia
-          <!--   <vs-button color="primary" type="flat"><vs-icon icon="more-vert"></vs-icon></vs-button>-->
         </h4>
 
       </div>

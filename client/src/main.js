@@ -15,6 +15,7 @@ import TimeSeries from 'fusioncharts/fusioncharts.timeseries';
 import Widgets from 'fusioncharts/fusioncharts.widgets';
 import PowerCharts from 'fusioncharts/fusioncharts.powercharts';
 import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
+import GammelTheme from 'fusioncharts/themes/fusioncharts.theme.gammel';
 import VueFusionCharts from 'vue-fusioncharts'
 //import { library } from '@fortawesome/fontawesome-svg-core';
 // import {
@@ -40,6 +41,7 @@ Charts(FusionCharts);
 PowerCharts(FusionCharts);
 Widgets(FusionCharts);
 FusionTheme(FusionCharts);
+GammelTheme(FusionCharts);
 
 // Globally register the components for project-wide use
 Vue.use(VueFusionCharts, FusionCharts, TimeSeries);

@@ -6,12 +6,9 @@ Computed: Much like the method object discussed above with one important distinc
 Style: This section is for CSS styling that applies to the HTML of the page (written within template) — put the good old CSS here to make your pages beautiful! -->
 <template>
   <div id="app">
-<!--    <p>This component’s code is in {{ filename }}</p>-->
-<!--    <sidebar></sidebar>-->
 
     <sidebar v-bind:cleanData="cleanData"></sidebar>
 <!--    <home></home>-->
-<!--    <router-view></router-view>-->
 <!--    <students_graphs ></students_graphs>-->
   </div>
 
@@ -275,7 +272,7 @@ export default {
               from_email_count[from_email] = from_email_count[from_email] || 0;
               from_email_count[from_email] += 1;
             }
-          
+
           for (let i in from_email_count) {
                   if (from_email_count.hasOwnProperty(i)) {
                       this.cleanData.cleanRequestData.emailCount.push({email:i,counts:from_email_count[i]});
@@ -293,7 +290,7 @@ export default {
               from_email_count[from_email] = from_email_count[from_email] || 0;
               from_email_count[from_email] += 1;
             }
-          
+
           for (let i in from_email_count) {
                   if (from_email_count.hasOwnProperty(i)) {
                       this.cleanData.cleanResponseData.emailCount.push({email:i,counts:from_email_count[i]});
