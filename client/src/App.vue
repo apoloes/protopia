@@ -232,7 +232,7 @@ export default {
       },
       getSetRequestStatusCounts: function(){
         let numResponses = this.rawRequestData.length
-
+        
         if (numResponses > 0) {
           let request_status_count = {};
           for (let i = 0; i < numResponses; i++) {
@@ -240,6 +240,7 @@ export default {
               request_status_count[request_status] = request_status_count[request_status] || 0;
               request_status_count[request_status] += 1;
             }
+          console.log(request_status_count)
           for (let i in request_status_count) {
                   if (request_status_count.hasOwnProperty(i)) {
                       this.cleanData.cleanRequestData.statusCount.push({status:i,counts:request_status_count[i]});

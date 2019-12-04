@@ -25,7 +25,7 @@
             statusDistChartData: {
               chart: {
                 caption: "Request Distribution of Status",
-                plottooltext: "<b>$percentValue</b> of emails with status of $label",
+                plottooltext: "<b>$percentValue</b> of emails with status of <b>$label<b>",
                 showlegend: "0",
                 showpercentvalues: "1",
                 legendposition: "bottom",
@@ -39,6 +39,19 @@
         },
         methods: {
           setChartData: function() {
+            function compare(a, b) {
+              // Use toUpperCase() to ignore character casing
+              const A = a.value;
+              const B = b.value;
+
+              let comparison = 0;
+              if (A > B) {
+                comparison = 1;
+              } else if (A < B) {
+                comparison = -1;
+              }
+              return comparison;
+            }
             var data = [];
 
             for (var i = 0; i < this.cleanData.cleanRequestData.statusCount.length; i++) {
@@ -48,6 +61,7 @@
               };
               data.push(dataObject);
             }
+            data.sort(compare);
             this.statusDistChartData.data = data;
           },
         },
