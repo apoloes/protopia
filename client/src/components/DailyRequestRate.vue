@@ -30,7 +30,7 @@
                 rotateLabels: "1",
                 slantLabels: "1",
                 plotToolText: "$label<br><hr><b>$dataValue</b>",
-                theme: "fusion"
+                theme: "fusion",
               },
               categories: [
                 {
@@ -45,7 +45,11 @@
                 {
                   seriesname: "Clicks",
                   data: []
-                }
+                },
+                {
+                  seriesname: "Requests",
+                  data: []
+                },
               ],
               trendlines: [{
                 "line": [{
@@ -62,6 +66,13 @@
                   "dashed": "1",
                   "displayvalue": ""
                 },
+                {
+                  "startvalue": "",
+                  "color": "#f2726f",
+                  "valueOnRight": "1",
+                  "dashed": "1",
+                  "displayvalue": ""
+                },
                 ]
               }]
             }
@@ -72,9 +83,11 @@
             let categories = [];
             let opens = [];
             let clicks = [];
+            let requests = [];
 
             let avgClicks = 0;
             let avgOpens = 0;
+            let avgRequests = 0;
             for (let i = this.cleanData.cleanRequestData.openCount.length-1; i >= 0; i--) {
               let categoryObject = {
                 label: this.cleanData.cleanRequestData.openCount[i].date,
@@ -87,17 +100,25 @@
               let clicksObject = {
                 value: this.cleanData.cleanRequestData.clicksCount[i].counts,
               };
+              avgRequests = avgRequests + this.cleanData.cleanRequestData.requestCount[i].counts
+              let requestsObject = {
+                value: this.cleanData.cleanRequestData.requestCount[i].counts,
+              };
               categories.push(categoryObject);
               opens.push(opensObject);
               clicks.push(clicksObject);
+              requests.push(requestsObject);
             }
             this.dailyRequestRateChartData.categories[0].category = categories;
             this.dailyRequestRateChartData.dataset[0].data = opens;
             this.dailyRequestRateChartData.dataset[1].data = clicks;
+            this.dailyRequestRateChartData.dataset[2].data = requests;
             this.dailyRequestRateChartData.trendlines[0].line[0].startvalue = avgOpens / this.cleanData.cleanRequestData.openCount.length
             this.dailyRequestRateChartData.trendlines[0].line[1].startvalue = avgClicks / this.cleanData.cleanRequestData.openCount.length
+            this.dailyRequestRateChartData.trendlines[0].line[2].startvalue = avgRequests / this.cleanData.cleanRequestData.openCount.length
             this.dailyRequestRateChartData.trendlines[0].line[0].displayvalue = "Avg. Opens: ".concat(Math.round(this.dailyRequestRateChartData.trendlines[0].line[0].startvalue.toString()))
             this.dailyRequestRateChartData.trendlines[0].line[1].displayvalue = "Avg. Clicks: ".concat(Math.round(this.dailyRequestRateChartData.trendlines[0].line[1].startvalue.toString()))
+            this.dailyRequestRateChartData.trendlines[0].line[2].displayvalue = "Avg. Requests: ".concat(Math.round(this.dailyRequestRateChartData.trendlines[0].line[2].startvalue.toString()))
           },
         },
         mounted:function() {
@@ -115,6 +136,7 @@
                 this.dailyRequestRateChartData.categories[0].category = categories;
                 this.dailyRequestRateChartData.dataset[0].data = opens;
                 this.dailyRequestRateChartData.dataset[1].data = clicks;
+                this.dailyRequestRateChartData.dataset[2].data = requests;
             } else {
                 this.setChartData();
             }
