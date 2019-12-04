@@ -17,22 +17,12 @@ import PowerCharts from 'fusioncharts/fusioncharts.powercharts';
 import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
 import GammelTheme from 'fusioncharts/themes/fusioncharts.theme.gammel';
 import VueFusionCharts from 'vue-fusioncharts'
-//import { library } from '@fortawesome/fontawesome-svg-core';
-// import {
-//   faAddressCard,
-//   faCoffee,
-//   faGraduationCap, faIdCard,
-//   faUserSecret
-// } from '@fortawesome/free-solid-svg-icons';
-//import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
 
 import { vsSideBar, vsButton, vsSelect, vsPopup, vsDivider, vsIcon, vsAvatar } from 'vuesax';
 import 'vuesax/dist/vuesax.css'; //Vuesax styles
 import 'material-icons/iconfont/material-icons.css';
 
-// library.add(faUserSecret, faAddressCard, faCoffee, faGraduationCap, faIdCard)  ;
-
-// Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false;
 
@@ -44,7 +34,7 @@ FusionTheme(FusionCharts);
 GammelTheme(FusionCharts);
 
 // Globally register the components for project-wide use
-Vue.use(VueFusionCharts, FusionCharts, TimeSeries);
+Vue.use(VueFusionCharts, FusionCharts, TimeSeries, Charts);
 Vue.use(vsButton);
 Vue.use(vsSideBar);
 Vue.use(vsPopup);
@@ -59,14 +49,50 @@ const router = new VueRouter({
   routes: Routes,
 })
 
+const myDataSource = {
+  "chart": {
+    "caption": "Recommended Portfolio Split",
+    "subCaption" : "For a net-worth of $1M",
+    "showValues":"1",
+    "showPercentInTooltip" : "0",
+    "numberPrefix" : "$",
+    "enableMultiSlicing":"1",
+    "theme": "fusion"
+  },
+  "data": [{
+    "label": "Equity",
+    "value": "300000"
+  }, {
+    "label": "Debt",
+    "value": "230000"
+  }, {
+    "label": "Bullion",
+    "value": "180000"
+  }, {
+    "label": "Real-estate",
+    "value": "270000"
+  }, {
+    "label": "Insurance",
+    "value": "20000"
+  }]
+};
+
 // Instantiate the Vue instance that controls the application
 new Vue({
   el: '#app',
   render: h => h(App),
   router: router,
   components: { App },
+  data: {
+    type: 'pie2d',
+    width: '500',
+    height: '30',
+    dataFormat: 'json',
+    dataSource: myDataSource
+  },
   template: '<App/>'
 })
+
 
 
 

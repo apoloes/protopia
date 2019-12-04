@@ -10,6 +10,13 @@ Style: This section is for CSS styling that applies to the HTML of the page (wri
     <sidebar v-bind:cleanData="cleanData"></sidebar>
 <!--    <home></home>-->
 <!--    <students_graphs ></students_graphs>-->
+    <fusioncharts
+        :type="type"
+        :width="width"
+        :height="height"
+        :dataFormat="dataFormat"
+        :dataSource="dataSource">
+    </fusioncharts>
   </div>
 
 </template>
@@ -229,7 +236,7 @@ export default {
       },
       getSetRequestStatusCounts: function(){
         let numResponses = this.rawRequestData.length
-        
+
         if (numResponses > 0) {
           let request_status_count = {};
           for (let i = 0; i < numResponses; i++) {

@@ -3,7 +3,7 @@
     <h1 class="globaltitle"><router-link to="/">Protopia</router-link></h1>
     <h2 class="pagetitle">Home</h2>
     <div class="parent-card">
-      <div class="widget-card" style="text-align: center">
+      <div class="widget-card">
         <p class="card-heading">Monthly request/response opens: </p>
 
         <div id="openDiv">
@@ -11,7 +11,7 @@
           <vs-icon icon="drafts"></vs-icon>
         </div>
       </div>
-      <div class="widget-card" style="text-align: center">
+      <div class="widget-card">
         <p class="card-heading">Monthly request/response clicks: </p>
         <div id="clickDiv">
           <h1 class="clicksNum">{{cleanData.cleanRequestData.numClicks + cleanData.cleanResponseData.numClicks}}</h1>
@@ -69,5 +69,8 @@
     border-radius: 5px;
     background: none !important;
     box-shadow: none !important;
+  }
+  .widget-card .vs-icon{
+    padding-bottom: 4px;
   }
 </style>
