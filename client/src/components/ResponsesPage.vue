@@ -4,6 +4,14 @@
     <h2 class="pagetitle">Responses Page</h2>
     <div class="parent-card">
       <div class="widget-card" style="text-align: center">
+        <p class="card-heading">Monthly responses: </p>
+
+        <div id="openDiv">
+          <h1 class="openNum">{{cleanData.cleanResponseData.numResponses}}</h1>
+          <vs-icon icon="drafts"></vs-icon>
+        </div>
+      </div>
+      <div class="widget-card" style="text-align: center">
         <p class="card-heading">Monthly response opens: </p>
 
         <div id="openDiv">
@@ -21,6 +29,11 @@
     </div>
     <dailyresponse-dashboard v-bind:cleanData="cleanData"></dailyresponse-dashboard>
     <hourlyresponse-dashboard v-bind:cleanData="cleanData"></hourlyresponse-dashboard>
+    
+    <div id="pieCharts">
+      <openrate-dashboard v-bind:cleanData="cleanData"></openrate-dashboard>
+      <clickrate-dashboard v-bind:cleanData="cleanData"></clickrate-dashboard>
+    </div>
 
     <div id="pieCharts">
       <statusresponse-dashboard v-bind:cleanData="cleanData"></statusresponse-dashboard>
@@ -34,6 +47,8 @@
     import HourlyResponseRate from "./HourlyResponseRate.vue";
     import ResponseStatusDist from "./ResponseStatusDist.vue";
     import ResponseFromEmail from "./ResponseFromEmail.vue";
+    import ResponseOpenRate from "./ResponseOpenRate.vue";
+    import ResponseClickRate from "./ResponseClickRate.vue";
 
     export default {
         props: ["cleanData"],
@@ -42,10 +57,12 @@
             'hourlyresponse-dashboard': HourlyResponseRate,
             'statusresponse-dashboard': ResponseStatusDist,
             'fromemail-dashboard': ResponseFromEmail,
+            'openrate-dashboard': ResponseOpenRate,
+            'clickrate-dashboard': ResponseClickRate,
         },
         data () {
             return {
-                childComponents: ['DailyResponseRate.vue','HourlyResponseRate.vue', 'ResponseStatusDist.vue', 'ResponseFromEmail.vue']
+                childComponents: ['DailyResponseRate.vue','HourlyResponseRate.vue', 'ResponseStatusDist.vue', 'ResponseFromEmail.vue', 'ResponseOpenRate.vue', 'ResponseClickRate.vue']
             }
         },
         methods: {

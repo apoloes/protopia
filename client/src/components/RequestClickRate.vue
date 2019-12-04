@@ -7,7 +7,7 @@
         height="100%"
         data-format="json"
         dataEmptyMessage="i-https://i.postimg.cc/R0QCk9vV/Rolling-0-9s-99px.gif"
-        :data-source="statusDistChartData"
+        :data-source="clickRateChartData"
       >
       </fusioncharts>
     </div>
@@ -22,17 +22,17 @@
         components: {},
         data() {
           return {
-            statusDistChartData: {
+            clickRateChartData: {
               chart: {
-                caption: "Request Distribution of Status",
-                plottooltext: "<b>$percentValue</b> of emails with status of <b>$label<b>",
+                caption: "Request Click Rate",
+                plottooltext: "<b>$percentValue</b> of requests are <b>$label<b>",
                 showlegend: "0",
                 showpercentvalues: "1",
                 legendposition: "bottom",
                 usedataplotcolorforlabels: "1",
                 showlabels: "0",
                 theme: "fusion",
-                "palettecolors": "#62B58F, #BC95DF"
+                "palettecolors": "f2726f, #FFC533"
               },
               data: [],
             },
@@ -55,15 +55,15 @@
             }
             var data = [];
 
-            for (var i = 0; i < this.cleanData.cleanRequestData.statusCount.length; i++) {
+            for (var i = 0; i < this.cleanData.cleanRequestData.clickRate.length; i++) {
               var dataObject = {
-                label: this.cleanData.cleanRequestData.statusCount[i].status,
-                value: this.cleanData.cleanRequestData.statusCount[i].counts
+                label: this.cleanData.cleanRequestData.clickRate[i].status,
+                value: this.cleanData.cleanRequestData.clickRate[i].count
               };
               data.push(dataObject);
             }
             data.sort(compare);
-            this.statusDistChartData.data = data;
+            this.clickRateChartData.data = data;
           },
         },
         mounted: function() {

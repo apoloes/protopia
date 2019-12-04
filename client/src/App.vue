@@ -37,6 +37,8 @@ export default {
       rawResponseData: '',
       cleanData: {
         cleanRequestData: {
+            numTotalEmails: '',
+            numRequests: '',
             numOpens: '',
             numClicks: '',
             openCount: [],
@@ -45,8 +47,11 @@ export default {
             hourlyClicksCount: [],
             statusCount: [],
             emailCount: [],
+            openRate: [],
+            clickRate: [],
         },
         cleanResponseData: {
+            numResponses: '',
             numOpens: '',
             numClicks: '',
             openCount: [],
@@ -55,6 +60,8 @@ export default {
             hourlyClicksCount: [],
             statusCount: [],
             emailCount: [],
+            openRate: [],
+            clickRate: [],
         }
       }
     }
@@ -104,6 +111,8 @@ export default {
       },
       getSetRequestDailyOpensClicks: function() {
         let numRequests = this.rawRequestData.length;
+        this.cleanData.cleanRequestData.numRequests = this.rawRequestData.length;
+        this.cleanData.cleanRequestData.numTotalEmails = this.rawSendGridData.length;
         let numOpens = 0;
         let numClicks = 0;
 
@@ -167,6 +176,7 @@ export default {
       },
       getSetResponseDailyOpensClicks: function() {
         let numResponses = this.rawResponseData.length;
+        this.cleanData.cleanResponseData.numResponses = this.rawResponseData.length;
         let numOpens = 0;
         let numClicks = 0;
 
@@ -299,6 +309,84 @@ export default {
           console.log(this.cleanData.cleanResponseData.emailCount)
         }
       },
+      getSetRequestOpenClickRate: function(){
+        let numResponses = this.rawRequestData.length
+
+        if (numResponses > 0) {
+          let open_rate = {};
+          open_rate["Unopened"] = 0;
+          open_rate["Opened"] = 0;
+
+          let click_rate = {};
+          click_rate["Unclicked"] = 0;
+          click_rate["Clicked"] = 0;
+
+          for (let i = 0; i < numResponses; i++) {
+            if (this.rawRequestData[i].opens_count == 0){
+              open_rate["Unopened"] += 1
+            }else{
+              open_rate["Opened"] += 1
+            }
+            if (this.rawRequestData[i].clicks_count == 0){
+              click_rate["Unclicked"] += 1
+            }else{
+              click_rate["Clicked"] += 1
+            }
+          }
+
+          for (let i in open_rate) {
+                  if (open_rate.hasOwnProperty(i)) {
+                      this.cleanData.cleanRequestData.openRate.push({status:i,count:open_rate[i]});
+                  }
+          }
+          console.log(this.cleanData.cleanRequestData.openRate)
+          for (let i in click_rate) {
+                  if (click_rate.hasOwnProperty(i)) {
+                      this.cleanData.cleanRequestData.clickRate.push({status:i,count:click_rate[i]});
+                  }
+          }
+          console.log(this.cleanData.cleanRequestData.clickRate)
+        }
+      },
+      getSetResponseOpenClickRate: function(){
+         let numResponses = this.rawResponseData.length
+
+        if (numResponses > 0) {
+          let open_rate = {};
+          open_rate["Unopened"] = 0;
+          open_rate["Opened"] = 0;
+
+          let click_rate = {};
+          click_rate["Unclicked"] = 0;
+          click_rate["Clicked"] = 0;
+
+          for (let i = 0; i < numResponses; i++) {
+            if (this.rawResponseData[i].opens_count == 0){
+              open_rate["Unopened"] += 1
+            }else{
+              open_rate["Opened"] += 1
+            }
+            if (this.rawResponseData[i].clicks_count == 0){
+              click_rate["Unclicked"] += 1
+            }else{
+              click_rate["Clicked"] += 1
+            }
+          }
+
+          for (let i in open_rate) {
+                  if (open_rate.hasOwnProperty(i)) {
+                      this.cleanData.cleanResponseData.openRate.push({status:i,count:open_rate[i]});
+                  }
+          }
+          console.log(this.cleanData.cleanResponseData.openRate)
+          for (let i in click_rate) {
+                  if (click_rate.hasOwnProperty(i)) {
+                      this.cleanData.cleanResponseData.clickRate.push({status:i,count:click_rate[i]});
+                  }
+          }
+          console.log(this.cleanData.cleanResponseData.clickRate)
+        }
+      },
       organizeAllDetails: async function() {
       // top level organization
       //   await this.fetchStudentAskData();
@@ -312,6 +400,8 @@ export default {
         this.getSetResponseStatusCounts();
         this.getSetRequestEmailCounts();
         this.getSetResponseEmailCounts();
+        this.getSetRequestOpenClickRate();
+        this.getSetResponseOpenClickRate();
     },
   },
   mounted: async function() {

@@ -4,6 +4,14 @@
     <h2 class="pagetitle">Requests Page</h2>
     <div class="parent-card">
       <div class="widget-card" style="text-align: center">
+        <p class="card-heading">Monthly requests: </p>
+
+        <div id="openDiv">
+          <h1 class="openNum">{{cleanData.cleanRequestData.numRequests}}</h1>
+          <vs-icon icon="drafts"></vs-icon>
+        </div>
+      </div>
+      <div class="widget-card" style="text-align: center">
         <p class="card-heading">Monthly request opens: </p>
 
         <div id="openDiv">
@@ -23,9 +31,15 @@
     <hourlyrequest-dashboard v-bind:cleanData="cleanData"></hourlyrequest-dashboard>
 
     <div id="pieCharts">
+      <openrate-dashboard v-bind:cleanData="cleanData"></openrate-dashboard>
+      <clickrate-dashboard v-bind:cleanData="cleanData"></clickrate-dashboard>
+    </div>
+
+    <div id="pieCharts">
       <statusrequest-dashboard v-bind:cleanData="cleanData"></statusrequest-dashboard>
       <fromemail-dashboard v-bind:cleanData="cleanData"></fromemail-dashboard>
     </div>
+
   </div>
 </template>
 
@@ -34,6 +48,8 @@
     import HourlyRequestRate from "./HourlyRequestRate.vue";
     import RequestStatusDist from "./RequestStatusDist.vue";
     import RequestFromEmail from "./RequestFromEmail.vue";
+    import RequestOpenRate from "./RequestOpenRate.vue";
+    import RequestClickRate from "./RequestClickRate.vue";
 
     export default {
         props: ["cleanData"],
@@ -42,10 +58,12 @@
             'hourlyrequest-dashboard': HourlyRequestRate,
             'statusrequest-dashboard': RequestStatusDist,
             'fromemail-dashboard': RequestFromEmail,
+            'openrate-dashboard': RequestOpenRate,
+            'clickrate-dashboard': RequestClickRate,
         },
         data () {
             return {
-                childComponents: ['DailyRequestRate.vue','HourlyRequestRate.vue', 'RequestStatusDist.vue', 'RequestFromEmail.vue']
+                childComponents: ['DailyRequestRate.vue','HourlyRequestRate.vue', 'RequestStatusDist.vue', 'RequestFromEmail.vue', 'RequestOpenRate.vue', 'RequestClickRate.vue']
             }
         },
         methods: {

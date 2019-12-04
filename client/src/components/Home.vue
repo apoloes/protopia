@@ -4,6 +4,14 @@
     <h2 class="pagetitle">Home</h2>
     <div class="parent-card">
       <div class="widget-card" style="text-align: center">
+        <p class="card-heading">Monthly emails: </p>
+
+        <div id="openDiv">
+          <h1 class="openNum">{{cleanData.cleanRequestData.numTotalEmails}}</h1>
+          <vs-icon icon="drafts"></vs-icon>
+        </div>
+      </div>
+      <div class="widget-card" style="text-align: center">
         <p class="card-heading">Monthly request/response opens: </p>
 
         <div id="openDiv">
