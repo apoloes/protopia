@@ -4,7 +4,7 @@
     <h2 class="pagetitle">Responses Page</h2>
     <div class="parent-card">
       <div class="widget-card">
-        <p class="card-heading">Monthly responses: </p>
+        <p class="card-heading">Monthly Responses: </p>
 
         <div class="dataCounts">
           <h1>{{cleanData.cleanResponseData.numResponses}}</h1><vs-icon icon="drafts"></vs-icon>
@@ -12,14 +12,14 @@
       </div>
 
       <div class="widget-card">
-        <p class="card-heading">Monthly response opens: </p>
+        <p class="card-heading">Monthly Response Opens: </p>
         <div class="dataCounts">
           <h1>{{cleanData.cleanResponseData.numOpens}}</h1><vs-icon icon="drafts"></vs-icon>
         </div>
       </div>
 
       <div class="widget-card">
-        <p class="card-heading">Monthly response clicks: </p>
+        <p class="card-heading">Monthly Response Clicks: </p>
         <div class="dataCounts">
           <h1>{{cleanData.cleanResponseData.numClicks}}</h1><vs-icon icon="touch_app"></vs-icon>
         </div>
