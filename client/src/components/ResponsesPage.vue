@@ -4,24 +4,35 @@
     <h2 class="pagetitle">Responses Page</h2>
     <div class="parent-card">
       <div class="widget-card">
-        <p class="card-heading">Monthly response opens: </p>
+        <p class="card-heading">Monthly responses: </p>
 
-        <div id="openDiv">
-          <h1 class="openNum">{{cleanData.cleanResponseData.numOpens}}</h1>
-          <vs-icon icon="drafts"></vs-icon>
+        <div class="dataCounts">
+          <h1>{{cleanData.cleanResponseData.numResponses}}</h1><vs-icon icon="drafts"></vs-icon>
         </div>
       </div>
+
+      <div class="widget-card">
+        <p class="card-heading">Monthly response opens: </p>
+        <div class="dataCounts">
+          <h1>{{cleanData.cleanResponseData.numOpens}}</h1><vs-icon icon="drafts"></vs-icon>
+        </div>
+      </div>
+
       <div class="widget-card">
         <p class="card-heading">Monthly response clicks: </p>
-        <div id="clickDiv">
-          <h1 class="clicksNum">{{cleanData.cleanResponseData.numClicks}}</h1>
-          <vs-icon icon="touch_app"></vs-icon>
+        <div class="dataCounts">
+          <h1>{{cleanData.cleanResponseData.numClicks}}</h1><vs-icon icon="touch_app"></vs-icon>
         </div>
       </div>
     </div>
+
     <dailyresponse-dashboard v-bind:cleanData="cleanData"></dailyresponse-dashboard>
     <hourlyresponse-dashboard v-bind:cleanData="cleanData"></hourlyresponse-dashboard>
 
+    <div id="pieCharts">
+      <openrate-dashboard v-bind:cleanData="cleanData"></openrate-dashboard>
+      <clickrate-dashboard v-bind:cleanData="cleanData"></clickrate-dashboard>
+    </div>
     <div id="pieCharts">
       <statusresponse-dashboard v-bind:cleanData="cleanData"></statusresponse-dashboard>
       <fromemail-dashboard v-bind:cleanData="cleanData"></fromemail-dashboard>
@@ -34,6 +45,8 @@
     import HourlyResponseRate from "./HourlyResponseRate.vue";
     import ResponseStatusDist from "./ResponseStatusDist.vue";
     import ResponseFromEmail from "./ResponseFromEmail.vue";
+    import ResponseOpenRate from "./ResponseOpenRate.vue";
+    import ResponseClickRate from "./ResponseClickRate.vue";
 
     export default {
         props: ["cleanData"],
@@ -42,10 +55,12 @@
             'hourlyresponse-dashboard': HourlyResponseRate,
             'statusresponse-dashboard': ResponseStatusDist,
             'fromemail-dashboard': ResponseFromEmail,
+            'openrate-dashboard': ResponseOpenRate,
+            'clickrate-dashboard': ResponseClickRate,
         },
         data () {
             return {
-                childComponents: ['DailyResponseRate.vue','HourlyResponseRate.vue', 'ResponseStatusDist.vue', 'ResponseFromEmail.vue']
+                childComponents: ['DailyResponseRate.vue','HourlyResponseRate.vue', 'ResponseStatusDist.vue', 'ResponseFromEmail.vue', 'ResponseOpenRate.vue', 'ResponseClickRate.vue']
             }
         },
         methods: {
@@ -61,16 +76,6 @@
     align-items: center;
     justify-content: center;
   }
-  .openNum{
-    text-align: left;
-    padding: 5px;
-    /*color: #cba8e0;*/
-  }
-  .clicksNum{
-    text-align: left;
-    padding: 5px;
-    /*color: #cba8e0;*/
-  }
   .card-heading{
     padding: 5px;
     font-weight: lighter;
@@ -82,18 +87,6 @@
     width: 80%;
     margin: auto;
     padding: 30px;
-  }
-  #openDiv{
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    color: #9178a0;
-  }
-  #clickDiv{
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    color: #9178a0;
   }
   .widget-card{
     border-radius: 5px;

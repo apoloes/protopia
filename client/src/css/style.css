@@ -337,6 +337,18 @@ a{
   padding: 5px !important;
 }
 
+.dataCounts{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  color: #9178a0;
+}
+.dataCounts h1{
+  text-align: left;
+  padding: 5px;
+  /*color: #cba8e0;*/
+}
+
 
 /* NEW SIDEBAR STYLING */
 .vs-sidebar--item a{

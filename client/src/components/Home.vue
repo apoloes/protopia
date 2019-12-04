@@ -4,18 +4,23 @@
     <h2 class="pagetitle">Home</h2>
     <div class="parent-card">
       <div class="widget-card">
-        <p class="card-heading">Monthly request/response opens: </p>
-
-        <div id="openDiv">
-          <h1 class="openNum">{{cleanData.cleanRequestData.numOpens + cleanData.cleanResponseData.numOpens}}</h1>
-          <vs-icon icon="drafts"></vs-icon>
+        <p class="card-heading">Monthly emails: </p>
+        <div class="dataCounts">
+          <h1>{{cleanData.cleanRequestData.numTotalEmails}}</h1><vs-icon icon="drafts"></vs-icon>
         </div>
       </div>
+
+      <div class="widget-card">
+        <p class="card-heading">Monthly request/response opens: </p>
+        <div class="dataCounts">
+          <h1>{{cleanData.cleanRequestData.numOpens + cleanData.cleanResponseData.numOpens}}</h1><vs-icon icon="drafts"></vs-icon>
+        </div>
+      </div>
+
       <div class="widget-card">
         <p class="card-heading">Monthly request/response clicks: </p>
-        <div id="clickDiv">
-          <h1 class="clicksNum">{{cleanData.cleanRequestData.numClicks + cleanData.cleanResponseData.numClicks}}</h1>
-          <vs-icon icon="touch_app"></vs-icon>
+        <div class="dataCounts">
+          <h1>{{cleanData.cleanRequestData.numClicks + cleanData.cleanResponseData.numClicks}}</h1><vs-icon icon="touch_app"></vs-icon>
         </div>
       </div>
     </div>
@@ -30,17 +35,6 @@
 </script>
 
 <style scoped>
-
-  .openNum{
-    text-align: left;
-    padding: 5px;
-    /*color: #cba8e0;*/
-  }
-  .clicksNum{
-    text-align: left;
-    padding: 5px;
-    /*color: #cba8e0;*/
-  }
   .card-heading{
     padding: 5px;
     font-weight: lighter;
@@ -52,18 +46,6 @@
     width: 80%;
     margin: auto;
     padding: 30px;
-  }
-  #openDiv{
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    color: #9178a0;
-  }
-  #clickDiv{
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    color: #9178a0;
   }
   .widget-card{
     border-radius: 5px;
