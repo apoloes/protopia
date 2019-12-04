@@ -4,15 +4,15 @@
     <h2 class="pagetitle">Home</h2>
     <div class="parent-card">
       <div class="widget-card" style="text-align: center">
-        <p class="card-heading">Monthly emails: </p>
+        <p class="card-heading">Total Monthly Emails: </p>
 
         <div id="openDiv">
-          <h1 class="openNum">{{cleanData.cleanRequestData.numTotalEmails}}</h1>
-          <vs-icon icon="drafts"></vs-icon>
+          <h1 class="openNum">{{cleanData.cleanFullData.numTotalEmails}}</h1>
+          <vs-icon icon="inbox"></vs-icon>
         </div>
       </div>
       <div class="widget-card" style="text-align: center">
-        <p class="card-heading">Monthly request/response opens: </p>
+        <p class="card-heading">Total Monthly Opens: </p>
 
         <div id="openDiv">
           <h1 class="openNum">{{cleanData.cleanRequestData.numOpens + cleanData.cleanResponseData.numOpens}}</h1>
@@ -20,7 +20,7 @@
         </div>
       </div>
       <div class="widget-card" style="text-align: center">
-        <p class="card-heading">Monthly request/response clicks: </p>
+        <p class="card-heading">Total Monthly Clicks: </p>
         <div id="clickDiv">
           <h1 class="clicksNum">{{cleanData.cleanRequestData.numClicks + cleanData.cleanResponseData.numClicks}}</h1>
           <vs-icon icon="touch_app"></vs-icon>

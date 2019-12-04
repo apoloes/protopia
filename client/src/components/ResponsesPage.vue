@@ -4,15 +4,15 @@
     <h2 class="pagetitle">Responses Page</h2>
     <div class="parent-card">
       <div class="widget-card" style="text-align: center">
-        <p class="card-heading">Monthly responses: </p>
+        <p class="card-heading">Total Monthly Responses: </p>
 
         <div id="openDiv">
           <h1 class="openNum">{{cleanData.cleanResponseData.numResponses}}</h1>
-          <vs-icon icon="drafts"></vs-icon>
+          <vs-icon icon="inbox"></vs-icon>
         </div>
       </div>
       <div class="widget-card" style="text-align: center">
-        <p class="card-heading">Monthly response opens: </p>
+        <p class="card-heading">Monthly Response Opens: </p>
 
         <div id="openDiv">
           <h1 class="openNum">{{cleanData.cleanResponseData.numOpens}}</h1>
@@ -20,7 +20,7 @@
         </div>
       </div>
       <div class="widget-card" style="text-align: center">
-        <p class="card-heading">Monthly response clicks: </p>
+        <p class="card-heading">Monthly Response Clicks: </p>
         <div id="clickDiv">
           <h1 class="clicksNum">{{cleanData.cleanResponseData.numClicks}}</h1>
           <vs-icon icon="touch_app"></vs-icon>
@@ -29,7 +29,7 @@
     </div>
     <dailyresponse-dashboard v-bind:cleanData="cleanData"></dailyresponse-dashboard>
     <hourlyresponse-dashboard v-bind:cleanData="cleanData"></hourlyresponse-dashboard>
-    
+
     <div id="pieCharts">
       <openrate-dashboard v-bind:cleanData="cleanData"></openrate-dashboard>
       <clickrate-dashboard v-bind:cleanData="cleanData"></clickrate-dashboard>

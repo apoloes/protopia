@@ -32,7 +32,8 @@
                 legendposition: "bottom",
                 usedataplotcolorforlabels: "1",
                 showlabels: "0",
-                theme: "fusion"
+                theme: "fusion",
+                "palettecolors": "#62B58F, #BC95DF"
               },
               data: [],
             },

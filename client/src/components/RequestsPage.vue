@@ -4,15 +4,15 @@
     <h2 class="pagetitle">Requests Page</h2>
     <div class="parent-card">
       <div class="widget-card" style="text-align: center">
-        <p class="card-heading">Monthly requests: </p>
+        <p class="card-heading">Total Monthly Requests: </p>
 
         <div id="openDiv">
           <h1 class="openNum">{{cleanData.cleanRequestData.numRequests}}</h1>
-          <vs-icon icon="drafts"></vs-icon>
+          <vs-icon icon="inbox"></vs-icon>
         </div>
       </div>
       <div class="widget-card" style="text-align: center">
-        <p class="card-heading">Monthly request opens: </p>
+        <p class="card-heading">Monthly Request Opens: </p>
 
         <div id="openDiv">
           <h1 class="openNum">{{cleanData.cleanRequestData.numOpens}}</h1>
@@ -20,7 +20,7 @@
         </div>
       </div>
       <div class="widget-card" style="text-align: center">
-        <p class="card-heading">Monthly request clicks: </p>
+        <p class="card-heading">Monthly Request Clicks: </p>
         <div id="clickDiv">
           <h1 class="clicksNum">{{cleanData.cleanRequestData.numClicks}}</h1>
           <vs-icon icon="touch_app"></vs-icon>
