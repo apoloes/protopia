@@ -11,7 +11,7 @@
       </div>
 
       <div class="widget-card">
-        <p class="card-heading">Monthly request/response opens: </p>
+        <p class="card-heading">Total monthly: </p>
         <div class="dataCounts">
           <h1>{{cleanData.cleanRequestData.numOpens + cleanData.cleanResponseData.numOpens}}</h1><vs-icon icon="drafts"></vs-icon>
         </div>
