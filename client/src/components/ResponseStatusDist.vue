@@ -6,7 +6,6 @@
         width="100%"
         height="100%"
         data-format="json"
-        dataEmptyMessage="i-https://i.postimg.cc/R0QCk9vV/Rolling-0-9s-99px.gif"
         :data-source="statusDistChartData"
       >
       </fusioncharts>
@@ -28,7 +27,7 @@
                 plottooltext: "<b>$percentValue</b> of responses have a status of <b>$label<b>",
                 "palettecolors": "#62B58F, #BC95DF",
                 theme: "fusion",
-                showlegend: "1",
+                showlegend: "0",
                 showlabels: "0",
                 "showBorder": "0",
                 "showShadow": "0",

@@ -6,7 +6,6 @@
         width="100%"
         height="100%"
         data-format="json"
-        dataEmptyMessage="i-https://i.postimg.cc/R0QCk9vV/Rolling-0-9s-99px.gif"
         :data-source="clickRateChartData"
       >
       </fusioncharts>
@@ -26,7 +25,7 @@
               chart: {
                 plottooltext: "<b>$percentValue</b> of requests <b>$label<b>",
                 theme: "fusion",
-                showlegend: "1",
+                showlegend: "0",
                 showlabels: "0",
                 "palettecolors": "f2726f, #FFC533",
                 "showBorder": "0",
@@ -36,8 +35,8 @@
                 "bgColor": "#1D1B41",
                 "bgAlpha": "0",
                 "canvasBgAlpha": "0",
-                "doughnutRadius": "105",
-                "pieRadius": "125",
+                "doughnutRadius": "75",
+                "pieRadius": "95",
                 "plotBorderAlpha": "0",
                 "toolTipBgcolor": "#9178a0",
                 "toolTipPadding": "7",

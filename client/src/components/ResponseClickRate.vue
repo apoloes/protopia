@@ -25,7 +25,7 @@
               chart: {
                 plottooltext: "<b>$percentValue</b> of responses <b>$label<b>",
                 theme: "fusion",
-                showlegend: "1",
+                showlegend: "0",
                 showlabels: "0",
                 "palettecolors": "f2726f, #FFC533",
                 "showBorder": "0",
