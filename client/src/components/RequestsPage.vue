@@ -5,21 +5,21 @@
     <div class="parent-card">
 
       <div class="widget-card">
-        <p class="card-heading">Monthly requests: </p>
+        <p class="card-heading">Monthly Requests: </p>
         <div class="dataCounts">
           <h1>{{cleanData.cleanRequestData.numRequests}}</h1><vs-icon icon="drafts"></vs-icon>
         </div>
       </div>
 
       <div class="widget-card">
-        <p class="card-heading">Monthly request opens: </p>
+        <p class="card-heading">Monthly Request Opens: </p>
         <div class="dataCounts">
           <h1>{{cleanData.cleanRequestData.numOpens}}</h1><vs-icon icon="drafts"></vs-icon>
         </div>
       </div>
 
       <div class="widget-card">
-        <p class="card-heading">Monthly request clicks: </p>
+        <p class="card-heading">Monthly Request Clicks: </p>
         <div class="dataCounts">
           <h1>{{cleanData.cleanRequestData.numClicks}}</h1><vs-icon icon="touch_app"></vs-icon>
         </div>

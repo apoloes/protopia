@@ -2,7 +2,7 @@
   <div class="custom-card header-card card">
     <div class="card-body pt-0">
       <fusioncharts
-        type="pie2d"
+        type="bar2d"
         width="100%"
         height="100%"
         data-format="json"
@@ -23,17 +23,27 @@
         data() {
           return {
             emailDistChartData: {
-              chart: {
-                caption: "Response Distribution of From Emails",
-                plottooltext: "<b>$percentValue</b> of responses received from <b>$label</b>",
-                showlegend: "0",
-                showpercentvalues: "1",
-                legendposition: "bottom",
-                usedataplotcolorforlabels: "1",
-                showlabels: "0",
-                theme: "fusion"
-              },
-              data: [],
+              // chart: {
+              //   caption: "Response Distribution of From Emails",
+              //   plottooltext: "<b>$percentValue</b> of responses received from <b>$label</b>",
+              //   showlegend: "0",
+              //   showpercentvalues: "1",
+              //   legendposition: "bottom",
+              //   usedataplotcolorforlabels: "1",
+              //   showlabels: "0",
+              //   theme: "fusion"
+              // },
+              // data: [],
+                chart: {
+                    caption: "Top 5 Stores by Sales",
+                    subCaption: "Last month",
+                    yAxisName: "Sales (In USD)",
+                    numberPrefix: "$",
+                    alignCaptionWithCanvas: "0",
+                    // scaleRecursively: "1",
+                    theme: "fusion"
+                },
+                data: [],
             },
           };
         },
