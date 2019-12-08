@@ -8,7 +8,8 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = 8000;
+const SERVER = process.env.SERVER;
 const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
 const SENDGRID_URL = process.env.SENDGRID_URL;
 //const allowedOrigins = ['http://localhost:8000', 'http://localhost:8080'];
@@ -82,7 +83,11 @@ app.get('/api/open', (req, res)=>{
 });
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + "/dist");
+    try {
+        res.sendFile(__dirname + "/dist");
+    } catch {
+        res.send("No build file available");
+    }
 });
 
 //Start server
