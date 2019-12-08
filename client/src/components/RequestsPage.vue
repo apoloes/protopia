@@ -33,10 +33,11 @@
     <div id="pieCharts">
       <openrate-dashboard v-bind:cleanData="cleanData"></openrate-dashboard>
       <clickrate-dashboard v-bind:cleanData="cleanData"></clickrate-dashboard>
+      <statusrequest-dashboard v-bind:cleanData="cleanData"></statusrequest-dashboard>
     </div>
 
     <div id="pieCharts">
-      <statusrequest-dashboard v-bind:cleanData="cleanData"></statusrequest-dashboard>
+      
       <fromemail-dashboard v-bind:cleanData="cleanData"></fromemail-dashboard>
     </div>
 

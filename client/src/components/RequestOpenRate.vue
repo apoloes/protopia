@@ -2,11 +2,10 @@
   <div class="custom-card header-card card">
     <div class="card-body pt-0">
       <fusioncharts
-        type="pie2d"
+        type="doughnut2d"
         width="100%"
         height="100%"
         data-format="json"
-        dataEmptyMessage="i-https://i.postimg.cc/R0QCk9vV/Rolling-0-9s-99px.gif"
         :data-source="openRateChartData"
       >
       </fusioncharts>
@@ -24,15 +23,37 @@
           return {
             openRateChartData: {
               chart: {
-                caption: "Request Open Rate",
-                plottooltext: "<b>$percentValue</b> of requests are <b>$label<b>",
-                showlegend: "0",
-                showpercentvalues: "1",
-                legendposition: "bottom",
-                usedataplotcolorforlabels: "1",
-                showlabels: "0",
                 theme: "fusion",
-                "palettecolors": "5d62b5,29c3be"
+                plottooltext: "<b>$percentValue</b> of requests have been <b>$label<b>",
+                showlegend: "1",
+                showlabels: "0",
+                "palettecolors": "5d62b5,29c3be",
+                "showBorder": "0",
+                "showShadow": "0",
+                "use3DLighting": "0",
+                "showValues": "0",
+                "bgColor": "#1D1B41",
+                "bgAlpha": "0",
+                "canvasBgAlpha": "0",
+                "doughnutRadius": "105",
+                "pieRadius": "125",
+                "plotBorderAlpha": "0",
+                "toolTipBgcolor": "#9178a0",
+                "toolTipPadding": "7",
+                "toolTipBorderRadius": "3",
+                "toolTipBorderAlpha": "30",
+                "tooltipBorderThickness": "0.7",
+                "toolTipColor": "#FFFFFF",
+                "legendShadow": "0",
+                "legendBorderAlpha": "0",
+                "legendBgAlpha": "0",
+                "legendPosition": "BOTTOM",
+                "defaultCenterLabel": "Open Rate",
+                "centerLabel": "$value <br> $label",
+                "centerLabelBold": "1",
+                centerLabelColor: "#999999",
+                "centerLabelFontSize": "20",
+                "enableRotation": "0",
               },
               data: [],
             },
