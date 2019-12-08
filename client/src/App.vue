@@ -89,11 +89,17 @@ export default {
                       if (response.status === 200) { resolve(''); }
                   })
                   .catch(err => {
-                      axios.get('http://localhost:8000' + path) // We are using a proxy server
+                      axios.get('http://localhost:80' + path) // We are using a proxy server
                           .then(response => {
-                              if (response.status === 200) { resolve('http://localhost:8000'); }
+                              if (response.status === 200) { resolve('http://localhost:80'); }
                           })
-                          .catch(err => alert(err.message));
+                        .catch(err => {
+                          axios.get('http://34.74.129.63' + path) // We are using a proxy server
+                            .then(response => {
+                              if (response.status === 200) { resolve('http://34.74.129.63'); }
+                            })
+                            .catch(err => alert(err.message));
+                        });
           });
         });
       },
@@ -357,7 +363,7 @@ export default {
             let sorted = array.sort(function(a, b) {
               return (a.value < b.value) ? 1 : ((b.value < a.value) ? -1 : 0)
             });
-            
+
             let top5 = [];
             console.log(sorted);
             for (let i = 0; i < 5; i++){
@@ -400,7 +406,7 @@ export default {
             let sorted = array.sort(function(a, b) {
               return (a.value < b.value) ? 1 : ((b.value < a.value) ? -1 : 0)
             });
-            
+
             let top5 = [];
             console.log(sorted);
             for (let i = 0; i < 5; i++){
