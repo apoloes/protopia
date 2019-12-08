@@ -30,6 +30,7 @@
     to
     <input type="date" :value="responseEndDate"
            @input="responseEndDate = $event.target.value">
+    <div id="graphContainer">
     <dailyresponse-dashboard v-bind:cleanData="cleanData"v-bind:responseStartDate="responseStartDate"v-bind:responseEndDate="responseEndDate"></dailyresponse-dashboard>
     <hourlyresponse-dashboard v-bind:cleanData="cleanData"></hourlyresponse-dashboard>
 
@@ -39,6 +40,8 @@
       <statusresponse-dashboard v-bind:cleanData="cleanData"></statusresponse-dashboard>
       <fromemail-dashboard v-bind:cleanData="cleanData"></fromemail-dashboard>
     </div>
+    </div>
+    
     <div id="pieCharts">
       
       
@@ -81,6 +84,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    
+  }
+
+  #graphContainer {
   }
   .card-heading{
     padding: 5px;
