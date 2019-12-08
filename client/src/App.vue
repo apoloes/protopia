@@ -94,9 +94,9 @@ export default {
                               if (response.status === 200) { resolve('http://localhost:8000'); }
                           })
                         .catch(err => {
-                          axios.get('https://34.74.129.63:8000' + path) // We are using a proxy server
+                          axios.get('https://34.74.129.63' + path) // We are using a proxy server
                             .then(response => {
-                              if (response.status === 200) { resolve('https://34.74.129.63:8000'); }
+                              if (response.status === 200) { resolve('https://34.74.129.63'); }
                             })
                             .catch(err => alert(err.message));
                         });
