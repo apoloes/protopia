@@ -279,13 +279,12 @@ body {
 }
 .vs-sidebar-primary .vs-sidebar-item-active a{
   color: #9178a0 !important;
-  font-weight: bold;
+  font-weight: normal;
 }
 .vs-sidebar--item vs-sidebar-item-active{
   color: #9178a0 !important;
-  font-weight: bold;
+  font-weight: normal;
 }
-
 a{
   color: #9178a0 !important;
 }
@@ -326,30 +325,6 @@ a{
   align-items: center;
 }
 
-/* Text labels at the bottom */
-.raphael-group-10-axisbottom{
-  padding-left: 50px !important;
-}
-.raphael-group-102-dataset-Label-group text{
-  font-size: 1em !important;
-  /*fill:  !important;*/
-}
-.raphael-group-105-dataset-axis {
-  padding-left: 100px !important;
-}
-.raphael-group-128-dataset-axis text{ /* Targets the date labels (X-axis) */
-  /*padding-left: 50px;*/
-  stroke: #5adea1 !important;
-  font-weight: 400 !important;
-}
-.raphael-group-70-plot-group path{
-  fill: #6297d9 !important;
-}
-.card-body{
-  /*background-color: #7da7e2;*/
-  /*padding-left: 0px;*/
-}
-
 .custom-card {
   background-color: transparent !important;
 }
@@ -360,6 +335,18 @@ a{
   font-family: Roboto;
   color: #000000 !important;
   padding: 5px !important;
+}
+
+.dataCounts{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  color: #9178a0;
+}
+.dataCounts h1{
+  text-align: left;
+  padding: 5px;
+  /*color: #cba8e0;*/
 }
 
 

@@ -3,31 +3,35 @@
     <h1 class="globaltitle"><router-link to="/">Protopia</router-link></h1>
     <h2 class="pagetitle">Requests Page</h2>
     <div class="parent-card">
-      <div class="widget-card" style="text-align: center">
-        <p class="card-heading">Total Monthly Requests: </p>
 
-        <div id="openDiv">
-          <h1 class="openNum">{{cleanData.cleanRequestData.numRequests}}</h1>
-          <vs-icon icon="inbox"></vs-icon>
+      <div class="widget-card">
+        <p class="card-heading">Monthly Requests: </p>
+        <div class="dataCounts">
+          <h1>{{cleanData.cleanRequestData.numRequests}}</h1><vs-icon icon="drafts"></vs-icon>
         </div>
       </div>
-      <div class="widget-card" style="text-align: center">
+
+      <div class="widget-card">
         <p class="card-heading">Monthly Request Opens: </p>
+        <div class="dataCounts">
+          <h1>{{cleanData.cleanRequestData.numOpens}}</h1><vs-icon icon="drafts"></vs-icon>
+        </div>
+      </div>
 
-        <div id="openDiv">
-          <h1 class="openNum">{{cleanData.cleanRequestData.numOpens}}</h1>
-          <vs-icon icon="drafts"></vs-icon>
-        </div>
-      </div>
-      <div class="widget-card" style="text-align: center">
+      <div class="widget-card">
         <p class="card-heading">Monthly Request Clicks: </p>
-        <div id="clickDiv">
-          <h1 class="clicksNum">{{cleanData.cleanRequestData.numClicks}}</h1>
-          <vs-icon icon="touch_app"></vs-icon>
+        <div class="dataCounts">
+          <h1>{{cleanData.cleanRequestData.numClicks}}</h1><vs-icon icon="touch_app"></vs-icon>
         </div>
       </div>
+
     </div>
-    <dailyrequest-dashboard v-bind:cleanData="cleanData"></dailyrequest-dashboard>
+    <input type="date" :value="startDate"
+           @input="startDate = $event.target.value">
+    to
+    <input type="date" :value="endDate"
+           @input="endDate = $event.target.value">
+    <dailyrequest-dashboard v-bind:cleanData="cleanData"v-bind:startDate="startDate"v-bind:endDate="endDate"></dailyrequest-dashboard>
     <hourlyrequest-dashboard v-bind:cleanData="cleanData"></hourlyrequest-dashboard>
 
     <div id="pieCharts">
@@ -35,7 +39,6 @@
       <clickrate-dashboard v-bind:cleanData="cleanData"></clickrate-dashboard>
       <statusrequest-dashboard v-bind:cleanData="cleanData"></statusrequest-dashboard>
     </div>
-
     <div id="pieCharts">
       
       <fromemail-dashboard v-bind:cleanData="cleanData"></fromemail-dashboard>
@@ -53,7 +56,7 @@
     import RequestClickRate from "./RequestClickRate.vue";
 
     export default {
-        props: ["cleanData"],
+        props: ["cleanData", "startDate", "endDate"],
         components: {
             'dailyrequest-dashboard': DailyRequestRate,
             'hourlyrequest-dashboard': HourlyRequestRate,
@@ -82,16 +85,6 @@
     align-items: center;
     justify-content: center;
   }
-  .openNum{
-    text-align: left;
-    padding: 5px;
-    /*color: #cba8e0;*/
-  }
-  .clicksNum{
-    text-align: left;
-    padding: 5px;
-    /*color: #cba8e0;*/
-  }
   .card-heading{
     padding: 5px;
     font-weight: lighter;
@@ -104,21 +97,13 @@
     margin: auto;
     padding: 30px;
   }
-  #openDiv{
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    color: #9178a0;
-  }
-  #clickDiv{
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    color: #9178a0;
-  }
+
   .widget-card{
     border-radius: 5px;
     background: none !important;
     box-shadow: none !important;
+  }
+  .widget-card .vs-icon{
+    padding-bottom: 4px;
   }
 </style>
