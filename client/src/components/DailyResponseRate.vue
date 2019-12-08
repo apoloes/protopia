@@ -17,12 +17,12 @@
 
 <script>
     export default {
-        props: ["cleanData"],
+        props: ["cleanData", "responseStartDate", "responseEndDate"],
         data() {
             return {
                 dailyResponseRateChartData: {
                     chart: {
-                        caption: "Daily Open and Click Rates",
+                        caption: "Daily Open, Click, and Response Rates",
                         yaxisname: "Frequency",
                         subcaption: "Last Month",
                         numdivlines: "3",
@@ -120,8 +120,61 @@
                 this.dailyResponseRateChartData.trendlines[0].line[0].displayvalue = "Avg. Opens: ".concat(Math.round(this.dailyResponseRateChartData.trendlines[0].line[0].startvalue.toString()))
                 this.dailyResponseRateChartData.trendlines[0].line[1].displayvalue = "Avg. Clicks: ".concat(Math.round(this.dailyResponseRateChartData.trendlines[0].line[1].startvalue.toString()))
                 this.dailyResponseRateChartData.trendlines[0].line[2].displayvalue = "Avg. Responses: ".concat(Math.round(this.dailyResponseRateChartData.trendlines[0].line[2].startvalue.toString()))
-                
+
             },
+          filterDates: function () {
+            if (this.responseStartDate !== '' && this.responseEndDate !== '') {
+              if (this.cleanData.cleanResponseData.clicksCount.length != 0
+                || this.cleanData.cleanResponseData.openCount.length != 0) {
+                let categories = [];
+                let opens = [];
+                let clicks = [];
+                let responses = [];
+
+                let avgClicks = 0;
+                let avgOpens = 0;
+                let avgResponses = 0;
+
+                for (let i = this.cleanData.cleanResponseData.openCount.length-1; i >= 0; i--) {
+                  let dateStr = this.cleanData.cleanResponseData.openCount[i].date;
+                  if (dateStr >= this.responseStartDate
+                    && dateStr <= this.responseEndDate) {
+                    let categoryObject = {
+                      label: this.cleanData.cleanResponseData.openCount[i].date,
+                    };
+                    avgOpens = avgOpens + this.cleanData.cleanResponseData.openCount[i].counts
+                    let opensObject = {
+                      value: this.cleanData.cleanResponseData.openCount[i].counts,
+                    };
+                    avgClicks = avgClicks + this.cleanData.cleanResponseData.clicksCount[i].counts
+                    let clicksObject = {
+                      value: this.cleanData.cleanResponseData.clicksCount[i].counts,
+                    };
+                    avgResponses = avgResponses + this.cleanData.cleanResponseData.responseCount[i].counts
+                    let responsesObject = {
+                      value: this.cleanData.cleanResponseData.responseCount[i].counts,
+                    };
+                    categories.push(categoryObject);
+                    opens.push(opensObject);
+                    clicks.push(clicksObject);
+                    responses.push(responsesObject);
+                  }
+                }
+                this.dailyResponseRateChartData.categories[0].category = categories;
+                this.dailyResponseRateChartData.dataset[0].data = opens;
+                this.dailyResponseRateChartData.dataset[1].data = clicks;
+                this.dailyResponseRateChartData.dataset[2].data = responses;
+                this.dailyResponseRateChartData.trendlines[0].line[0].startvalue = avgOpens / this.cleanData.cleanResponseData.openCount.length
+                this.dailyResponseRateChartData.trendlines[0].line[1].startvalue = avgClicks / this.cleanData.cleanResponseData.openCount.length
+                this.dailyResponseRateChartData.trendlines[0].line[2].startvalue = avgResponses / this.cleanData.cleanResponseData.openCount.length
+                this.dailyResponseRateChartData.trendlines[0].line[0].displayvalue = "Avg. Opens: ".concat(Math.round(this.dailyResponseRateChartData.trendlines[0].line[0].startvalue.toString()))
+                this.dailyResponseRateChartData.trendlines[0].line[1].displayvalue = "Avg. Clicks: ".concat(Math.round(this.dailyResponseRateChartData.trendlines[0].line[1].startvalue.toString()))
+                this.dailyResponseRateChartData.trendlines[0].line[2].displayvalue = "Avg. Responses: ".concat(Math.round(this.dailyResponseRateChartData.trendlines[0].line[2].startvalue.toString()))
+              }
+            } else {
+              this.setChartData();
+            }
+          }
         },
         mounted:function() {
             if (this.cleanData.cleanResponseData.clicksCount.length === 0
@@ -129,9 +182,11 @@
                 let clicks = [];
                 let opens = [];
                 let categories = [];
+                let responses = [];
                 for (let i = 0; i < 32; i++){
                     clicks.push({value: "0"});
                     opens.push({value: "0"});
+                    responses.push({value: "0"});
                     categories.push({label: i});
                 }
 
@@ -145,12 +200,22 @@
             }
         },
         watch: {
-            cleanData: {
-                handler: function() {
-                    this.setChartData();
-                },
-                deep: true
+          cleanData: {
+            handler: function() {
+              this.setChartData();
             },
+            deep: true
+          },
+          responseStartDate: {
+            handler: function() {
+              this.filterDates();
+            },
+          },
+          responseEndDate: {
+            handler: function() {
+              this.filterDates();
+            },
+          },
         },
     };
 </script>

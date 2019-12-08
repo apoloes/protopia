@@ -22,7 +22,7 @@
           return {
            hourlyRequestRateChartData: {
               chart: {
-                caption: "Hourly Open and Click Rates",
+                caption: "Hourly Open, Click, and Request Rates",
                 yaxisname: "Frequency",
                 subcaption: "Last Month",
                 numdivlines: "3",

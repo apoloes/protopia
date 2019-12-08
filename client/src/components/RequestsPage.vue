@@ -26,8 +26,12 @@
       </div>
 
     </div>
-
-    <dailyrequest-dashboard v-bind:cleanData="cleanData"></dailyrequest-dashboard>
+    <input type="date" :value="startDate"
+           @input="startDate = $event.target.value">
+    to
+    <input type="date" :value="endDate"
+           @input="endDate = $event.target.value">
+    <dailyrequest-dashboard v-bind:cleanData="cleanData"v-bind:startDate="startDate"v-bind:endDate="endDate"></dailyrequest-dashboard>
     <hourlyrequest-dashboard v-bind:cleanData="cleanData"></hourlyrequest-dashboard>
 
     <div id="pieCharts">
@@ -51,7 +55,7 @@
     import RequestClickRate from "./RequestClickRate.vue";
 
     export default {
-        props: ["cleanData"],
+        props: ["cleanData", "startDate", "endDate"],
         components: {
             'dailyrequest-dashboard': DailyRequestRate,
             'hourlyrequest-dashboard': HourlyRequestRate,

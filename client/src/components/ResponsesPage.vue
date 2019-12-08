@@ -25,8 +25,12 @@
         </div>
       </div>
     </div>
-
-    <dailyresponse-dashboard v-bind:cleanData="cleanData"></dailyresponse-dashboard>
+    <input type="date" :value="responseStartDate"
+           @input="responseStartDate = $event.target.value">
+    to
+    <input type="date" :value="responseEndDate"
+           @input="responseEndDate = $event.target.value">
+    <dailyresponse-dashboard v-bind:cleanData="cleanData"v-bind:responseStartDate="responseStartDate"v-bind:responseEndDate="responseEndDate"></dailyresponse-dashboard>
     <hourlyresponse-dashboard v-bind:cleanData="cleanData"></hourlyresponse-dashboard>
 
     <div id="pieCharts">
@@ -49,7 +53,7 @@
     import ResponseClickRate from "./ResponseClickRate.vue";
 
     export default {
-        props: ["cleanData"],
+        props: ["cleanData", "responseStartDate", "responseEndDate"],
         components: {
             'dailyresponse-dashboard': DailyResponseRate,
             'hourlyresponse-dashboard': HourlyResponseRate,
