@@ -63,6 +63,12 @@
       <fromemail-dashboard v-bind:cleanData="cleanData"></fromemail-dashboard>
 
     </div>
+    <weekdaycount-dashboard v-bind:cleanData="cleanData"></weekdaycount-dashboard>
+
+    <div id="pieCharts">
+
+
+    </div>
   </div>
 </template>
 
@@ -73,6 +79,7 @@
     import ResponseFromEmail from "./ResponseFromEmail.vue";
     import ResponseOpenRate from "./ResponseOpenRate.vue";
     import ResponseClickRate from "./ResponseClickRate.vue";
+    import ResponseWeekdayCount from "./ResponseWeekdayCount.vue"
 
     export default {
         props: ["cleanData", "responseStartDate", "responseEndDate"],
@@ -83,10 +90,11 @@
             'fromemail-dashboard': ResponseFromEmail,
             'openrate-dashboard': ResponseOpenRate,
             'clickrate-dashboard': ResponseClickRate,
+            'weekdaycount-dashboard': ResponseWeekdayCount,
         },
         data () {
             return {
-                childComponents: ['DailyResponseRate.vue','HourlyResponseRate.vue', 'ResponseStatusDist.vue', 'ResponseFromEmail.vue', 'ResponseOpenRate.vue', 'ResponseClickRate.vue']
+                childComponents: ['DailyResponseRate.vue','HourlyResponseRate.vue', 'ResponseStatusDist.vue', 'ResponseFromEmail.vue', 'ResponseOpenRate.vue', 'ResponseClickRate.vue', 'ResponseWeekdayCount.vue']
             }
         },
         methods: {

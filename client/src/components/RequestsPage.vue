@@ -58,12 +58,13 @@
         <clickrate-dashboard v-bind:cleanData="cleanData"></clickrate-dashboard>
       </div>
 
-
-      <openrate-dashboard v-bind:cleanData="cleanData"></openrate-dashboard>
-      <clickrate-dashboard v-bind:cleanData="cleanData"></clickrate-dashboard>
-      <fromemail-dashboard v-bind:cleanData="cleanData"></fromemail-dashboard>
-
     </div>
+    <div class="bottomDiv">
+      <statusrequest-dashboard v-bind:cleanData="cleanData"></statusrequest-dashboard>
+      <weekdaycount-dashboard v-bind:cleanData="cleanData"></weekdaycount-dashboard>
+      <fromemail-dashboard v-bind:cleanData="cleanData"></fromemail-dashboard>
+    </div>
+
 
   </div>
 </template>
@@ -75,6 +76,7 @@
     import RequestFromEmail from "./RequestFromEmail.vue";
     import RequestOpenRate from "./RequestOpenRate.vue";
     import RequestClickRate from "./RequestClickRate.vue";
+    import RequestWeekdayCount from "./RequestWeekdayCount.vue";
 
     export default {
         props: ["cleanData", "startDate", "endDate"],
@@ -85,10 +87,11 @@
             'fromemail-dashboard': RequestFromEmail,
             'openrate-dashboard': RequestOpenRate,
             'clickrate-dashboard': RequestClickRate,
+            'weekdaycount-dashboard': RequestWeekdayCount,
         },
         data () {
             return {
-                childComponents: ['DailyRequestRate.vue','HourlyRequestRate.vue', 'RequestStatusDist.vue', 'RequestFromEmail.vue', 'RequestOpenRate.vue', 'RequestClickRate.vue']
+                childComponents: ['DailyRequestRate.vue','HourlyRequestRate.vue', 'RequestStatusDist.vue', 'RequestFromEmail.vue', 'RequestOpenRate.vue', 'RequestClickRate.vue', 'RequestWeekdayCount.vue']
             }
         },
         methods: {
@@ -122,32 +125,6 @@
   .widget-card .vs-icon{
     padding-bottom: 4px;
     padding-left: 4px;
-  }
-  .pies {
-    grid-column: col 3 / span 2;
-    grid-row: row;
-    display: grid;
-    grid-gap: 5px;
-    grid-template-columns: 1fr 1fr;
-  }
-  .graphs2nd{
-    grid-column: col / span 2;
-    grid-row: row 2;
-  }
-  .pies2nd{
-    grid-column: col 3 / span 2;
-    grid-row: row 2;
-    display: grid;
-    grid-gap: 5px;
-    grid-template-columns: 1fr 1fr;
-  }
-  .pies1{
-    grid-column: 1;
-    grid-row:1;
-  }
-  .pies2{
-
-    grid-row:2;
   }
 
 </style>

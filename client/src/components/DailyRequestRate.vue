@@ -6,7 +6,6 @@
         width="100%"
         height="100%"
         data-format="json"
-        dataEmptyMessage="i-https://i.postimg.cc/R0QCk9vV/Rolling-0-9s-99px.gif"
         :data-source="dailyRequestRateChartData"
       >
       </fusioncharts>
@@ -100,7 +99,7 @@
             let avgRequests = 0;
             for (let i = this.cleanData.cleanRequestData.openCount.length-1; i >= 0; i--) {
               let categoryObject = {
-                label: this.cleanData.cleanRequestData.openCount[i].date,
+                label: this.cleanData.cleanRequestData.openCount[i].date.substring(5,10),
               };
               avgOpens = avgOpens + this.cleanData.cleanRequestData.openCount[i].counts
               let opensObject = {
