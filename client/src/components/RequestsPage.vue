@@ -26,27 +26,37 @@
       </div>
 
     </div>
-    <input type="date" :value="startDate"
-           @input="startDate = $event.target.value">
-    to
-    <input type="date" :value="endDate"
-           @input="endDate = $event.target.value">
-    <dailyrequest-dashboard v-bind:cleanData="cleanData"v-bind:startDate="startDate"v-bind:endDate="endDate"></dailyrequest-dashboard>
-    <hourlyrequest-dashboard v-bind:cleanData="cleanData"></hourlyrequest-dashboard>
 
-    <div id="pieCharts">
-      <openrate-dashboard v-bind:cleanData="cleanData"></openrate-dashboard>
-      <clickrate-dashboard v-bind:cleanData="cleanData"></clickrate-dashboard>
-      <statusrequest-dashboard v-bind:cleanData="cleanData"></statusrequest-dashboard>
-       <fromemail-dashboard v-bind:cleanData="cleanData"></fromemail-dashboard>
-      
+    <div class="btn-group">
+      <button
+        type="button"
+        class="btn btn-md light btn__border"
+        v-on:click="time = 'today'"
+      >Today</button>
+      <button
+        type="button"
+        class="btn btn-md light btn__border"
+        v-on:click="time = 'week'"
+      >Week</button>
+      <button
+        type="button"
+        class="btn btn-md light btn__border"
+        v-on:click="time = 'month'"
+      >Month</button>
     </div>
 
-    <weekdaycount-dashboard v-bind:cleanData="cleanData"></weekdaycount-dashboard>
+    <dailyrequest-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></dailyrequest-dashboard>
+    <hourlyrequest-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></hourlyrequest-dashboard>
+
     <div id="pieCharts">
-      
-     
+      <openrate-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></openrate-dashboard>
+      <clickrate-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></clickrate-dashboard>
+      <statusrequest-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></statusrequest-dashboard>
+      <fromemail-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></fromemail-dashboard>
     </div>
+
+    <weekdaycount-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></weekdaycount-dashboard>
+    <div id="pieCharts"></div>
 
   </div>
 </template>
@@ -61,7 +71,7 @@
     import RequestWeekdayCount from "./RequestWeekdayCount.vue";
 
     export default {
-        props: ["cleanData", "startDate", "endDate"],
+        props: ["cleanData", "time"],
         components: {
             'dailyrequest-dashboard': DailyRequestRate,
             'hourlyrequest-dashboard': HourlyRequestRate,
@@ -73,6 +83,7 @@
         },
         data () {
             return {
+                time: 'month',
                 childComponents: ['DailyRequestRate.vue','HourlyRequestRate.vue', 'RequestStatusDist.vue', 'RequestFromEmail.vue', 'RequestOpenRate.vue', 'RequestClickRate.vue', 'RequestWeekdayCount.vue']
             }
         },
