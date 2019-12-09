@@ -135,7 +135,7 @@ export default {
             weekdayCount: [],
             weekdayTodayCount: [],
             weekdayWeekCount: [],
-            
+
         }
       }
     }
@@ -418,7 +418,7 @@ export default {
               clicks_today_count[date] += this.rawResponseData[i].clicks_count;
             }
             if (date > this.week) {
-              this.cleanData.cleanRequestData.numWeekRequests += 1;
+              this.cleanData.cleanResponseData.numWeekResponses += 1;
               this.cleanData.cleanResponseData.numWeekOpens += this.rawResponseData[i].opens_count;
               this.cleanData.cleanResponseData.numWeekClicks += this.rawResponseData[i].clicks_count;
               opens_week_count[date] = opens_week_count[date] || 0;
@@ -1102,7 +1102,7 @@ export default {
             weekdayWeek_count[day] = weekdayWeek_count[day] || 0;
             weekdayWeek_count[day] += 1;
           }
-          
+
           weekday_count[day] = weekday_count[day] || 0;
           weekday_count[day] += 1;
 
@@ -1136,7 +1136,7 @@ export default {
             weekdayWeek_count[day] = weekdayWeek_count[day] || 0;
             weekdayWeek_count[day] += 1;
           }
-          
+
           weekday_count[day] = weekday_count[day] || 0;
           weekday_count[day] += 1;
 
@@ -1148,8 +1148,8 @@ export default {
           this.cleanData.cleanRequestData.weekdayWeekCount.push({weekday:weekdays[i],count:weekdayWeek_count[weekdays[i]]});
         }
       }
-      
-      
+
+
       },
     organizeAllDetails: async function() {
       // top level organization
