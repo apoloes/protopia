@@ -26,6 +26,7 @@ import SideBar from './components/SideBar';
 import Home from './components/Home';
 import RequestsPage from './components/RequestsPage';
 import ResponsesPage from './components/ResponsesPage';
+import moment from "moment";
 
 export default {
   name: 'app',
@@ -42,6 +43,8 @@ export default {
       rawSendGridData: '',
       rawRequestData: '',
       rawResponseData: '',
+      today: '',
+      week: '',
       cleanData: {
         cleanFullData: {
           numTotalEmails: '',
@@ -50,17 +53,32 @@ export default {
           emailsCount: [],
           opensCount: [],
           clicksCount: [],
+          numTotalEmails: 0,
         },
         cleanRequestData: {
-            numRequests: '',
-            numOpens: '',
-            numClicks: '',
-            numEmails: '',
+            numRequests: 0,
+            numTodayRequests: 0,
+            numWeekRequests: 0,
+            numOpens: 0,
+            numTodayOpens: 0,
+            numWeekOpens: 0,
+            numClicks: 0,
+            numTodayClicks: 0,
+            numWeekClicks: 0,
+            numEmails: 0,
             openCount: [],
+            openTodayCount: [],
+            openWeekCount: [],
             clicksCount: [],
+            clicksTodayCount: [],
+            clicksWeekCount: [],
             hourlyOpenCount: [],
+            hourlyTodayOpenCount: [],
+            hourlyWeekOpenCount: [],
             hourlyClicksCount: [],
-            hourlyResponseCount: [],
+            hourlyTodayClicksCount: [],
+            hourlyWeekClicksCount: [],
+            hourlyRequestCount: [],
             statusCount: [],
             emailCount: [],
             requestCount: [],
@@ -68,13 +86,22 @@ export default {
             clickRate: [],
         },
         cleanResponseData: {
-            numResponses: '',
-            numOpens: '',
-            numClicks: '',
-            numEmails: '',
+            numResponses: 0,
+            numTodayResponses: 0,
+            numWeekResponses: 0,
+            numOpens: 0,
+            numTodayOpens: 0,
+            numWeekOpens: 0,
+            numClicks: 0,
+            numTodayClicks: 0,
+            numWeekClicks: 0,
+            numEmails: 0,
             openCount: [],
+            openTodayCount: [],
+            openWeekCount: [],
             clicksCount: [],
-            hourlyOpenCount: [],
+            clicksTodayCount: [],
+            clicksWeekCount: [],
             hourlyClicksCount: [],
             hourlyResponseCount: [],
             statusCount: [],
@@ -168,6 +195,9 @@ export default {
         }
         this.cleanData.cleanFullData.numTotalOpens = total_opens;
         this.cleanData.cleanFullData.numTotalClicks = total_clicks;
+        this.today = moment().format('YYYY-MM-DD');
+        let week = moment().subtract(7, 'days').calendar();
+        this.week = week.substr(6,) + '-' + week.substr(0,2) + '-' + week.substr(3,3);
         this.rawRequestData = requests;
         this.rawResponseData = responses;
       },
@@ -175,32 +205,69 @@ export default {
         let numRequests = this.rawRequestData.length;
         this.cleanData.cleanRequestData.numRequests = this.rawRequestData.length;
         this.cleanData.cleanFullData.numTotalEmails = this.rawSendGridData.length;
-        let numOpens = 0;
-        let numClicks = 0;
-        let numEmails = 0;
 
         if (numRequests > 0) {
           let opens_count = {};
+          let opens_today_count = {};
+          let opens_week_count = {};
+
           let clicks_count = {};
+          let clicks_today_count = {};
+          let clicks_week_count = {};
+
           let email_count = {};
+
           for (let i = 0; i < numRequests; i++) {
             let date = this.rawRequestData[i].last_event_time.substring(0,10);
+            if (date == this.today) {
+              this.cleanData.cleanRequestData.numTodayRequests += 1;
+              this.cleanData.cleanRequestData.numTodayOpens += this.rawRequestData[i].opens_count;
+              this.cleanData.cleanRequestData.numTodayClicks += this.rawRequestData[i].clicks_count;
+              opens_today_count[date] = opens_today_count[date] || 0;
+              opens_today_count[date] += this.rawRequestData[i].opens_count;
+              clicks_today_count[date] = clicks_today_count[date] || 0;
+              clicks_today_count[date] += this.rawRequestData[i].clicks_count;
+            }
+            if (date > this.week) {
+              this.cleanData.cleanRequestData.numWeekRequests += 1;
+              this.cleanData.cleanRequestData.numWeekOpens += this.rawRequestData[i].opens_count;
+              this.cleanData.cleanRequestData.numWeekClicks+= this.rawRequestData[i].clicks_count;
+              opens_week_count[date] = opens_week_count[date] || 0;
+              opens_week_count[date] += this.rawRequestData[i].opens_count;
+              clicks_week_count[date] = clicks_week_count[date] || 0;
+              clicks_week_count[date] += this.rawRequestData[i].clicks_count;
+            }
             opens_count[date] = opens_count[date] || 0;
             opens_count[date] += this.rawRequestData[i].opens_count;
-            numOpens += this.rawRequestData[i].opens_count;
+            this.cleanData.cleanRequestData.numOpens += this.rawRequestData[i].opens_count;
             clicks_count[date] = clicks_count[date] || 0;
             clicks_count[date] += this.rawRequestData[i].clicks_count;
-            numClicks += this.rawRequestData[i].clicks_count;
+            this.cleanData.cleanRequestData.numClicks += this.rawRequestData[i].clicks_count;
 
             email_count[date] = email_count[date] || 0;
             email_count[date] += 1;
-            numEmails += 1;
+            this.cleanData.cleanRequestData.numEmails+= 1;
           }
-
-          this.cleanData.cleanRequestData.numOpens = numOpens;
-          this.cleanData.cleanRequestData.numClicks = numClicks;
-          this.cleanData.cleanRequestData.numEmails = numEmails;
-
+          for (let i in opens_today_count) {
+            if (opens_today_count.hasOwnProperty(i)) {
+              this.cleanData.cleanRequestData.openTodayCount.push({date:i,counts:opens_week_count[i]});
+            }
+          }
+          for (let i in clicks_today_count) {
+            if (clicks_today_count.hasOwnProperty(i)) {
+              this.cleanData.cleanRequestData.clicksTodayCount.push({date:i,counts:clicks_week_count[i]});
+            }
+          }
+          for (let i in opens_week_count) {
+            if (opens_week_count.hasOwnProperty(i)) {
+              this.cleanData.cleanRequestData.openWeekCount.push({date:i,counts:opens_week_count[i]});
+            }
+          }
+          for (let i in clicks_week_count) {
+            if (clicks_week_count.hasOwnProperty(i)) {
+              this.cleanData.cleanRequestData.clicksWeekCount.push({date:i,counts:clicks_week_count[i]});
+            }
+          }
           for (let i in opens_count) {
             if (opens_count.hasOwnProperty(i)) {
               this.cleanData.cleanRequestData.openCount.push({date:i,counts:opens_count[i]});
@@ -223,15 +290,36 @@ export default {
 
         if (numRequests > 0) {
             let hourly_opens_count = {};
+            let hourly_today_opens_count = {};
+            let hourly_week_opens_count = {};
+
             let hourly_clicks_count = {};
+            let hourly_today_clicks_count = {};
+            let hourly_week_clicks_count = {};
+
             let hourly_email_count = {};
 
             for (let i = 0; i < numRequests; i++) {
-                let hour = this.rawRequestData[i].last_event_time.substring(11,13);
+              let date = this.rawRequestData[i].last_event_time.substring(0,10);
+              let hour = this.rawRequestData[i].last_event_time.substring(11,13);
+              if (hour.substring(0,1) == "0"){
+                  hour = hour.substring(1,2);
+              }
 
-                if (hour.substring(0,1) == "0"){
-                    hour = hour.substring(1,2);
-                }
+              if (date == this.today) {
+                hourly_today_opens_count[date] = hourly_today_opens_count[date] || 0;
+                hourly_today_opens_count[date] += this.rawRequestData[i].opens_count;
+                hourly_today_clicks_count[date] = hourly_today_clicks_count[date] || 0;
+                hourly_today_clicks_count[date] += this.rawRequestData[i].clicks_count;
+              }
+
+              if (date > this.week) {
+                hourly_week_opens_count[date] = hourly_week_opens_count[date] || 0;
+                hourly_week_opens_count[date] += this.rawRequestData[i].opens_count;
+                hourly_week_clicks_count[date] = hourly_week_clicks_count[date] || 0;
+                hourly_week_clicks_count[date] += this.rawRequestData[i].clicks_count;
+              }
+
                 hourly_opens_count[hour] = hourly_opens_count[hour] || 0;
                 hourly_opens_count[hour] += this.rawRequestData[i].opens_count;
                 hourly_clicks_count[hour] = hourly_clicks_count[hour] || 0;
@@ -239,7 +327,26 @@ export default {
                 hourly_email_count[hour] = hourly_email_count[hour] || 0;
                 hourly_email_count[hour] += 1;
             }
-
+            for (let i in hourly_today_opens_count) {
+              if (hourly_today_opens_count.hasOwnProperty(i)) {
+                this.cleanData.cleanRequestData.hourlyTodayOpenCount.push({hour:i,counts:hourly_today_opens_count[i]});
+              }
+            }
+            for (let i in hourly_week_opens_count) {
+              if (hourly_week_opens_count.hasOwnProperty(i)) {
+                this.cleanData.cleanRequestData.hourlyWeekOpenCount.push({hour:i,counts:hourly_week_opens_count[i]});
+              }
+            }
+            for (let i in hourly_today_clicks_count) {
+              if (hourly_today_clicks_count.hasOwnProperty(i)) {
+                this.cleanData.cleanRequestData.hourlyTodayClicksCount.push({hour:i,counts:hourly_today_clicks_count[i]});
+              }
+            }
+            for (let i in hourly_week_clicks_count) {
+              if (hourly_week_clicks_count.hasOwnProperty(i)) {
+                this.cleanData.cleanRequestData.hourlyWeekClicksCount.push({hour:i,counts:hourly_week_clicks_count[i]});
+              }
+            }
             for (let i in hourly_opens_count) {
                 if (hourly_opens_count.hasOwnProperty(i)) {
                     this.cleanData.cleanRequestData.hourlyOpenCount.push({hour:i,counts:hourly_opens_count[i]});
@@ -252,7 +359,7 @@ export default {
             }
             for (let i in hourly_email_count) {
                 if (hourly_email_count.hasOwnProperty(i)) {
-                    this.cleanData.cleanRequestData.hourlyResponseCount.push({hour:i,counts:hourly_email_count[i]});
+                    this.cleanData.cleanRequestData.hourlyRequestCount.push({hour:i,counts:hourly_email_count[i]});
                 }
             }
         }
@@ -260,31 +367,69 @@ export default {
       getSetResponseDailyOpensClicks: function() {
         let numResponses = this.rawResponseData.length;
         this.cleanData.cleanResponseData.numResponses = this.rawResponseData.length;
-        let numOpens = 0;
-        let numClicks = 0;
-        let numEmails = 0;
 
         if (numResponses > 0) {
           let opens_count = {};
-          let clicks_count = {};
+          let opens_today_count = {};
+          let opens_week_count = {};
+
           let email_count = {};
+
+          let clicks_count = {};
+          let clicks_today_count = {};
+          let clicks_week_count = {};
+
           for (let i = 0; i < numResponses; i++) {
             let date = this.rawResponseData[i].last_event_time.substring(0,10);
+            if (date == this.today) {
+              this.cleanData.cleanResponseData.numTodayResponses += 1;
+              this.cleanData.cleanResponseData.numTodayOpens += this.rawResponseData[i].opens_count;
+              this.cleanData.cleanResponseData.numTodayClicks += this.rawResponseData[i].clicks_count;
+              opens_today_count[date] = opens_today_count[date] || 0;
+              opens_today_count[date] += this.rawResponseData[i].opens_count;
+              clicks_today_count[date] = clicks_today_count[date] || 0;
+              clicks_today_count[date] += this.rawResponseData[i].clicks_count;
+            }
+            if (date > this.week) {
+              this.cleanData.cleanRequestData.numWeekRequests += 1;
+              this.cleanData.cleanResponseData.numWeekOpens += this.rawResponseData[i].opens_count;
+              this.cleanData.cleanResponseData.numWeekClicks += this.rawResponseData[i].clicks_count;
+              opens_week_count[date] = opens_week_count[date] || 0;
+              opens_week_count[date] += this.rawResponseData[i].opens_count;
+              clicks_week_count[date] = clicks_week_count[date] || 0;
+              clicks_week_count[date] += this.rawResponseData[i].clicks_count;
+            }
             opens_count[date] = opens_count[date] || 0;
             opens_count[date] += this.rawResponseData[i].opens_count;
-            numOpens += this.rawResponseData[i].opens_count;
+            this.cleanData.cleanResponseData.numOpens += this.rawResponseData[i].opens_count;
             clicks_count[date] = clicks_count[date] || 0;
             clicks_count[date] += this.rawResponseData[i].clicks_count;
-            numClicks += this.rawResponseData[i].clicks_count;
+            this.cleanData.cleanResponseData.numClicks += this.rawResponseData[i].clicks_count;
 
             email_count[date] = email_count[date] || 0;
             email_count[date] += 1;
-            numEmails += 1;
+            this.cleanData.cleanResponseData.numEmails += 1;
           }
-
-          this.cleanData.cleanResponseData.numOpens = numOpens;
-          this.cleanData.cleanResponseData.numClicks = numClicks;
-          this.cleanData.cleanResponseData.numEmails = numEmails;
+          for (let i in opens_today_count) {
+            if (opens_today_count.hasOwnProperty(i)) {
+              this.cleanData.cleanResponseData.openTodayCount.push({date:i,counts:opens_week_count[i]});
+            }
+          }
+          for (let i in clicks_today_count) {
+            if (clicks_today_count.hasOwnProperty(i)) {
+              this.cleanData.cleanResponseData.clicksTodayCount.push({date:i,counts:clicks_week_count[i]});
+            }
+          }
+          for (let i in opens_week_count) {
+            if (opens_week_count.hasOwnProperty(i)) {
+              this.cleanData.cleanResponseData.openWeekCount.push({date:i,counts:opens_week_count[i]});
+            }
+          }
+          for (let i in clicks_week_count) {
+            if (clicks_week_count.hasOwnProperty(i)) {
+              this.cleanData.cleanResponseData.clicksWeekCount.push({date:i,counts:clicks_week_count[i]});
+            }
+          }
           for (let i in opens_count) {
             if (opens_count.hasOwnProperty(i)) {
               this.cleanData.cleanResponseData.openCount.push({date:i,counts:opens_count[i]});
