@@ -334,16 +334,41 @@ export default {
         if (numResponses > 0) {
           let from_email_count = {};
           for (let i = 0; i < numResponses; i++) {
-              let from_email = this.rawRequestData[i].from_email;
+              let from_email = this.rawRequestData[i].from_email.split('@')[0];
               from_email_count[from_email] = from_email_count[from_email] || 0;
               from_email_count[from_email] += 1;
             }
 
-          for (let i in from_email_count) {
-                  if (from_email_count.hasOwnProperty(i)) {
-                      this.cleanData.cleanRequestData.emailCount.push({email:i,counts:from_email_count[i]});
-                  }
+        if (from_email_count.length < 6){
+            for (let i in from_email_count) {
+              if (from_email_count.hasOwnProperty(i)) {
+                  this.cleanData.cleanRequest.emailCount.push({email:i,counts:from_email_count[i]});
               }
+            }
+          }else{
+            let array = [];
+            for (let key in from_email_count) {
+              array.push({
+                label: key,
+                value: from_email_count[key]
+              });
+            }
+
+            let sorted = array.sort(function(a, b) {
+              return (a.value < b.value) ? 1 : ((b.value < a.value) ? -1 : 0)
+            });
+            
+            let top5 = [];
+            console.log(sorted);
+            for (let i = 0; i < 5; i++){
+              this.cleanData.cleanRequestData.emailCount.push({email:sorted[i].label,counts:sorted[i].value});
+            }
+            let remainder = 0;
+            for (let i = 5; i < sorted.length; i++){
+              remainder = remainder + sorted[i].value
+            }
+            this.cleanData.cleanRequestData.emailCount.push({email:"Other",counts:remainder});
+          }
         }
       },
       getSetResponseEmailCounts: function(){
@@ -352,16 +377,41 @@ export default {
         if (numResponses > 0) {
           let from_email_count = {};
           for (let i = 0; i < numResponses; i++) {
-              let from_email = this.rawResponseData[i].from_email;
+              let from_email = this.rawResponseData[i].from_email.split('@')[0];
               from_email_count[from_email] = from_email_count[from_email] || 0;
               from_email_count[from_email] += 1;
             }
 
-          for (let i in from_email_count) {
-                  if (from_email_count.hasOwnProperty(i)) {
-                      this.cleanData.cleanResponseData.emailCount.push({email:i,counts:from_email_count[i]});
-                  }
+          if (from_email_count.length < 6){
+            for (let i in from_email_count) {
+              if (from_email_count.hasOwnProperty(i)) {
+                  this.cleanData.cleanResponseData.emailCount.push({email:i,counts:from_email_count[i]});
               }
+            }
+          }else{
+            let array = [];
+            for (let key in from_email_count) {
+              array.push({
+                label: key,
+                value: from_email_count[key]
+              });
+            }
+
+            let sorted = array.sort(function(a, b) {
+              return (a.value < b.value) ? 1 : ((b.value < a.value) ? -1 : 0)
+            });
+            
+            let top5 = [];
+            console.log(sorted);
+            for (let i = 0; i < 5; i++){
+              this.cleanData.cleanResponseData.emailCount.push({email:sorted[i].label,counts:sorted[i].value});
+            }
+            let remainder = 0;
+            for (let i = 5; i < sorted.length; i++){
+              remainder = remainder + sorted[i].value
+            }
+            this.cleanData.cleanResponseData.emailCount.push({email:"Other",counts:remainder});
+          }
         }
       },
       getSetRequestOpenClickRate: function(){

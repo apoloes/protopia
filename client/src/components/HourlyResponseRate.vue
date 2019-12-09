@@ -22,13 +22,20 @@
             return {
                 hourlyResponseRateChartData: {
                     chart: {
-                        caption: "Hourly Open and Click Rates",
+                        // caption: "Hourly Open, Click, and Response Rates",
+                          captionFontColor: "#FFF",
+                          subCaptionFontColor: "#FFF",
+                          xAxisNameFontColor: "#FFF",
+                          legendCaptionFontColor: "#FFF",
+                          legendItemFontColor: "#FFF",
+                          baseFontColor: "#FFF",
                         yaxisname: "Frequency",
                         subcaption: "Last Month",
                         numdivlines: "3",
                         showvalues: "0",
                         rotateLabels: "1",
                         slantLabels: "1",
+                          bgColor: "#5e26ac",
                         plotToolText: "$label<br><hr><b>$dataValue</b>",
                         theme: "fusion"
                     },

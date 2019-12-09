@@ -2,11 +2,10 @@
   <div class="custom-card header-card card">
     <div class="card-body pt-0">
       <fusioncharts
-        type="pie2d"
+        type="doughnut2d"
         width="100%"
         height="100%"
         data-format="json"
-        dataEmptyMessage="i-https://i.postimg.cc/R0QCk9vV/Rolling-0-9s-99px.gif"
         :data-source="clickRateChartData"
       >
       </fusioncharts>
@@ -24,15 +23,37 @@
           return {
             clickRateChartData: {
               chart: {
-                caption: "Response Click Rate",
-                plottooltext: "<b>$percentValue</b> of requests are <b>$label<b>",
-                showlegend: "0",
-                showpercentvalues: "1",
-                legendposition: "bottom",
-                usedataplotcolorforlabels: "1",
-                showlabels: "0",
+                plottooltext: "<b>$percentValue</b> of responses <b>$label<b>",
                 theme: "fusion",
-                "palettecolors": "f2726f, #FFC533"
+                showlegend: "0",
+                showlabels: "0",
+                "palettecolors": "f2726f, #FFC533",
+                "showBorder": "0",
+                "showShadow": "0",
+                "use3DLighting": "0",
+                "showValues": "0",
+                "bgColor": "#5e26ac",
+                "bgAlpha": "100",
+                "canvasBgAlpha": "0",
+                "doughnutRadius": "105",
+                "pieRadius": "125",
+                "plotBorderAlpha": "0",
+                "toolTipBgcolor": "#9178a0",
+                "toolTipPadding": "7",
+                "toolTipBorderRadius": "3",
+                "toolTipBorderAlpha": "30",
+                "tooltipBorderThickness": "0.7",
+                "toolTipColor": "#FFFFFF",
+                "legendShadow": "0",
+                "legendBorderAlpha": "0",
+                "legendBgAlpha": "0",
+                "legendPosition": "BOTTOM",
+                "defaultCenterLabel": "Click Rate",
+                "centerLabel": "$value <br> $label",
+                "centerLabelBold": "1",
+                centerLabelColor: "#999999",
+                "centerLabelFontSize": "20",
+                "enableRotation": "0",
               },
               data: [],
             },
