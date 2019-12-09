@@ -62,18 +62,18 @@
       <div class="box b">
         <div class="boxTitle">Open Rate</div>
         <hr class="boxLine">
-        <openrate-dashboard v-bind:cleanData="cleanData"></openrate-dashboard>
+        <openrate-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></openrate-dashboard>
       </div>
 
       <div class="box graph2nd">
         <div class="boxTitle">Hourly Open, Click, and Request Rates</div>
         <hr class="boxLine">
-        <hourlyrequest-dashboard v-bind:cleanData="cleanData"></hourlyrequest-dashboard>
+        <hourlyrequest-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></hourlyrequest-dashboard>
       </div>
       <div class="box d">
         <div class="boxTitle">Click Rate</div>
         <hr class="boxLine">
-        <clickrate-dashboard v-bind:cleanData="cleanData"></clickrate-dashboard>
+        <clickrate-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></clickrate-dashboard>
       </div>
 
     </div>
@@ -81,9 +81,9 @@
 
 
     <div class="bottomDiv">
-      <statusrequest-dashboard v-bind:cleanData="cleanData"></statusrequest-dashboard>
-      <weekdaycount-dashboard v-bind:cleanData="cleanData"></weekdaycount-dashboard>
-      <fromemail-dashboard v-bind:cleanData="cleanData"></fromemail-dashboard>
+      <statusrequest-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></statusrequest-dashboard>
+      <weekdaycount-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></weekdaycount-dashboard>
+      <fromemail-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></fromemail-dashboard>
     </div>
 
   </div>

@@ -17,7 +17,7 @@
 
 <script>
     export default {
-        props: ["cleanData"],
+        props: ["cleanData","time"],
         components: {},
         data() {
           return {
@@ -62,6 +62,7 @@
         },
         methods: {
           setChartData: function() {
+
             function compare(a, b) {
               // Use toUpperCase() to ignore character casing
               const A = a.value;
@@ -75,12 +76,18 @@
               }
               return comparison;
             }
-            var data = [];
-
-            for (var i = 0; i < this.cleanData.cleanRequestData.openRate.length; i++) {
-              var dataObject = {
-                label: this.cleanData.cleanRequestData.openRate[i].status,
-                value: this.cleanData.cleanRequestData.openRate[i].count
+            let data = [];
+            let openRate = this.cleanData.cleanRequestData.openRate;
+            if (this.time == "today") {
+              openRate = this.cleanData.cleanRequestData.openTodayRate;
+            } else if (this.time == "week") {
+              openRate = this.cleanData.cleanRequestData.openWeekRate;
+            }
+            console.log(openRate);
+            for (let i = 0; i < openRate.length; i++) {
+              let dataObject = {
+                label: openRate[i].status,
+                value: openRate[i].count
               };
               data.push(dataObject);
             }
@@ -97,6 +104,11 @@
               this.setChartData();
             },
             deep: true
+        },
+        time: {
+            handler: function() {
+              this.setChartData();
+            },
         },
       },
     };
