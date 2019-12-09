@@ -83,17 +83,17 @@
       <div class="box e">
         <div class="boxTitle">Status</div>
         <hr class="boxLine">
-        <statusresponse-dashboard v-bind:cleanData="cleanData"></statusresponse-dashboard>
+        <statusresponse-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></statusresponse-dashboard>
       </div>
       <div class="box f">
         <div class="boxTitle">Weekday Counts</div>
         <hr class="boxLine">
-        <weekdaycount-dashboard v-bind:cleanData="cleanData"></weekdaycount-dashboard>
+        <weekdaycount-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></weekdaycount-dashboard>
       </div>
       <div class="box g">
         <div class="boxTitle">Emails</div>
         <hr class="boxLine">
-        <fromemail-dashboard v-bind:cleanData="cleanData"></fromemail-dashboard>
+        <fromemail-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></fromemail-dashboard>
       </div>
     </div>
 
