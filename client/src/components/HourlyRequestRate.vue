@@ -27,7 +27,6 @@
                 subcaption: "Last Month",
                 numdivlines: "3",
                 showvalues: "0",
-                rotateLabels: "1",
                 slantLabels: "1",
                 plotToolText: "$label<br><hr><b>$dataValue</b>",
                 theme: "fusion"

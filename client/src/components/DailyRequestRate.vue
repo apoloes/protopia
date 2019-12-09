@@ -90,7 +90,7 @@
             let avgRequests = 0;
             for (let i = this.cleanData.cleanRequestData.openCount.length-1; i >= 0; i--) {
               let categoryObject = {
-                label: this.cleanData.cleanRequestData.openCount[i].date,
+                label: this.cleanData.cleanRequestData.openCount[i].date.substring(5,10),
               };
               avgOpens = avgOpens + this.cleanData.cleanRequestData.openCount[i].counts
               let opensObject = {
