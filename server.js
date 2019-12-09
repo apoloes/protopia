@@ -1,6 +1,6 @@
 const express = require('express');
 const request = require('request');
-const fs = require('fs')
+// const fs = require('fs')
 const path = require('path');
 const cors = require('cors');
 // const {Storage} = require('@google-cloud/storage');
@@ -8,24 +8,23 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-const PORT = 8000;
-const SERVER = process.env.SERVER;
+const PORT = 80;
 const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
 const SENDGRID_URL = process.env.SENDGRID_URL;
-//const allowedOrigins = ['http://localhost:8000', 'http://localhost:8080'];
+const allowedOrigins = ['http://localhost:80', 'http://localhost:8080', 'http://34.74.129.63'];
 
 app.use(express.static(path.join(__dirname, "/client")));
 
 app.use(cors({
-    // origin: function(origin, callback){
-    //     if(!origin) return callback(null, true);
-    //     if(allowedOrigins.indexOf(origin) === -1){
-    //         var msg = 'The CORS policy for this site does not ' +
-    //             'allow access from the specified Origin.';
-    //         return call back(new Error(msg), false);
-    //     }
-    //     return callback(null, true);
-    // }
+    origin: function(origin, callback){
+        if(!origin) return callback(null, true);
+        if(allowedOrigins.indexOf(origin) === -1){
+            let msg = 'The CORS policy for this site does not ' +
+                'allow access from the specified Origin.';
+            return callback(new Error(msg), false);
+        }
+        return callback(null, true);
+    }
 }));
 
 // Creates a client
@@ -83,11 +82,7 @@ app.get('/api/open', (req, res)=>{
 });
 
 app.get('/', (req, res) => {
-    try {
         res.sendFile(__dirname + "/dist");
-    } catch {
-        res.send("No build file available");
-    }
 });
 
 //Start server
