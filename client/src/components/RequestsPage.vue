@@ -57,12 +57,24 @@
         <hr class="boxLine">
         <clickrate-dashboard v-bind:cleanData="cleanData"></clickrate-dashboard>
       </div>
-
     </div>
+
     <div class="bottomDiv">
-      <statusrequest-dashboard v-bind:cleanData="cleanData"></statusrequest-dashboard>
-      <weekdaycount-dashboard v-bind:cleanData="cleanData"></weekdaycount-dashboard>
-      <fromemail-dashboard v-bind:cleanData="cleanData"></fromemail-dashboard>
+      <div class="box e">
+        <div class="boxTitle">Status</div>
+        <hr class="boxLine">
+        <statusrequest-dashboard v-bind:cleanData="cleanData"></statusrequest-dashboard>
+      </div>
+      <div class="box f">
+        <div class="boxTitle">Weekday Counts</div>
+        <hr class="boxLine">
+        <weekdaycount-dashboard v-bind:cleanData="cleanData"></weekdaycount-dashboard>
+      </div>
+      <div class="box g">
+        <div class="boxTitle">Emails</div>
+        <hr class="boxLine">
+        <fromemail-dashboard v-bind:cleanData="cleanData"></fromemail-dashboard>
+      </div>
     </div>
 
 

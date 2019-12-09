@@ -22,6 +22,8 @@
             homeMonthlyRateChartData: {
               chart: {
                 caption: "Daily Open, Click, and Email Counts",
+                  bgColor: "AD66C8, AE66BD",
+                  labelFontColor: "#FFFFFF",
                 yaxisname: "Frequency",
                 subcaption: "Last Month",
                 numdivlines: "3",
@@ -29,6 +31,7 @@
                 rotateLabels: "1",
                 slantLabels: "1",
                 plotToolText: "$label<br><hr><b>$dataValue</b> $seriesname",
+
                 theme: "fusion",
               },
               categories: [
@@ -64,15 +67,15 @@
               let categoryObject = {
                 label: this.cleanData.cleanFullData.opensCount[i].date.substring(5,10),
               };
-              
+
               let opensObject = {
                 value: this.cleanData.cleanFullData.opensCount[i].counts,
               };
-              
+
               let clicksObject = {
                 value: this.cleanData.cleanFullData.clicksCount[i].counts,
               };
-              
+
               let emailsObject = {
                 value: this.cleanData.cleanFullData.emailsCount[i].counts,
               };
@@ -86,7 +89,7 @@
             this.homeMonthlyRateChartData.dataset[1].data = opens;
             this.homeMonthlyRateChartData.dataset[2].data = clicks;
           },
-          
+
         },
         mounted:function() {
             if (this.cleanData.cleanFullData.clicksCount.length === 0

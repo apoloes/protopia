@@ -37,14 +37,25 @@ protopia secondary button: #c9a8d0
   /*grid-template-columns: repeat(4, [col] auto);*/
   grid-template-columns: 3fr 1fr;
   grid-template-rows: repeat(2, [row] auto);
-  /*grid-template-rows: 1fr 2fr;*/
-
   padding: 10px;
+}
+.bottomDiv{
+  display: grid;
+  grid-gap: 8px;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: repeat(2, [row] auto);
+  padding: 10px;
+  padding-top: 0px;
+}
+.f{
+  margin-right: 3px !important;
+}
+.g{
+  margin-left: -2px !important;
 }
 .box {
   background-color: #5e26ac;
-
-  border-radius: 4px;
+  border-radius: 7px;
   padding: 10px;
   font-size: 150%;
 }
