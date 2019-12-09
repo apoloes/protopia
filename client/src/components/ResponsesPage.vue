@@ -29,6 +29,25 @@
         </div>
       </div>
     </div>
+
+    <div class="btn-group">
+      <button
+        type="button"
+        class="btn btn-md light btn__border"
+        v-on:click="time = 'today'"
+      >Today</button>
+      <button
+        type="button"
+        class="btn btn-md light btn__border"
+        v-on:click="time = 'week'"
+      >Week</button>
+      <button
+        type="button"
+        class="btn btn-md light btn__border"
+        v-on:click="time = 'month'"
+      >Month</button>
+    </div>
+
 <!--    <input type="date" :value="responseStartDate"-->
 <!--           @input="responseStartDate = $event.target.value">-->
 <!--    to-->
@@ -38,32 +57,32 @@
       <div class="box graph1st">
         <div class="boxTitle">Daily Open, Click, and Response Rates</div>
         <hr class="boxLine">
-        <dailyresponse-dashboard v-bind:cleanData="cleanData"v-bind:responseStartDate="responseStartDate"v-bind:responseEndDate="responseEndDate"></dailyresponse-dashboard>
+        <dailyresponse-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></dailyresponse-dashboard>
       </div>
 
       <div class="box b">
         <div class="boxTitle">Open Rate</div>
         <hr class="boxLine">
-        <openrate-dashboard v-bind:cleanData="cleanData"></openrate-dashboard>
+        <openrate-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></openrate-dashboard>
       </div>
 
       <div class="box graph2nd">
         <div class="boxTitle">Hourly Open, Click, and Response Rates</div>
         <hr class="boxLine">
-        <hourlyresponse-dashboard v-bind:cleanData="cleanData"></hourlyresponse-dashboard>
+        <hourlyresponse-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></hourlyresponse-dashboard>
       </div>
 
       <div class="box d">
         <div class="boxTitle">Click Rate</div>
         <hr class="boxLine">
-        <clickrate-dashboard v-bind:cleanData="cleanData"></clickrate-dashboard>
+        <clickrate-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></clickrate-dashboard>
       </div>
 
-       <statusresponse-dashboard v-bind:cleanData="cleanData"></statusresponse-dashboard>
-      <fromemail-dashboard v-bind:cleanData="cleanData"></fromemail-dashboard>
+       <statusresponse-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></statusresponse-dashboard>
+      <fromemail-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></fromemail-dashboard>
 
     </div>
-    <weekdaycount-dashboard v-bind:cleanData="cleanData"></weekdaycount-dashboard>
+    <weekdaycount-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></weekdaycount-dashboard>
 
     <div id="pieCharts">
 
@@ -94,6 +113,7 @@
         },
         data () {
             return {
+                time: 'month',
                 childComponents: ['DailyResponseRate.vue','HourlyResponseRate.vue', 'ResponseStatusDist.vue', 'ResponseFromEmail.vue', 'ResponseOpenRate.vue', 'ResponseClickRate.vue', 'ResponseWeekdayCount.vue']
             }
         },

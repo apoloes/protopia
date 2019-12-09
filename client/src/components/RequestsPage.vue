@@ -30,6 +30,24 @@
       </div>
     </div>
 
+    <div class="btn-group">
+      <button
+        type="button"
+        class="btn btn-md light btn__border"
+        v-on:click="time = 'today'"
+      >Today</button>
+      <button
+        type="button"
+        class="btn btn-md light btn__border"
+        v-on:click="time = 'week'"
+      >Week</button>
+      <button
+        type="button"
+        class="btn btn-md light btn__border"
+        v-on:click="time = 'month'"
+      >Month</button>
+    </div>
+
     <div class="bodyDiv">
 
       <div class="box graph1st">
@@ -60,23 +78,7 @@
 
     </div>
 
-    <div class="btn-group">
-      <button
-        type="button"
-        class="btn btn-md light btn__border"
-        v-on:click="time = 'today'"
-      >Today</button>
-      <button
-        type="button"
-        class="btn btn-md light btn__border"
-        v-on:click="time = 'week'"
-      >Week</button>
-      <button
-        type="button"
-        class="btn btn-md light btn__border"
-        v-on:click="time = 'month'"
-      >Month</button>
-    </div>
+
 
     <div class="bottomDiv">
       <statusrequest-dashboard v-bind:cleanData="cleanData"></statusrequest-dashboard>
