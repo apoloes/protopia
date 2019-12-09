@@ -47,13 +47,12 @@ export default {
       week: '',
       cleanData: {
         cleanFullData: {
-          numTotalEmails: '',
-          numTotalOpens: '',
-          numTotalClicks: '',
+          numTotalEmails: 0,
+          numTotalOpens: 0,
+          numTotalClicks: 0,
           emailsCount: [],
           opensCount: [],
           clicksCount: [],
-          numTotalEmails: 0,
         },
         cleanRequestData: {
             numRequests: 0,
@@ -80,10 +79,18 @@ export default {
             hourlyWeekClicksCount: [],
             hourlyRequestCount: [],
             statusCount: [],
+            statusTodayCount: [],
+            statusWeekCount: [],
             emailCount: [],
+            emailTodayCount: [],
+            emailWeekCount: [],
             requestCount: [],
             openRate: [],
+            openTodayRate: [],
+            openWeekRate: [],
             clickRate: [],
+            clickTodayRate: [],
+            clickWeekRate: [],
         },
         cleanResponseData: {
             numResponses: 0,
@@ -108,13 +115,20 @@ export default {
             hourlyClicksCount: [],
             hourlyTodayClicksCount: [],
             hourlyWeekClicksCount: [],
-            hourlyRequestCount: [],
             hourlyResponseCount: [],
             statusCount: [],
+            statusTodayCount: [],
+            statusWeekCount: [],
             emailCount: [],
+            emailTodayCount: [],
+            emailWeekCount: [],
             responseCount: [],
             openRate: [],
+            openTodayRate: [],
+            openWeekRate: [],
             clickRate: [],
+            clickTodayRate: [],
+            clickWeekRate: [],
         }
       }
     }
@@ -453,86 +467,191 @@ export default {
           }
         }
       },
-      getSetResponseHourlyOpensClicks: function() {
-          let numResponses = this.rawResponseData.length;
+    getSetResponseHourlyOpensClicks: function() {
+      let numResponses = this.rawResponseData.length;
 
-          if (numResponses > 0) {
-              let hourly_opens_count = {};
-              let hourly_clicks_count = {};
-              let hourly_email_count = {};
-              for (let i = 0; i < numResponses; i++) {
-                  let hour = this.rawResponseData[i].last_event_time.substring(11,13);
+      if (numResponses > 0) {
+        let hourly_opens_count = {};
+        let hourly_today_opens_count = {};
+        let hourly_week_opens_count = {};
 
-                  if (hour.substring(0,1) == "0"){
-                      hour = hour.substring(1,2);
-                  }
-                  hourly_opens_count[hour] = hourly_opens_count[hour] || 0;
-                  hourly_opens_count[hour] += this.rawResponseData[i].opens_count;
-                  hourly_clicks_count[hour] = hourly_clicks_count[hour] || 0;
-                  hourly_clicks_count[hour] += this.rawResponseData[i].clicks_count;
-                  hourly_email_count[hour] = hourly_email_count[hour] || 0;
-                  hourly_email_count[hour] += 1;
+        let hourly_clicks_count = {};
+        let hourly_today_clicks_count = {};
+        let hourly_week_clicks_count = {};
 
-              }
+        let hourly_email_count = {};
 
-              for (let i in hourly_opens_count) {
-                  if (hourly_opens_count.hasOwnProperty(i)) {
-                      this.cleanData.cleanResponseData.hourlyOpenCount.push({hour:i,counts:hourly_opens_count[i]});
-                  }
-              }
-              for (let i in hourly_clicks_count) {
-                  if (hourly_clicks_count.hasOwnProperty(i)) {
-                      this.cleanData.cleanResponseData.hourlyClicksCount.push({hour:i,counts:hourly_clicks_count[i]});
-                  }
-              }
-              for (let i in hourly_email_count) {
-                if (hourly_email_count.hasOwnProperty(i)) {
-                    this.cleanData.cleanResponseData.hourlyResponseCount.push({hour:i,counts:hourly_email_count[i]});
-                }
-            }
+        for (let i = 0; i < numResponses; i++) {
+          let date = this.rawResponseData[i].last_event_time.substring(0,10);
+          let hour = this.rawResponseData[i].last_event_time.substring(11,13);
+          if (hour.substring(0,1) == "0"){
+            hour = hour.substring(1,2);
           }
-      },
-      getSetRequestStatusCounts: function(){
-        let numResponses = this.rawRequestData.length
 
-        if (numResponses > 0) {
+          if (date == this.today) {
+            hourly_today_opens_count[date] = hourly_today_opens_count[date] || 0;
+            hourly_today_opens_count[date] += this.rawResponseData[i].opens_count;
+            hourly_today_clicks_count[date] = hourly_today_clicks_count[date] || 0;
+            hourly_today_clicks_count[date] += this.rawResponseData[i].clicks_count;
+          }
+
+          if (date > this.week) {
+            hourly_week_opens_count[date] = hourly_week_opens_count[date] || 0;
+            hourly_week_opens_count[date] += this.rawResponseData[i].opens_count;
+            hourly_week_clicks_count[date] = hourly_week_clicks_count[date] || 0;
+            hourly_week_clicks_count[date] += this.rawResponseData[i].clicks_count;
+          }
+
+          hourly_opens_count[hour] = hourly_opens_count[hour] || 0;
+          hourly_opens_count[hour] += this.rawResponseData[i].opens_count;
+          hourly_clicks_count[hour] = hourly_clicks_count[hour] || 0;
+          hourly_clicks_count[hour] += this.rawResponseData[i].clicks_count;
+          hourly_email_count[hour] = hourly_email_count[hour] || 0;
+          hourly_email_count[hour] += 1;
+        }
+        for (let i in hourly_today_opens_count) {
+          if (hourly_today_opens_count.hasOwnProperty(i)) {
+            this.cleanData.cleanResponseData.hourlyTodayOpenCount.push({hour:i,counts:hourly_today_opens_count[i]});
+          }
+        }
+        for (let i in hourly_week_opens_count) {
+          if (hourly_week_opens_count.hasOwnProperty(i)) {
+            this.cleanData.cleanResponseData.hourlyWeekOpenCount.push({hour:i,counts:hourly_week_opens_count[i]});
+          }
+        }
+        for (let i in hourly_today_clicks_count) {
+          if (hourly_today_clicks_count.hasOwnProperty(i)) {
+            this.cleanData.cleanResponseData.hourlyTodayClicksCount.push({hour:i,counts:hourly_today_clicks_count[i]});
+          }
+        }
+        for (let i in hourly_week_clicks_count) {
+          if (hourly_week_clicks_count.hasOwnProperty(i)) {
+            this.cleanData.cleanResponseData.hourlyWeekClicksCount.push({hour:i,counts:hourly_week_clicks_count[i]});
+          }
+        }
+        for (let i in hourly_opens_count) {
+          if (hourly_opens_count.hasOwnProperty(i)) {
+            this.cleanData.cleanResponseData.hourlyOpenCount.push({hour:i,counts:hourly_opens_count[i]});
+          }
+        }
+        for (let i in hourly_clicks_count) {
+          if (hourly_clicks_count.hasOwnProperty(i)) {
+            this.cleanData.cleanResponseData.hourlyClicksCount.push({hour:i,counts:hourly_clicks_count[i]});
+          }
+        }
+        for (let i in hourly_email_count) {
+          if (hourly_email_count.hasOwnProperty(i)) {
+            this.cleanData.cleanResponseData.hourlyResponseCount.push({hour:i,counts:hourly_email_count[i]});
+          }
+        }
+      }
+    },
+    getSetRequestStatusCounts: function(){
+        let numRequests = this.rawRequestData.length;
+
+        if (numRequests > 0) {
           let request_status_count = {};
-          for (let i = 0; i < numResponses; i++) {
+          let request_today_status_count = {};
+          let request_week_status_count = {};
+
+          for (let i = 0; i < numRequests; i++) {
+            let date = this.rawRequestData[i].last_event_time.substring(0,10);
+            if (date == this.today) {
+              let request_status = this.rawRequestData[i].status;
+              request_today_status_count[request_status] = request_today_status_count[request_status] || 0;
+              request_today_status_count[request_status] += 1;
+            }
+            if (date > this.week) {
+              let request_status = this.rawRequestData[i].status;
+              request_week_status_count[request_status] = request_week_status_count[request_status] || 0;
+              request_week_status_count[request_status] += 1;
+            }
+
               let request_status = this.rawRequestData[i].status;
               request_status_count[request_status] = request_status_count[request_status] || 0;
               request_status_count[request_status] += 1;
             }
+          for (let i in request_today_status_count) {
+            if (request_today_status_count.hasOwnProperty(i)) {
+              this.cleanData.cleanRequestData.statusTodayCount.push({status:i,counts:request_today_status_count[i]});
+            }
+          }
+          for (let i in request_week_status_count) {
+            if (request_week_status_count.hasOwnProperty(i)) {
+              this.cleanData.cleanRequestData.statusWeekCount.push({status:i,counts:request_week_status_count[i]});
+            }
+          }
           for (let i in request_status_count) {
                   if (request_status_count.hasOwnProperty(i)) {
                       this.cleanData.cleanRequestData.statusCount.push({status:i,counts:request_status_count[i]});
                   }
-              }
+          }
         }
       },
-      getSetResponseStatusCounts: function(){
-        let numResponses = this.rawResponseData.length
+    getSetResponseStatusCounts: function(){
+      let numResponses = this.rawResponseData.length;
 
-        if (numResponses > 0) {
-          let response_status_count = {};
-          for (let i = 0; i < numResponses; i++) {
-              let response_status = this.rawResponseData[i].status;
-              response_status_count[response_status] = response_status_count[response_status] || 0;
-              response_status_count[response_status] += 1;
-            }
-          for (let i in response_status_count) {
-                  if (response_status_count.hasOwnProperty(i)) {
-                      this.cleanData.cleanResponseData.statusCount.push({status:i,counts:response_status_count[i]});
-                  }
-              }
+      if (numResponses > 0) {
+        let response_status_count = {};
+        let response_today_status_count = {};
+        let response_week_status_count = {};
+
+        for (let i = 0; i < numResponses; i++) {
+          let date = this.rawResponseData[i].last_event_time.substring(0,10);
+          if (date == this.today) {
+            let response_status = this.rawResponseData[i].status;
+            response_today_status_count[response_status] = response_today_status_count[response_status] || 0;
+            response_today_status_count[response_status] += 1;
+          }
+          if (date > this.week) {
+            let response_status = this.rawResponseData[i].status;
+            response_week_status_count[response_status] = response_week_status_count[response_status] || 0;
+            response_week_status_count[response_status] += 1;
+          }
+
+          let response_status = this.rawResponseData[i].status;
+          response_status_count[response_status] = response_status_count[response_status] || 0;
+          response_status_count[response_status] += 1;
         }
-      },
-      getSetRequestEmailCounts: function(){
+        for (let i in response_today_status_count) {
+          if (response_today_status_count.hasOwnProperty(i)) {
+            this.cleanData.cleanResponseData.statusTodayCount.push({status:i,counts:response_today_status_count[i]});
+          }
+        }
+        for (let i in response_week_status_count) {
+          if (response_week_status_count.hasOwnProperty(i)) {
+            this.cleanData.cleanResponseData.statusWeekCount.push({status:i,counts:response_week_status_count[i]});
+          }
+        }
+        for (let i in response_status_count) {
+          if (response_status_count.hasOwnProperty(i)) {
+            this.cleanData.cleanResponseData.statusCount.push({status:i,counts:response_status_count[i]});
+          }
+        }
+      }
+    },
+    getSetRequestEmailCounts: function(){
         let numResponses = this.rawRequestData.length
 
         if (numResponses > 0) {
           let from_email_count = {};
+          let from_today_email_count = {};
+          let from_week_email_count = {};
+
           for (let i = 0; i < numResponses; i++) {
+              let date = this.rawRequestData[i].last_event_time.substring(0,10);
               let from_email = this.rawRequestData[i].from_email.split('@')[0];
+
+              if (date == this.today) {
+                from_today_email_count[from_email] = from_today_email_count[from_email] || 0;
+                from_today_email_count[from_email] += 1;
+              }
+
+              if (date > this.week) {
+                from_week_email_count[from_email] = from_week_email_count[from_email] || 0;
+                from_week_email_count[from_email] += 1;
+              }
+
               from_email_count[from_email] = from_email_count[from_email] || 0;
               from_email_count[from_email] += 1;
             }
@@ -540,7 +659,7 @@ export default {
         if (from_email_count.length < 6){
             for (let i in from_email_count) {
               if (from_email_count.hasOwnProperty(i)) {
-                  this.cleanData.cleanRequest.emailCount.push({email:i,counts:from_email_count[i]});
+                  this.cleanData.cleanRequestData.emailCount.push({email:i,counts:from_email_count[i]});
               }
             }
           }else{
@@ -556,52 +675,135 @@ export default {
               return (a.value < b.value) ? 1 : ((b.value < a.value) ? -1 : 0)
             });
 
-            let top5 = [];
-            for (let i = 0; i < 5; i++){
+            let length = Math.min(5, sorted.length);
+            for (let i = 0; i < length; i++){
               this.cleanData.cleanRequestData.emailCount.push({email:sorted[i].label,counts:sorted[i].value});
             }
-            let remainder = 0;
-            for (let i = 5; i < sorted.length; i++){
-              remainder = remainder + sorted[i].value
+            if (length > 5) {
+              let remainder = 0;
+              for (let i = 5; i < sorted.length; i++){
+                remainder = remainder + sorted[i].value
+              }
+              this.cleanData.cleanRequestData.emailCount.push({email:"Other",counts:remainder});
             }
-            this.cleanData.cleanRequestData.emailCount.push({email:"Other",counts:remainder});
+          }
+
+          if (from_today_email_count.length < 6){
+            for (let i in from_today_email_count) {
+              if (from_today_email_count.hasOwnProperty(i)) {
+                this.cleanData.cleanRequestData.emailTodayCount.push({email:i,counts:from_today_email_count[i]});
+              }
+            }
+          }else{
+            let array = [];
+            for (let key in from_today_email_count) {
+              array.push({
+                label: key,
+                value: from_today_email_count[key]
+              });
+            }
+
+            let sorted = array.sort(function(a, b) {
+              return (a.value < b.value) ? 1 : ((b.value < a.value) ? -1 : 0)
+            });
+
+            let length = Math.min(5, sorted.length);
+            for (let i = 0; i < length; i++){
+              this.cleanData.cleanRequestData.emailTodayCount.push({email:sorted[i].label,counts:sorted[i].value});
+            }
+            if (length > 5) {
+              let remainder = 0;
+              for (let i = 5; i < sorted.length; i++){
+                remainder = remainder + sorted[i].value
+              }
+              this.cleanData.cleanRequestData.emailTodayCount.push({email:"Other",counts:remainder});
+            }
+          }
+
+
+          if (from_week_email_count.length < 6){
+            for (let i in from_week_email_count) {
+              if (from_week_email_count.hasOwnProperty(i)) {
+                this.cleanData.cleanRequestData.emailWeekCount.push({email:i,counts:from_week_email_count[i]});
+              }
+            }
+          }else{
+            let array = [];
+            for (let key in from_week_email_count) {
+              array.push({
+                label: key,
+                value: from_week_email_count[key]
+              });
+            }
+
+            let sorted = array.sort(function(a, b) {
+              return (a.value < b.value) ? 1 : ((b.value < a.value) ? -1 : 0)
+            });
+
+            let length = Math.min(5, sorted.length);
+            for (let i = 0; i < length; i++){
+              this.cleanData.cleanRequestData.emailWeekCount.push({email:sorted[i].label,counts:sorted[i].value});
+            }
+            if (length > 5) {
+              let remainder = 0;
+              for (let i = 5; i < sorted.length; i++){
+                remainder = remainder + sorted[i].value
+              }
+              this.cleanData.cleanRequestData.emailWeekCount.push({email:"Other",counts:remainder});
+            }
           }
         }
       },
-      getSetResponseEmailCounts: function(){
-        let numResponses = this.rawResponseData.length
+    getSetResponseEmailCounts: function(){
+      let numResponses = this.rawResponseData.length
 
-        if (numResponses > 0) {
-          let from_email_count = {};
-          for (let i = 0; i < numResponses; i++) {
-              let from_email = this.rawResponseData[i].from_email.split('@')[0];
-              from_email_count[from_email] = from_email_count[from_email] || 0;
-              from_email_count[from_email] += 1;
-            }
+      if (numResponses > 0) {
+        let from_email_count = {};
+        let from_today_email_count = {};
+        let from_week_email_count = {};
 
-          if (from_email_count.length < 6){
-            for (let i in from_email_count) {
-              if (from_email_count.hasOwnProperty(i)) {
-                  this.cleanData.cleanResponseData.emailCount.push({email:i,counts:from_email_count[i]});
-              }
-            }
-          }else{
-            let array = [];
-            for (let key in from_email_count) {
-              array.push({
-                label: key,
-                value: from_email_count[key]
-              });
-            }
+        for (let i = 0; i < numResponses; i++) {
+          let date = this.rawResponseData[i].last_event_time.substring(0,10);
+          let from_email = this.rawResponseData[i].from_email.split('@')[0];
 
-            let sorted = array.sort(function(a, b) {
-              return (a.value < b.value) ? 1 : ((b.value < a.value) ? -1 : 0)
+          if (date == this.today) {
+            from_today_email_count[from_email] = from_today_email_count[from_email] || 0;
+            from_today_email_count[from_email] += 1;
+          }
+
+          if (date > this.week) {
+            from_week_email_count[from_email] = from_week_email_count[from_email] || 0;
+            from_week_email_count[from_email] += 1;
+          }
+
+          from_email_count[from_email] = from_email_count[from_email] || 0;
+          from_email_count[from_email] += 1;
+        }
+
+        if (from_email_count.length < 6){
+          for (let i in from_email_count) {
+            if (from_email_count.hasOwnProperty(i)) {
+              this.cleanData.cleanResponseData.emailCount.push({email:i,counts:from_email_count[i]});
+            }
+          }
+        }else{
+          let array = [];
+          for (let key in from_email_count) {
+            array.push({
+              label: key,
+              value: from_email_count[key]
             });
+          }
 
-            let top5 = [];
-            for (let i = 0; i < 5; i++){
-              this.cleanData.cleanResponseData.emailCount.push({email:sorted[i].label,counts:sorted[i].value});
-            }
+          let sorted = array.sort(function(a, b) {
+            return (a.value < b.value) ? 1 : ((b.value < a.value) ? -1 : 0)
+          });
+
+          let length = Math.min(5, sorted.length);
+          for (let i = 0; i < 5; i++){
+            this.cleanData.cleanResponseData.emailCount.push({email:sorted[i].label,counts:sorted[i].value});
+          }
+          if (length > 5) {
             let remainder = 0;
             for (let i = 5; i < sorted.length; i++){
               remainder = remainder + sorted[i].value
@@ -609,20 +811,128 @@ export default {
             this.cleanData.cleanResponseData.emailCount.push({email:"Other",counts:remainder});
           }
         }
-      },
-      getSetRequestOpenClickRate: function(){
-        let numResponses = this.rawRequestData.length
+
+        if (from_today_email_count.length < 6){
+          for (let i in from_today_email_count) {
+            if (from_today_email_count.hasOwnProperty(i)) {
+              this.cleanData.cleanResponseData.emailTodayCount.push({email:i,counts:from_today_email_count[i]});
+            }
+          }
+        }else{
+          let array = [];
+          for (let key in from_today_email_count) {
+            array.push({
+              label: key,
+              value: from_today_email_count[key]
+            });
+          }
+
+          let sorted = array.sort(function(a, b) {
+            return (a.value < b.value) ? 1 : ((b.value < a.value) ? -1 : 0)
+          });
+
+          let length = Math.min(5, sorted.length);
+          for (let i = 0; i < length; i++){
+            this.cleanData.cleanResponseData.emailTodayCount.push({email:sorted[i].label,counts:sorted[i].value});
+          }
+          if (length > 5) {
+            let remainder = 0;
+            for (let i = 5; i < sorted.length; i++){
+              remainder = remainder + sorted[i].value
+            }
+            this.cleanData.cleanResponseData.emailTodayCount.push({email:"Other",counts:remainder});
+          }
+        }
+
+        if (from_week_email_count.length < 6){
+          for (let i in from_week_email_count) {
+            if (from_week_email_count.hasOwnProperty(i)) {
+              this.cleanData.cleanResponseData.emailWeekCount.push({email:i,counts:from_week_email_count[i]});
+            }
+          }
+        }else{
+          let array = [];
+          for (let key in from_week_email_count) {
+            array.push({
+              label: key,
+              value: from_week_email_count[key]
+            });
+          }
+
+          let sorted = array.sort(function(a, b) {
+            return (a.value < b.value) ? 1 : ((b.value < a.value) ? -1 : 0)
+          });
+
+          let length = Math.min(5, sorted.length);
+          for (let i = 0; i < length; i++){
+            this.cleanData.cleanResponseData.emailWeekCount.push({email:sorted[i].label,counts:sorted[i].value});
+          }
+          if (length > 5) {
+            let remainder = 0;
+            for (let i = 5; i < sorted.length; i++){
+              remainder = remainder + sorted[i].value
+            }
+            this.cleanData.cleanResponseData.emailWeekCount.push({email:"Other",counts:remainder});
+          }
+        }
+      }
+    },
+    getSetRequestOpenClickRate: function(){
+        let numResponses = this.rawRequestData.length;
 
         if (numResponses > 0) {
           let open_rate = {};
           open_rate["Unopened"] = 0;
           open_rate["Opened"] = 0;
 
+          let open_today_rate = {};
+          open_today_rate["Unopened"] = 0;
+          open_today_rate["Opened"] = 0;
+
+          let open_week_rate = {};
+          open_week_rate["Unopened"] = 0;
+          open_week_rate["Opened"] = 0;
+
           let click_rate = {};
           click_rate["Unclicked"] = 0;
           click_rate["Clicked"] = 0;
 
+          let click_today_rate = {};
+          click_today_rate["Unclicked"] = 0;
+          click_today_rate["Clicked"] = 0;
+
+          let click_week_rate = {};
+          click_week_rate["Unclicked"] = 0;
+          click_week_rate["Clicked"] = 0;
+
           for (let i = 0; i < numResponses; i++) {
+            let date = this.rawRequestData[i].last_event_time.substring(0,10);
+            if (date == this.today) {
+              if (this.rawRequestData[i].opens_count == 0){
+                open_today_rate["Unopened"] += 1
+              }else{
+                open_today_rate["Opened"] += 1
+              }
+              if (this.rawRequestData[i].clicks_count == 0){
+                click_today_rate["Unclicked"] += 1
+              }else{
+                click_today_rate["Clicked"] += 1
+              }
+            }
+
+            if (date > this.week) {
+              if (this.rawRequestData[i].opens_count == 0){
+                open_week_rate["Unopened"] += 1
+              }else{
+                open_week_rate["Opened"] += 1
+              }
+              if (this.rawRequestData[i].clicks_count == 0){
+                click_week_rate["Unclicked"] += 1
+              }else{
+                click_week_rate["Clicked"] += 1
+              }
+            }
+
             if (this.rawRequestData[i].opens_count == 0){
               open_rate["Unopened"] += 1
             }else{
@@ -634,57 +944,138 @@ export default {
               click_rate["Clicked"] += 1
             }
           }
-
+          for (let i in open_today_rate) {
+            if (open_today_rate.hasOwnProperty(i)) {
+              this.cleanData.cleanRequestData.openTodayRate.push({status:i,count:open_today_rate[i]});
+            }
+          }
+          for (let i in open_week_rate) {
+            if (open_week_rate.hasOwnProperty(i)) {
+              this.cleanData.cleanRequestData.openWeekRate.push({status:i,count:open_week_rate[i]});
+            }
+          }
+          for (let i in click_today_rate) {
+            if (click_today_rate.hasOwnProperty(i)) {
+              this.cleanData.cleanRequestData.clickTodayRate.push({status:i,count:click_today_rate[i]});
+            }
+          }
+          for (let i in click_week_rate) {
+            if (click_week_rate.hasOwnProperty(i)) {
+              this.cleanData.cleanRequestData.clickWeekRate.push({status:i,count:click_week_rate[i]});
+            }
+          }
           for (let i in open_rate) {
-                  if (open_rate.hasOwnProperty(i)) {
-                      this.cleanData.cleanRequestData.openRate.push({status:i,count:open_rate[i]});
-                  }
+            if (open_rate.hasOwnProperty(i)) {
+                this.cleanData.cleanRequestData.openRate.push({status:i,count:open_rate[i]});
+            }
           }
           for (let i in click_rate) {
-                  if (click_rate.hasOwnProperty(i)) {
-                      this.cleanData.cleanRequestData.clickRate.push({status:i,count:click_rate[i]});
-                  }
+            if (click_rate.hasOwnProperty(i)) {
+                this.cleanData.cleanRequestData.clickRate.push({status:i,count:click_rate[i]});
+            }
           }
         }
       },
-      getSetResponseOpenClickRate: function(){
-         let numResponses = this.rawResponseData.length
+    getSetResponseOpenClickRate: function(){
+      let numResponses = this.rawResponseData.length;
 
-        if (numResponses > 0) {
-          let open_rate = {};
-          open_rate["Unopened"] = 0;
-          open_rate["Opened"] = 0;
+      if (numResponses > 0) {
+        let open_rate = {};
+        open_rate["Unopened"] = 0;
+        open_rate["Opened"] = 0;
 
-          let click_rate = {};
-          click_rate["Unclicked"] = 0;
-          click_rate["Clicked"] = 0;
+        let open_today_rate = {};
+        open_today_rate["Unopened"] = 0;
+        open_today_rate["Opened"] = 0;
 
-          for (let i = 0; i < numResponses; i++) {
+        let open_week_rate = {};
+        open_week_rate["Unopened"] = 0;
+        open_week_rate["Opened"] = 0;
+
+        let click_rate = {};
+        click_rate["Unclicked"] = 0;
+        click_rate["Clicked"] = 0;
+
+        let click_today_rate = {};
+        click_today_rate["Unclicked"] = 0;
+        click_today_rate["Clicked"] = 0;
+
+        let click_week_rate = {};
+        click_week_rate["Unclicked"] = 0;
+        click_week_rate["Clicked"] = 0;
+
+        for (let i = 0; i < numResponses; i++) {
+          let date = this.rawResponseData[i].last_event_time.substring(0,10);
+          if (date == this.today) {
             if (this.rawResponseData[i].opens_count == 0){
-              open_rate["Unopened"] += 1
+              open_today_rate["Unopened"] += 1
             }else{
-              open_rate["Opened"] += 1
+              open_today_rate["Opened"] += 1
             }
             if (this.rawResponseData[i].clicks_count == 0){
-              click_rate["Unclicked"] += 1
+              click_today_rate["Unclicked"] += 1
             }else{
-              click_rate["Clicked"] += 1
+              click_today_rate["Clicked"] += 1
             }
           }
 
-          for (let i in open_rate) {
-                  if (open_rate.hasOwnProperty(i)) {
-                      this.cleanData.cleanResponseData.openRate.push({status:i,count:open_rate[i]});
-                  }
+          if (date > this.week) {
+            if (this.rawResponseData[i].opens_count == 0){
+              open_week_rate["Unopened"] += 1
+            }else{
+              open_week_rate["Opened"] += 1
+            }
+            if (this.rawResponseData[i].clicks_count == 0){
+              click_week_rate["Unclicked"] += 1
+            }else{
+              click_week_rate["Clicked"] += 1
+            }
           }
-          for (let i in click_rate) {
-                  if (click_rate.hasOwnProperty(i)) {
-                      this.cleanData.cleanResponseData.clickRate.push({status:i,count:click_rate[i]});
-                  }
+
+          if (this.rawResponseData[i].opens_count == 0){
+            open_rate["Unopened"] += 1
+          }else{
+            open_rate["Opened"] += 1
+          }
+          if (this.rawResponseData[i].clicks_count == 0){
+            click_rate["Unclicked"] += 1
+          }else{
+            click_rate["Clicked"] += 1
           }
         }
-      },
-      organizeAllDetails: async function() {
+        for (let i in open_today_rate) {
+          if (open_today_rate.hasOwnProperty(i)) {
+            this.cleanData.cleanResponseData.openTodayRate.push({status:i,count:open_today_rate[i]});
+          }
+        }
+        for (let i in open_week_rate) {
+          if (open_week_rate.hasOwnProperty(i)) {
+            this.cleanData.cleanResponseData.openWeekRate.push({status:i,count:open_week_rate[i]});
+          }
+        }
+        for (let i in click_today_rate) {
+          if (click_today_rate.hasOwnProperty(i)) {
+            this.cleanData.cleanResponseData.clickTodayRate.push({status:i,count:click_today_rate[i]});
+          }
+        }
+        for (let i in click_week_rate) {
+          if (click_week_rate.hasOwnProperty(i)) {
+            this.cleanData.cleanResponseData.clickWeekRate.push({status:i,count:click_week_rate[i]});
+          }
+        }
+        for (let i in open_rate) {
+          if (open_rate.hasOwnProperty(i)) {
+            this.cleanData.cleanResponseData.openRate.push({status:i,count:open_rate[i]});
+          }
+        }
+        for (let i in click_rate) {
+          if (click_rate.hasOwnProperty(i)) {
+            this.cleanData.cleanResponseData.clickRate.push({status:i,count:click_rate[i]});
+          }
+        }
+      }
+    },
+    organizeAllDetails: async function() {
       // top level organization
       //   await this.fetchStudentAskData();
         await this.fetchSendGridData();
@@ -699,6 +1090,7 @@ export default {
         this.getSetResponseEmailCounts();
         this.getSetRequestOpenClickRate();
         this.getSetResponseOpenClickRate();
+        console.log(this.cleanData)
     },
   },
   mounted: async function() {
