@@ -83,7 +83,7 @@
             } else if (this.time == "week") {
               openRate = this.cleanData.cleanRequestData.openWeekRate;
             }
-            console.log(openRate);
+
             for (let i = 0; i < openRate.length; i++) {
               let dataObject = {
                 label: openRate[i].status,

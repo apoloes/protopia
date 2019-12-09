@@ -16,21 +16,24 @@
 
 <script>
     export default {
-        props: ["cleanData"],
+        props: ["cleanData","time"],
         components: {},
         data() {
           return {
             RequestWeekdayChartData: {
               chart: {
                 plottooltext: "<b>$value</b> requests sent on <b>$label<b>",
+                  labelFontColor: "#FFFFFF",
+                  // valueFontColor: "#FFFFFF",
                 theme: "fusion",
                 showCanvasBorder: "0",
                 placeValuesInside: "0",
                 showAlternateVGridColor: "0",
+                  "bgColor": "#5e26ac",
                 "showvalues": "1",
                 "showLimits": "0",
                 "showDivLineValues": "0",
-                "paletteColors": "#9178a0",
+                "paletteColors": "#ffc533",
                 "usePlotGradientColor": "0",
                 "divLineColor": "#999999",
                 "divLineDashed": "1",
@@ -55,10 +58,17 @@
         methods: {
           setChartData: function() {
             let data = [];
-            for (let i = 0; i < this.cleanData.cleanRequestData.weekdayCount.length; i++) {
+            let weekdayCount = this.cleanData.cleanRequestData.weekdayCount;
+            if (this.time == "today") {
+              weekdayCount = this.cleanData.cleanRequestData.weekdayTodayCount;
+            } else if (this.time == "week") {
+              weekdayCount = this.cleanData.cleanRequestData.weekdayWeekCount;
+            }
+
+            for (let i = 0; i < weekdayCount.length; i++) {
               let dataObject = {
-                label: this.cleanData.cleanRequestData.weekdayCount[i].weekday,
-                value: this.cleanData.cleanRequestData.weekdayCount[i].count
+                label: weekdayCount[i].weekday,
+                value: weekdayCount[i].count
               };
               data.push(dataObject);
             }
@@ -74,6 +84,11 @@
               this.setChartData();
             },
             deep: true
+        },
+         time: {
+            handler: function() {
+              this.setChartData();
+            },
         },
       },
     };

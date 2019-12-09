@@ -26,9 +26,15 @@
 
     </div>
     <div id="barCharts">
-      <weeklyemails-dashboard v-bind:cleanData="cleanData"></weeklyemails-dashboard>
-      <weeklyopens-dashboard v-bind:cleanData="cleanData"></weeklyopens-dashboard>
-      <weeklyclicks-dashboard v-bind:cleanData="cleanData"></weeklyclicks-dashboard>
+      <div id="first">
+        <weeklyemails-dashboard v-bind:cleanData="cleanData"></weeklyemails-dashboard>
+      </div>
+      <div id="second">
+        <weeklyopens-dashboard v-bind:cleanData="cleanData"></weeklyopens-dashboard>
+      </div>
+      <div id="third">
+        <weeklyclicks-dashboard v-bind:cleanData="cleanData"></weeklyclicks-dashboard>
+      </div>
     </div>
     <monthlycounts-dashboard v-bind:cleanData="cleanData"></monthlycounts-dashboard>
   </div>
@@ -62,8 +68,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    
   }
+  .custom-card .header-card .card{
+    padding: 20px;
+    border-radius: 5px;
+  }
+  /*#first, #second, #third{*/
+  /*  padding: 20px;*/
+  /*  border-radius: 5px;*/
+  /*}*/
   .card-heading{
     padding: 5px;
     font-weight: lighter;

@@ -24,13 +24,14 @@
             HomeWeeklyChartData: {
                 chart: {
                     theme: "fusion",
+                    bgColor: "AD66C8, AE66BD",
                     "showBorder": "0",
                     "showCanvasBorder": "0",
                     "showAlternateHGridColor": "0",
                     "showvalues": "1",
                     "showLimits": "0",
                     "showDivLineValues": "0",
-                    "paletteColors": "#9178a0",
+                    "paletteColors": "#ffc533",
                     "usePlotGradientColor": "0",
                     "divLineColor": "#999999",
                     "divLineDashed": "1",
@@ -77,7 +78,7 @@
         methods: {
           setChartData: function() {
             let data = [];
-            
+
             let pastWeek = 0;
             for (let i = 1; i < 8; i++) {
                 pastWeek = pastWeek + this.cleanData.cleanFullData.opensCount[i].counts;
@@ -93,7 +94,7 @@
             for (let i = 8; i < 15; i++) {
                 currWeek = currWeek + this.cleanData.cleanFullData.opensCount[i].counts;
             }
-           
+
             data.push({label: "This Week", value: currWeek});
             this.HomeWeeklyChartData.data = data;
 
