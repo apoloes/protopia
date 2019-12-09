@@ -17,7 +17,7 @@
 
 <script>
     export default {
-        props: ["cleanData"],
+        props: ["cleanData", "time"],
         components: {},
         data() {
           return {
@@ -35,8 +35,8 @@
                 "bgColor": "#5e26ac",
                 "bgAlpha": "100",
                 "canvasBgAlpha": "0",
-                // "doughnutRadius": "75",
-                // "pieRadius": "95",
+                "doughnutRadius": "105",
+                "pieRadius": "125",
                 "plotBorderAlpha": "0",
                 "toolTipBgcolor": "#000000",
                 "toolTipPadding": "7",
@@ -77,10 +77,18 @@
             }
             var data = [];
 
-            for (var i = 0; i < this.cleanData.cleanRequestData.clickRate.length; i++) {
+            let clickRate = this.cleanData.cleanRequestData.clickRate;
+            if (this.time == "today") {
+              clickRate = this.cleanData.cleanRequestData.clickTodayRate;
+            } else if (this.time == "week") {
+              clickRate = this.cleanData.cleanRequestData.clickWeekRate;
+            }
+
+
+            for (var i = 0; i < clickRate.length; i++) {
               var dataObject = {
-                label: this.cleanData.cleanRequestData.clickRate[i].status,
-                value: this.cleanData.cleanRequestData.clickRate[i].count
+                label: clickRate[i].status,
+                value: clickRate[i].count
               };
               data.push(dataObject);
             }
@@ -97,6 +105,11 @@
               this.setChartData();
             },
             deep: true
+        },
+        time: {
+            handler: function() {
+              this.setChartData();
+            },
         },
       },
     };

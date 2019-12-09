@@ -19,7 +19,7 @@ import GammelTheme from 'fusioncharts/themes/fusioncharts.theme.gammel';
 import VueFusionCharts from 'vue-fusioncharts'
 
 
-import { vsSideBar, vsButton, vsSelect, vsPopup, vsDivider, vsIcon, vsAvatar, vsSpacer } from 'vuesax';
+import { vsSideBar, vsButton, vsSelect, vsPopup, vsDivider, vsIcon, vsAvatar , vsSpacer} from 'vuesax';
 import 'vuesax/dist/vuesax.css'; //Vuesax styles
 import 'material-icons/iconfont/material-icons.css';
 
@@ -42,6 +42,7 @@ Vue.use(vsSelect);
 Vue.use(vsDivider);
 Vue.use(vsIcon);
 Vue.use(vsAvatar);
+
 Vue.use(VueRouter);
 Vue.use(vsSpacer);
 

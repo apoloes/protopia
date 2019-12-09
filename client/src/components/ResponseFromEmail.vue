@@ -17,7 +17,7 @@
 
 <script>
     export default {
-        props: ["cleanData"],
+        props: ["cleanData", "time"],
         components: {},
         data() {
           return {
@@ -74,11 +74,18 @@
               return comparison;
             }
             var data = [];
+            
+            let emailCount = this.cleanData.cleanResponseData.emailCount;
+            if (this.time == "today") {
+              emailCount = this.cleanData.cleanResponseData.emailTodayCount;
+            } else if (this.time == "week") {
+              emailCount = this.cleanData.cleanResponseData.emailWeekCount;
+            }
 
-            for (var i = 0; i < this.cleanData.cleanResponseData.emailCount.length; i++) {
+            for (var i = 0; i < emailCount.length; i++) {
               var dataObject = {
-                label: this.cleanData.cleanResponseData.emailCount[i].email,
-                value: this.cleanData.cleanResponseData.emailCount[i].counts
+                label: emailCount[i].email,
+                value: emailCount[i].counts
               };
               data.push(dataObject);
             }
@@ -95,6 +102,11 @@
               this.setChartData();
             },
             deep: true
+        },
+        time: {
+          handler: function() {
+            this.setChartData();
+          },
         },
       },
     };

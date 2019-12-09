@@ -24,9 +24,11 @@
             HomeWeeklyChartData: {
                 chart: {
                     theme: "fusion",
-                    bgColor: "AD66C8, AE66BD",
+                    bgColor: "AE66BD",
 
                     "showBorder": "0",
+                    labelFontColor: "#FFFFFF",
+                    valueFontColor: "#FFFFFF",
                     "showCanvasBorder": "0",
                     "showAlternateHGridColor": "0",
                     showDivLineValues: "0",
@@ -79,6 +81,7 @@
         },
         methods: {
           setChartData: function() {
+            if(this.cleanData.cleanFullData.clicksCount.length > 0){
             let data = [];
 
             let pastWeek = 0;
@@ -115,6 +118,7 @@
                 this.HomeWeeklyChartData.annotations.groups[0].items[1].color = "#4ae46d";
                 this.HomeWeeklyChartData.annotations.groups[0].items[1].fontSize = "1.1em";
 
+            }
             }
           },
         },

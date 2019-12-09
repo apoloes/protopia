@@ -8,23 +8,23 @@
 
       <div class="parent-card">
         <div class="widget-card">
-          <p class="card-heading">Monthly Responses</p>
+          <p class="card-heading">{{responseHeader}}</p>
           <div class="dataCounts">
-            <h1>{{cleanData.cleanResponseData.numResponses}}</h1><vs-icon icon="post_add"></vs-icon>
+            <h1>{{numResponses}}</h1><vs-icon icon="post_add"></vs-icon>
           </div>
         </div>
 
         <div class="widget-card">
-          <p class="card-heading">Monthly Response Opens</p>
+          <p class="card-heading">{{opensHeader}}</p>
           <div class="dataCounts">
-            <h1>{{cleanData.cleanResponseData.numOpens}}</h1><vs-icon icon="drafts"></vs-icon>
+            <h1>{{numOpens}}</h1><vs-icon icon="drafts"></vs-icon>
           </div>
         </div>
 
         <div class="widget-card">
-          <p class="card-heading">Monthly Response Clicks</p>
+          <p class="card-heading">{{clicksHeader}}</p>
           <div class="dataCounts">
-            <h1>{{cleanData.cleanResponseData.numClicks}}</h1><vs-icon icon="touch_app"></vs-icon>
+            <h1>{{numClicks}}</h1><vs-icon icon="touch_app"></vs-icon>
           </div>
         </div>
       </div>
@@ -83,17 +83,17 @@
       <div class="box e">
         <div class="boxTitle">Status</div>
         <hr class="boxLine">
-        <statusresponse-dashboard v-bind:cleanData="cleanData"></statusresponse-dashboard>
+        <statusresponse-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></statusresponse-dashboard>
       </div>
       <div class="box f">
         <div class="boxTitle">Weekday Counts</div>
         <hr class="boxLine">
-        <weekdaycount-dashboard v-bind:cleanData="cleanData"></weekdaycount-dashboard>
+        <weekdaycount-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></weekdaycount-dashboard>
       </div>
       <div class="box g">
         <div class="boxTitle">Emails</div>
         <hr class="boxLine">
-        <fromemail-dashboard v-bind:cleanData="cleanData"></fromemail-dashboard>
+        <fromemail-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></fromemail-dashboard>
       </div>
     </div>
 
@@ -110,7 +110,7 @@
     import ResponseWeekdayCount from "./ResponseWeekdayCount.vue"
 
     export default {
-        props: ["cleanData", "responseStartDate", "responseEndDate"],
+        props: ["cleanData", "time"],
         components: {
             'dailyresponse-dashboard': DailyResponseRate,
             'hourlyresponse-dashboard': HourlyResponseRate,
@@ -122,14 +122,50 @@
         },
         data () {
             return {
+                numOpens: this.cleanData.cleanResponseData.numOpens,
+                numResponses: this.cleanData.cleanResponseData.numResponses,
+                numClicks: this.cleanData.cleanResponseData.numClicks,
+                opensHeader: 'Monthly Response Opens',
+                responseHeader: 'Monthly Responses',
+                clicksHeader: 'Monthly Response Clicks',
                 time: 'month',
                 childComponents: ['DailyResponseRate.vue','HourlyResponseRate.vue', 'ResponseStatusDist.vue', 'ResponseFromEmail.vue', 'ResponseOpenRate.vue', 'ResponseClickRate.vue', 'ResponseWeekdayCount.vue']
             }
         },
         methods: {
+          setCounts: function () {
+            this.numOpens = this.cleanData.cleanResponseData.numOpens;
+            this.numResponses = this.cleanData.cleanResponseData.numResponses;
+            this.numClicks = this.cleanData.cleanResponseData.numClicks;
+            this.opensHeader = 'Monthly Response Opens';
+            this.responseHeader = 'Monthly Responses';
+            this.clicksHeader = 'Monthly Response Clicks';
+            if (this.time == "today") {
+              this.numOpens = this.cleanData.cleanResponseData.numTodayOpens;
+              this.numResponses = this.cleanData.cleanResponseData.numTodayResponses;
+              this.numClicks = this.cleanData.cleanResponseData.numTodayClicks;
+              this.opensHeader = 'Response Opens Today';
+              this.responseHeader = 'Responses Today';
+              this.clicksHeader = 'Response Clicks Today';
+            } else if (this.time == "week") {
+              this.numOpens = this.cleanData.cleanResponseData.numWeekOpens;
+              this.numResponses = this.cleanData.cleanResponseData.numWeekResponses;
+              this.numClicks = this.cleanData.cleanResponseData.numWeekClicks;
+              this.opensHeader = 'Weekly Response Opens';
+              this.responseHeader = 'Weekly Responses';
+              this.clicksHeader = 'Weekly Response Clicks';
+            }
+          }
         },
         computed: {
-        }
+        },
+        watch: {
+          time: {
+            handler: function() {
+              this.setCounts();
+            },
+          },
+        },
     }
 </script>
 

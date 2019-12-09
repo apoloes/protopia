@@ -24,7 +24,9 @@
             HomeWeeklyChartData: {
                 chart: {
                     theme: "fusion",
-                    bgColor: "AD66C8, AE66BD",
+                    bgColor: "AD66C8",
+                    labelFontColor: "#FFFFFF",
+                    valueFontColor: "#FFFFFF",
                     "showBorder": "0",
                     "showCanvasBorder": "0",
                     "showAlternateHGridColor": "0",
@@ -77,6 +79,7 @@
         },
         methods: {
           setChartData: function() {
+            if(this.cleanData.cleanFullData.emailsCount.length > 0){
             let data = [];
 
             let pastWeek = 0;
@@ -110,6 +113,7 @@
                 this.HomeWeeklyChartData.annotations.groups[0].items[0].color = "#4ae46d";
                 this.HomeWeeklyChartData.annotations.groups[0].items[1].text = "Increase in Emails"
                 this.HomeWeeklyChartData.annotations.groups[0].items[1].color = "#4ae46d";
+            }
             }
           },
         },

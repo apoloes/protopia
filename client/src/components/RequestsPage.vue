@@ -8,23 +8,23 @@
 
       <div class="parent-card">
         <div class="widget-card">
-          <p class="card-heading">Monthly Requests</p>
+          <p class="card-heading">{{requestsHeader}}</p>
           <div class="dataCounts">
-            <h1>{{cleanData.cleanRequestData.numRequests}}</h1><vs-icon icon="post_add"></vs-icon>
+            <h1>{{numRequests}}</h1><vs-icon icon="post_add"></vs-icon>
           </div>
         </div>
 
         <div class="widget-card">
-          <p class="card-heading">Monthly Request Opens</p>
+          <p class="card-heading">{{opensHeader}}</p>
           <div class="dataCounts">
-            <h1>{{cleanData.cleanRequestData.numOpens}}</h1><vs-icon icon="drafts"></vs-icon>
+            <h1>{{numOpens}}</h1><vs-icon icon="drafts"></vs-icon>
           </div>
         </div>
 
         <div class="widget-card">
-          <p class="card-heading">Monthly Request Clicks</p>
+          <p class="card-heading">{{clicksHeader}}</p>
           <div class="dataCounts">
-            <h1>{{cleanData.cleanRequestData.numClicks}}</h1><vs-icon icon="touch_app"></vs-icon>
+            <h1>{{numClicks}}</h1><vs-icon icon="touch_app"></vs-icon>
           </div>
         </div>
       </div>
@@ -81,17 +81,17 @@
       <div class="box e">
         <div class="boxTitle">Status</div>
         <hr class="boxLine">
-        <statusrequest-dashboard v-bind:cleanData="cleanData"></statusrequest-dashboard>
+        <statusrequest-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></statusrequest-dashboard>
       </div>
       <div class="box f">
         <div class="boxTitle">Weekday Counts</div>
         <hr class="boxLine">
-        <weekdaycount-dashboard v-bind:cleanData="cleanData"></weekdaycount-dashboard>
+        <weekdaycount-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></weekdaycount-dashboard>
       </div>
       <div class="box g">
         <div class="boxTitle">Emails</div>
         <hr class="boxLine">
-        <fromemail-dashboard v-bind:cleanData="cleanData"></fromemail-dashboard>
+        <fromemail-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></fromemail-dashboard>
       </div>
     </div>
 
@@ -120,16 +120,51 @@
         },
         data () {
             return {
+                numOpens: this.cleanData.cleanRequestData.numOpens,
+                numRequests: this.cleanData.cleanRequestData.numRequests,
+                numClicks: this.cleanData.cleanRequestData.numClicks,
+                opensHeader: 'Monthly Request Opens',
+                requestsHeader: 'Monthly Requests',
+                clicksHeader: 'Monthly Request Clicks',
                 time: 'month',
                 childComponents: ['DailyRequestRate.vue','HourlyRequestRate.vue', 'RequestStatusDist.vue', 'RequestFromEmail.vue', 'RequestOpenRate.vue', 'RequestClickRate.vue', 'RequestWeekdayCount.vue']
             }
         },
         methods: {
-
+          setCounts: function () {
+              this.numOpens = this.cleanData.cleanRequestData.numOpens;
+              this.numRequests = this.cleanData.cleanRequestData.numRequests;
+              this.numClicks = this.cleanData.cleanRequestData.numClicks;
+              this.opensHeader = 'Monthly Request Opens';
+              this.requestsHeader = 'Monthly Requests';
+              this.clicksHeader = 'Monthly Request Clicks';
+              if (this.time == "today") {
+                this.numOpens = this.cleanData.cleanRequestData.numTodayOpens;
+                this.numRequests = this.cleanData.cleanRequestData.numTodayRequests;
+                this.numClicks = this.cleanData.cleanRequestData.numTodayClicks;
+                this.opensHeader = 'Request Opens Today';
+                this.requestsHeader = 'Requests Today';
+                this.clicksHeader = 'Request Clicks Today';
+              } else if (this.time == "week") {
+                this.numOpens = this.cleanData.cleanRequestData.numWeekOpens;
+                this.numRequests = this.cleanData.cleanRequestData.numWeekRequests;
+                this.numClicks = this.cleanData.cleanRequestData.numWeekClicks;
+                this.opensHeader = 'Weekly Request Opens';
+                this.requestsHeader = 'Weekly Requests';
+                this.clicksHeader = 'Weekly Request Clicks';
+              }
+          }
         },
         computed: {
 
-        }
+        },
+        watch: {
+          time: {
+            handler: function() {
+              this.setCounts();
+            },
+          },
+      },
     }
 </script>
 
@@ -157,4 +192,7 @@
     padding-left: 4px;
   }
 
+  .btn-group button{
+    /*font-size: 0.6em;*/
+  }
 </style>

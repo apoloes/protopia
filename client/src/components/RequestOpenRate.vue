@@ -17,7 +17,7 @@
 
 <script>
     export default {
-        props: ["cleanData"],
+        props: ["cleanData","time"],
         components: {},
         data() {
           return {
@@ -35,8 +35,8 @@
                 "bgColor": "#5e26ac",
                 "bgAlpha": "100",
                 "canvasBgAlpha": "0",
-                // "doughnutRadius": "45",
-                // "pieRadius": "65",
+                "doughnutRadius": "105",
+                "pieRadius": "125",
                 "plotBorderAlpha": "0",
                 "toolTipBgcolor": "#9178a0",
                 "toolTipPadding": "7",
@@ -62,6 +62,7 @@
         },
         methods: {
           setChartData: function() {
+
             function compare(a, b) {
               // Use toUpperCase() to ignore character casing
               const A = a.value;
@@ -75,12 +76,18 @@
               }
               return comparison;
             }
-            var data = [];
+            let data = [];
+            let openRate = this.cleanData.cleanRequestData.openRate;
+            if (this.time == "today") {
+              openRate = this.cleanData.cleanRequestData.openTodayRate;
+            } else if (this.time == "week") {
+              openRate = this.cleanData.cleanRequestData.openWeekRate;
+            }
 
-            for (var i = 0; i < this.cleanData.cleanRequestData.openRate.length; i++) {
-              var dataObject = {
-                label: this.cleanData.cleanRequestData.openRate[i].status,
-                value: this.cleanData.cleanRequestData.openRate[i].count
+            for (let i = 0; i < openRate.length; i++) {
+              let dataObject = {
+                label: openRate[i].status,
+                value: openRate[i].count
               };
               data.push(dataObject);
             }
@@ -97,6 +104,11 @@
               this.setChartData();
             },
             deep: true
+        },
+        time: {
+            handler: function() {
+              this.setChartData();
+            },
         },
       },
     };

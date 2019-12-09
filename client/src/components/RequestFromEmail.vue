@@ -17,7 +17,7 @@
 
 <script>
     export default {
-        props: ["cleanData"],
+        props: ["cleanData", "time"],
         components: {},
         data() {
           return {
@@ -34,8 +34,8 @@
                 "bgColor": "#5e26ac",
                 "bgAlpha": "100",
                 "canvasBgAlpha": "0",
-                // "doughnutRadius": "105",
-                // "pieRadius": "125",
+                "doughnutRadius": "105",
+                "pieRadius": "125",
                 "plotBorderAlpha": "0",
                 "toolTipBgcolor": "#9178a0",
                 "toolTipPadding": "7",
@@ -76,11 +76,17 @@
             }
 
             var data = [];
+            let emailCount = this.cleanData.cleanRequestData.emailCount;
+            if (this.time == "today") {
+              emailCount = this.cleanData.cleanRequestData.emailTodayCount;
+            } else if (this.time == "week") {
+              emailCount = this.cleanData.cleanRequestData.emailWeekCount;
+            }
 
-            for (var i = 0; i < this.cleanData.cleanRequestData.emailCount.length; i++) {
+            for (var i = 0; i < emailCount.length; i++) {
               var dataObject = {
-                label: this.cleanData.cleanRequestData.emailCount[i].email,
-                value: this.cleanData.cleanRequestData.emailCount[i].counts
+                label: emailCount[i].email,
+                value: emailCount[i].counts
               };
               data.push(dataObject);
             }
@@ -97,6 +103,11 @@
               this.setChartData();
             },
             deep: true
+        },
+        time: {
+            handler: function() {
+              this.setChartData();
+            },
         },
       },
     };

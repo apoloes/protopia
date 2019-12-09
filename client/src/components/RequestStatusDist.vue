@@ -17,7 +17,7 @@
 
 <script>
     export default {
-        props: ["cleanData"],
+        props: ["cleanData", "time"],
         components: {},
         data() {
           return {
@@ -35,8 +35,8 @@
                 "bgColor": "#5e26ac",
                 "bgAlpha": "100",
                 "canvasBgAlpha": "0",
-                // "doughnutRadius": "105",
-                // "pieRadius": "125",
+                "doughnutRadius": "105",
+                "pieRadius": "125",
                 "plotBorderAlpha": "0",
                 "toolTipBgcolor": "#9178a0",
                 "toolTipPadding": "7",
@@ -75,11 +75,16 @@
               return comparison;
             }
             var data = [];
-
-            for (var i = 0; i < this.cleanData.cleanRequestData.statusCount.length; i++) {
+            let statusCount = this.cleanData.cleanRequestData.statusCount;
+            if (this.time == "today") {
+              statusCount = this.cleanData.cleanRequestData.statusTodayCount;
+            } else if (this.time == "week") {
+              statusCount = this.cleanData.cleanRequestData.statusWeekCount;
+            }
+            for (var i = 0; i < statusCount.length; i++) {
               var dataObject = {
-                label: this.cleanData.cleanRequestData.statusCount[i].status,
-                value: this.cleanData.cleanRequestData.statusCount[i].counts
+                label: statusCount[i].status,
+                value: statusCount[i].counts
               };
               data.push(dataObject);
             }
@@ -96,6 +101,11 @@
               this.setChartData();
             },
             deep: true
+        },
+        time: {
+            handler: function() {
+              this.setChartData();
+            },
         },
       },
     };
