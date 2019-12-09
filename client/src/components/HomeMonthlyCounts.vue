@@ -22,8 +22,16 @@
             homeMonthlyRateChartData: {
               chart: {
                 caption: "Daily Open, Click, and Email Counts",
+                  captionFontColor: "#FFFFFF",
+                  subCaptionFontColor: "#FFFFFF",
                   bgColor: "AD66C8, AE66BD",
                   labelFontColor: "#FFFFFF",
+                  yAxisNameFontColor: "#FFFFFF",
+                  yAxisValueFontColor: "#FFFFFF",
+                  xAxisNameFontColor: "#FFFFFF",
+                  xAxisValueFontColor: "#FFFFFF",
+                  legendItemFontColor: "#FFFFFF",
+                  valueFontColor: "#FFFFFF",
                 yaxisname: "Frequency",
                 subcaption: "Last Month",
                 numdivlines: "3",

@@ -12,6 +12,10 @@ protopia secondary button: #c9a8d0
 #app{
   background: linear-gradient(90deg, rgba(173,102,200,1) 0%, rgba(174,102,189,1) 50%);
 }
+.widget-card .vs-icon{
+  padding-bottom: 4px;
+  padding-left: 4px;
+}
 .boxTitle{
   color: white;
   font-size: .8em;

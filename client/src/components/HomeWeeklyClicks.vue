@@ -25,6 +25,7 @@
                 chart: {
                     theme: "fusion",
                     bgColor: "AD66C8, AE66BD",
+
                     "showBorder": "0",
                     "showCanvasBorder": "0",
                     "showAlternateHGridColor": "0",
@@ -57,7 +58,7 @@
                         "id": "indicator1",
                         "type": "text",
                         "text": "",
-                        "color": "",
+                        "color": "#FFFFFF",
                         "fontSize": "30",
                         "x": "$canvasEndX + 100",
                         "y": "$canvasheight - 50"
@@ -65,7 +66,7 @@
                         "id": "indicator2",
                         "type": "text",
                         "text": "",
-                        "color": "#999999",
+                        "color": "#FFFFFF",
                         "fontSize": "14",
                         "x": "$canvasEndX + 100",
                         "y": "$canvasheight - 15"
@@ -102,13 +103,18 @@
             if(this.HomeWeeklyChartData.data[0].value > this.HomeWeeklyChartData.data[1].value){
                 let decrease = (1 - (this.HomeWeeklyChartData.data[1].value/this.HomeWeeklyChartData.data[0].value)) * 100
                 this.HomeWeeklyChartData.annotations.groups[0].items[0].text = "▼".concat((Math.round(100*decrease)/100).toString(), "%");
-                this.HomeWeeklyChartData.annotations.groups[0].items[0].color = "#f2726f";
+                this.HomeWeeklyChartData.annotations.groups[0].items[0].color = "#840c17";
                 this.HomeWeeklyChartData.annotations.groups[0].items[1].text = "Decrease in Clicks";
+                this.HomeWeeklyChartData.annotations.groups[0].items[1].color = "#840c17";
+                this.HomeWeeklyChartData.annotations.groups[0].items[1].text.fontsize(2);
             }else{
                 let increase = ((this.HomeWeeklyChartData.data[1].value/this.HomeWeeklyChartData.data[0].value) - 1) * 100
                 this.HomeWeeklyChartData.annotations.groups[0].items[0].text = "▲".concat((Math.round(100*increase)/100).toString(), "%");
-                this.HomeWeeklyChartData.annotations.groups[0].items[0].color = "#62B58F";
+                this.HomeWeeklyChartData.annotations.groups[0].items[0].color = "#4ae46d";
                 this.HomeWeeklyChartData.annotations.groups[0].items[1].text = "Increase in Clicks"
+                this.HomeWeeklyChartData.annotations.groups[0].items[1].color = "#4ae46d";
+                this.HomeWeeklyChartData.annotations.groups[0].items[1].fontSize = "1.1em";
+
             }
           },
         },

@@ -4,21 +4,21 @@
     <h2 class="pagetitle">Home</h2>
     <div class="parent-card">
       <div class="widget-card">
-        <p class="card-heading">Total Monthly Emails: </p>
+        <p class="card-heading">Total Monthly Emails</p>
         <div class="dataCounts">
           <h1>{{cleanData.cleanFullData.numTotalEmails}}</h1><vs-icon icon="post_add"></vs-icon>
         </div>
       </div>
 
       <div class="widget-card">
-        <p class="card-heading">Total Monthly Opens: </p>
+        <p class="card-heading">Total Monthly Opens</p>
         <div class="dataCounts">
           <h1>{{cleanData.cleanFullData.numTotalOpens}}</h1><vs-icon icon="drafts"></vs-icon>
         </div>
       </div>
 
       <div class="widget-card">
-        <p class="card-heading">Total Monthly Clicks: </p>
+        <p class="card-heading">Total Monthly Clicks</p>
         <div class="dataCounts">
           <h1>{{cleanData.cleanFullData.numTotalClicks}}</h1><vs-icon icon="touch_app"></vs-icon>
         </div>
@@ -80,8 +80,8 @@
   .card-heading{
     padding: 5px;
     font-weight: lighter;
-    font-size: 1.3em;
-    color: black;
+    font-size: 1.2em;
+    color: white;
   }
   .parent-card{
     /*margin-top: 20px;*/
