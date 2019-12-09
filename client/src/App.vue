@@ -89,9 +89,11 @@ export default {
             openTodayRate: [],
             openWeekRate: [],
             clickRate: [],
-            weekdayCount: [],
             clickTodayRate: [],
             clickWeekRate: [],
+            weekdayCount: [],
+            weekdayTodayCount: [],
+            weekdayWeekCount: [],
         },
         cleanResponseData: {
             numResponses: 0,
@@ -128,9 +130,12 @@ export default {
             openTodayRate: [],
             openWeekRate: [],
             clickRate: [],
-            weekdayCount: [],
             clickTodayRate: [],
             clickWeekRate: [],
+            weekdayCount: [],
+            weekdayTodayCount: [],
+            weekdayWeekCount: [],
+            
         }
       }
     }
@@ -1082,36 +1087,69 @@ export default {
 
       if (numResponses > 0) {
         let weekday_count = {};
+        let weekdayToday_count = {};
+        let weekdayWeek_count = {};
 
         for (let i = 0; i < numResponses; i++) {
-          let date = moment(this.rawResponseData[i].last_event_time.substring(0,10), "YYYY-MM-DD").format('dddd');
-          weekday_count[date] = weekday_count[date] || 0;
-          weekday_count[date] += 1;
+          let day = moment(this.rawResponseData[i].last_event_time.substring(0,10), "YYYY-MM-DD").format('dddd');
+          let date = this.rawResponseData[i].last_event_time.substring(0,10);
+          if (date == this.today) {
+            weekdayToday_count[day] = weekdayToday_count[day] || 0;
+            weekdayToday_count[day] += 1;
+          }
+
+          if (date > this.week) {
+            weekdayWeek_count[day] = weekdayWeek_count[day] || 0;
+            weekdayWeek_count[day] += 1;
+          }
+          
+          weekday_count[day] = weekday_count[day] || 0;
+          weekday_count[day] += 1;
+
         }
         let weekdays = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
         for (let i = 0; i < weekdays.length; i++) {
           this.cleanData.cleanResponseData.weekdayCount.push({weekday:weekdays[i],count:weekday_count[weekdays[i]]});
+          this.cleanData.cleanResponseData.weekdayTodayCount.push({weekday:weekdays[i],count:weekdayToday_count[weekdays[i]]});
+          this.cleanData.cleanResponseData.weekdayWeekCount.push({weekday:weekdays[i],count:weekdayWeek_count[weekdays[i]]});
         }
 
       }
       },
       getSetRequestWeekdayCounts: function() {
-      let numRequests = this.rawResponseData.length;
+      let numRequests = this.rawRequestData.length;
 
       if (numRequests > 0) {
         let weekday_count = {};
+        let weekdayToday_count = {};
+        let weekdayWeek_count = {};
 
         for (let i = 0; i < numRequests; i++) {
-          let date = moment(this.rawRequestData[i].last_event_time.substring(0,10), "YYYY-MM-DD").format('dddd');
-          weekday_count[date] = weekday_count[date] || 0;
-          weekday_count[date] += 1;
+          let day = moment(this.rawRequestData[i].last_event_time.substring(0,10), "YYYY-MM-DD").format('dddd');
+          let date = this.rawRequestData[i].last_event_time.substring(0,10);
+          if (date == this.today) {
+            weekdayToday_count[day] = weekdayToday_count[day] || 0;
+            weekdayToday_count[day] += 1;
+          }
+
+          if (date > this.week) {
+            weekdayWeek_count[day] = weekdayWeek_count[day] || 0;
+            weekdayWeek_count[day] += 1;
+          }
+          
+          weekday_count[day] = weekday_count[day] || 0;
+          weekday_count[day] += 1;
+
         }
         let weekdays = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
         for (let i = 0; i < weekdays.length; i++) {
           this.cleanData.cleanRequestData.weekdayCount.push({weekday:weekdays[i],count:weekday_count[weekdays[i]]});
+          this.cleanData.cleanRequestData.weekdayTodayCount.push({weekday:weekdays[i],count:weekdayToday_count[weekdays[i]]});
+          this.cleanData.cleanRequestData.weekdayWeekCount.push({weekday:weekdays[i],count:weekdayWeek_count[weekdays[i]]});
         }
       }
-      console.log( this.cleanData.cleanRequestData.weekdayCount);
+      
+      
       },
     organizeAllDetails: async function() {
       // top level organization
