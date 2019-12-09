@@ -17,7 +17,7 @@
 
 <script>
     export default {
-        props: ["cleanData"],
+        props: ["cleanData", "time"],
         data() {
           return {
            hourlyRequestRateChartData: {
@@ -87,6 +87,16 @@
         },
         methods: {
           setChartData: function() {
+            let openCount = this.cleanData.cleanRequestData.hourlyOpenCount;
+            let clicksCount = this.cleanData.cleanRequestData.hourlyClicksCount;
+            if (this.time == "today") {
+              openCount = this.cleanData.cleanRequestData.hourlyTodayOpenCount;
+              clicksCount = this.cleanData.cleanRequestData.hourlyTodayClicksCount;
+            } else if (this.time == "week") {
+              openCount = this.cleanData.cleanRequestData.hourlyWeekOpenCount;
+              clicksCount = this.cleanData.cleanRequestData.hourlyWeekClicksCount;
+            }
+
             let categories = [];
             let opens = [];
             let clicks = [];
@@ -96,17 +106,17 @@
             let avgOpens = 0;
             let avgRequests = 0;
 
-            for (let i = 0; i < this.cleanData.cleanRequestData.hourlyOpenCount.length; i++) {
+            for (let i = 0; i < openCount.length; i++) {
               let categoryObject = {
-                label: this.cleanData.cleanRequestData.hourlyOpenCount[i].hour,
+                label: openCount[i].hour,
               };
-              avgOpens = avgOpens + this.cleanData.cleanRequestData.hourlyOpenCount[i].counts
+              avgOpens = avgOpens + openCount[i].counts
               let opensObject = {
-                value: this.cleanData.cleanRequestData.hourlyOpenCount[i].counts,
+                value: openCount[i].counts,
               };
-              avgClicks = avgClicks + this.cleanData.cleanRequestData.hourlyClicksCount[i].counts
+              avgClicks = clicksCount[i].counts
               let clicksObject = {
-                value: this.cleanData.cleanRequestData.hourlyClicksCount[i].counts,
+                value: clicksCount[i].counts,
               };
               avgRequests = avgRequests + this.cleanData.cleanRequestData.hourlyRequestCount[i].counts
               let responseObject = {
@@ -121,8 +131,8 @@
             this.hourlyRequestRateChartData.dataset[0].data = opens;
             this.hourlyRequestRateChartData.dataset[1].data = clicks;
             this.hourlyRequestRateChartData.dataset[2].data = requests;
-            this.hourlyRequestRateChartData.trendlines[0].line[0].startvalue = avgOpens / this.cleanData.cleanRequestData.hourlyOpenCount.length
-            this.hourlyRequestRateChartData.trendlines[0].line[1].startvalue = avgClicks / this.cleanData.cleanRequestData.hourlyOpenCount.length
+            this.hourlyRequestRateChartData.trendlines[0].line[0].startvalue = avgOpens / openCount.length
+            this.hourlyRequestRateChartData.trendlines[0].line[1].startvalue = avgClicks / openCount.length
             this.hourlyRequestRateChartData.trendlines[0].line[2].startvalue = avgRequests / this.cleanData.cleanRequestData.hourlyRequestCount.length
             this.hourlyRequestRateChartData.trendlines[0].line[0].displayvalue = "Avg. Opens: ".concat(Math.round(this.hourlyRequestRateChartData.trendlines[0].line[0].startvalue.toString()))
             this.hourlyRequestRateChartData.trendlines[0].line[1].displayvalue = "Avg. Clicks: ".concat(Math.round(this.hourlyRequestRateChartData.trendlines[0].line[1].startvalue.toString()))
@@ -158,6 +168,11 @@
             },
             deep: true
         },
+          time: {
+            handler: function() {
+              this.setChartData();
+            },
+          },
       },
     };
 </script>

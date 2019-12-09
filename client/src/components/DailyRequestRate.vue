@@ -16,9 +16,10 @@
 
 <script>
     export default {
-        props: ["cleanData", "startDate", "endDate"],
+        props: ["cleanData", "time"],
         data() {
           return {
+            currentData: '',
             dailyRequestRateChartData: {
               chart: {
                 // caption: "Daily Open, Click, and Request Rates",
@@ -89,6 +90,16 @@
         },
         methods: {
           setChartData: function() {
+            let openCount = this.cleanData.cleanRequestData.openCount;
+            let clicksCount = this.cleanData.cleanRequestData.clicksCount;
+            if (this.time == "today") {
+              openCount = this.cleanData.cleanRequestData.openTodayCount;
+              clicksCount = this.cleanData.cleanRequestData.clicksTodayCount;
+            } else if (this.time == "week") {
+              openCount = this.cleanData.cleanRequestData.openWeekCount;
+              clicksCount = this.cleanData.cleanRequestData.clicksWeekCount;
+            }
+
             let categories = [];
             let opens = [];
             let clicks = [];
@@ -97,17 +108,17 @@
             let avgClicks = 0;
             let avgOpens = 0;
             let avgRequests = 0;
-            for (let i = this.cleanData.cleanRequestData.openCount.length-1; i >= 0; i--) {
+            for (let i = openCount.length-1; i >= 0; i--) {
               let categoryObject = {
-                label: this.cleanData.cleanRequestData.openCount[i].date.substring(5,10),
+                label: openCount[i].date.substring(5,10),
               };
-              avgOpens = avgOpens + this.cleanData.cleanRequestData.openCount[i].counts
+              avgOpens = avgOpens + openCount[i].counts
               let opensObject = {
-                value: this.cleanData.cleanRequestData.openCount[i].counts,
+                value: openCount[i].counts,
               };
-              avgClicks = avgClicks + this.cleanData.cleanRequestData.clicksCount[i].counts
+              avgClicks = avgClicks + clicksCount[i].counts
               let clicksObject = {
-                value: this.cleanData.cleanRequestData.clicksCount[i].counts,
+                value: clicksCount[i].counts,
               };
               avgRequests = avgRequests + this.cleanData.cleanRequestData.requestCount[i].counts
               let requestsObject = {
@@ -122,64 +133,12 @@
             this.dailyRequestRateChartData.dataset[0].data = opens;
             this.dailyRequestRateChartData.dataset[1].data = clicks;
             this.dailyRequestRateChartData.dataset[2].data = requests;
-            this.dailyRequestRateChartData.trendlines[0].line[0].startvalue = avgOpens / this.cleanData.cleanRequestData.openCount.length
-            this.dailyRequestRateChartData.trendlines[0].line[1].startvalue = avgClicks / this.cleanData.cleanRequestData.openCount.length
-            this.dailyRequestRateChartData.trendlines[0].line[2].startvalue = avgRequests / this.cleanData.cleanRequestData.openCount.length
+            this.dailyRequestRateChartData.trendlines[0].line[0].startvalue = avgOpens / openCount.length
+            this.dailyRequestRateChartData.trendlines[0].line[1].startvalue = avgClicks / openCount.length
+            this.dailyRequestRateChartData.trendlines[0].line[2].startvalue = avgRequests / openCount.length
             this.dailyRequestRateChartData.trendlines[0].line[0].displayvalue = "Avg. Opens: ".concat(Math.round(this.dailyRequestRateChartData.trendlines[0].line[0].startvalue.toString()))
             this.dailyRequestRateChartData.trendlines[0].line[1].displayvalue = "Avg. Clicks: ".concat(Math.round(this.dailyRequestRateChartData.trendlines[0].line[1].startvalue.toString()))
             this.dailyRequestRateChartData.trendlines[0].line[2].displayvalue = "Avg. Requests: ".concat(Math.round(this.dailyRequestRateChartData.trendlines[0].line[2].startvalue.toString()))
-          },
-          filterDates: function () {
-            if (this.startDate !== '' && this.endDate !== '') {
-              if (this.cleanData.cleanRequestData.clicksCount.length != 0
-                || this.cleanData.cleanRequestData.openCount.length != 0) {
-                let categories = [];
-                let opens = [];
-                let clicks = [];
-                let requests = [];
-
-                let avgClicks = 0;
-                let avgOpens = 0
-                let avgRequests = 0;
-                for (let i = 0; i < this.cleanData.cleanRequestData.clicksCount.length; i++) {
-                  let dateStr = this.cleanData.cleanRequestData.openCount[i].date;
-                  if (dateStr >= this.startDate
-                    && dateStr <= this.endDate) {
-                    let categoryObject = {
-                      label: this.cleanData.cleanRequestData.openCount[i].date,
-                    };
-                    avgOpens = avgOpens + this.cleanData.cleanRequestData.openCount[i].counts;
-                    let opensObject = {
-                      value: this.cleanData.cleanRequestData.openCount[i].counts,
-                    };
-                    avgClicks = avgClicks + this.cleanData.cleanRequestData.clicksCount[i].counts
-                    let clicksObject = {
-                      value: this.cleanData.cleanRequestData.clicksCount[i].counts,
-                    };
-                    avgRequests = avgRequests + this.cleanData.cleanRequestData.requestCount[i].counts
-                    let requestsObject = {
-                      value: this.cleanData.cleanRequestData.requestCount[i].counts,
-                    };
-                    categories.push(categoryObject);
-                    opens.push(opensObject);
-                    clicks.push(clicksObject);
-                    requests.push(requestsObject);
-                  }
-                  this.dailyRequestRateChartData.categories[0].category = categories;
-                  this.dailyRequestRateChartData.dataset[0].data = opens;
-                  this.dailyRequestRateChartData.dataset[1].data = clicks;
-                  this.dailyRequestRateChartData.dataset[2].data = requests;
-                  this.dailyRequestRateChartData.trendlines[0].line[0].startvalue = avgOpens / this.cleanData.cleanRequestData.openCount.length
-                  this.dailyRequestRateChartData.trendlines[0].line[1].startvalue = avgClicks / this.cleanData.cleanRequestData.openCount.length
-                  this.dailyRequestRateChartData.trendlines[0].line[2].startvalue = avgRequests / this.cleanData.cleanRequestData.openCount.length
-                  this.dailyRequestRateChartData.trendlines[0].line[0].displayvalue = "Avg. Opens: ".concat(Math.round(this.dailyRequestRateChartData.trendlines[0].line[0].startvalue.toString()))
-                  this.dailyRequestRateChartData.trendlines[0].line[1].displayvalue = "Avg. Clicks: ".concat(Math.round(this.dailyRequestRateChartData.trendlines[0].line[1].startvalue.toString()))
-                  this.dailyRequestRateChartData.trendlines[0].line[2].displayvalue = "Avg. Requests: ".concat(Math.round(this.dailyRequestRateChartData.trendlines[0].line[2].startvalue.toString()))
-                }
-              }
-            } else {
-              this.setChartData();
-            }
           }
         },
         mounted:function() {
@@ -211,14 +170,9 @@
             },
             deep: true
           },
-          startDate: {
+          time: {
             handler: function() {
-              this.filterDates();
-            },
-          },
-          endDate: {
-            handler: function() {
-              this.filterDates();
+              this.setChartData();
             },
           },
       },
