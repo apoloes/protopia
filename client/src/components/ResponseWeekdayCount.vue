@@ -23,9 +23,10 @@
             ResponseWeekdayChartData: {
               chart: {
                 plottooltext: "<b>$value</b> responses sent on <b>$label<b>",
-                  labelFontColor: "#FFFFFF",
-                  "bgColor": "#5e26ac",
-                  theme: "fusion",
+                labelFontColor: "#FFFFFF",
+                "bgColor": "#5e26ac",
+                theme: "fusion",
+                valueFontColor: "#FFFFFF",
                 showCanvasBorder: "0",
                 placeValuesInside: "0",
                 showAlternateVGridColor: "0",
@@ -35,7 +36,6 @@
                 "paletteColors": "#ffc533",
                 "usePlotGradientColor": "0",
                 "divLineColor": "#FFFFFF",
-                "divLineDashed": "1",
                 "divLineDashLen": "5",
                 "valueFontSize": "15",
                 "canvasRightMargin": "160",
@@ -49,6 +49,7 @@
                 "tooltipBorderThickness": "0.7",
                 "toolTipColor": "#FDFDFD",
                 "transposeAnimation":"1"
+                
               },
               data: [],
             },

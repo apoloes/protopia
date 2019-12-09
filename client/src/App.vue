@@ -22,6 +22,8 @@ Style: This section is for CSS styling that applies to the HTML of the page (wri
 </template>
 
 <script>
+
+
 import SideBar from './components/SideBar';
 import Home from './components/Home';
 import RequestsPage from './components/RequestsPage';
@@ -1175,6 +1177,7 @@ export default {
     await this.organizeAllDetails();
   }
 };
+
 
 
 </script>

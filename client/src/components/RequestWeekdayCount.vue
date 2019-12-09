@@ -23,8 +23,8 @@
             RequestWeekdayChartData: {
               chart: {
                 plottooltext: "<b>$value</b> requests sent on <b>$label<b>",
-                  labelFontColor: "#FFFFFF",
-                  // valueFontColor: "#FFFFFF",
+                labelFontColor: "#FFFFFF",
+                valueFontColor: "#FFFFFF",
                 theme: "fusion",
                 showCanvasBorder: "0",
                 placeValuesInside: "0",
@@ -36,7 +36,6 @@
                 "paletteColors": "#ffc533",
                 "usePlotGradientColor": "0",
                 "divLineColor": "#999999",
-                "divLineDashed": "1",
                 "divLineDashLen": "5",
                 "valueFontSize": "15",
                 "canvasRightMargin": "160",

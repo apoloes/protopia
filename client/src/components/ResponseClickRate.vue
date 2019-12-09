@@ -51,7 +51,7 @@
                 "defaultCenterLabel": "Click Rate",
                 "centerLabel": "$value <br> $label",
                 "centerLabelBold": "1",
-                centerLabelColor: "#999999",
+                centerLabelColor: "#FFFFFF",
                 "centerLabelFontSize": "20",
                 "enableRotation": "0",
               },

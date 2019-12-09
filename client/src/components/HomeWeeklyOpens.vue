@@ -26,6 +26,8 @@
                     theme: "fusion",
                     bgColor: "AD66C8, AE66BD",
                     "showBorder": "0",
+                    labelFontColor: "#FFFFFF",
+                    valueFontColor: "#FFFFFF",
                     "showCanvasBorder": "0",
                     "showAlternateHGridColor": "0",
                     "showvalues": "1",
@@ -77,6 +79,7 @@
         },
         methods: {
           setChartData: function() {
+            if(this.cleanData.cleanFullData.opensCount.length > 0){
             let data = [];
 
             let pastWeek = 0;
@@ -108,6 +111,7 @@
                 this.HomeWeeklyChartData.annotations.groups[0].items[0].text = "▲".concat((Math.round(100*increase)/100).toString(), "%");
                 this.HomeWeeklyChartData.annotations.groups[0].items[0].color = "#62B58F";
                 this.HomeWeeklyChartData.annotations.groups[0].items[1].text = "Increase in Opens"
+            }
             }
           },
         },
