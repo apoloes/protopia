@@ -16,7 +16,7 @@
 
 <script>
     export default {
-        props: ["cleanData"],
+        props: ["cleanData", "time"],
         components: {},
         data() {
           return {
@@ -57,10 +57,18 @@
         methods: {
           setChartData: function() {
             let data = [];
-            for (let i = 0; i < this.cleanData.cleanResponseData.weekdayCount.length; i++) {
+
+            let weekdayCount = this.cleanData.cleanResponseData.weekdayCount;
+            if (this.time == "today") {
+              weekdayCount = this.cleanData.cleanResponseData.weekdayTodayCount;
+            } else if (this.time == "week") {
+              weekdayCount = this.cleanData.cleanResponseData.weekdayWeekCount;
+            }
+            
+            for (let i = 0; i < weekdayCount.length; i++) {
               let dataObject = {
-                label: this.cleanData.cleanResponseData.weekdayCount[i].weekday,
-                value: this.cleanData.cleanResponseData.weekdayCount[i].count
+                label: weekdayCount[i].weekday,
+                value: weekdayCount[i].count
               };
               data.push(dataObject);
             }
@@ -76,6 +84,11 @@
               this.setChartData();
             },
             deep: true
+        },
+        time: {
+          handler: function() {
+            this.setChartData();
+          },
         },
       },
     };

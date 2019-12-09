@@ -17,7 +17,7 @@
 
 <script>
     export default {
-        props: ["cleanData"],
+        props: ["cleanData", "time"],
         components: {},
         data() {
           return {
@@ -74,12 +74,19 @@
               }
               return comparison;
             }
-            var data = [];
+            let data = [];
 
-            for (var i = 0; i < this.cleanData.cleanResponseData.openRate.length; i++) {
-              var dataObject = {
-                label: this.cleanData.cleanResponseData.openRate[i].status,
-                value: this.cleanData.cleanResponseData.openRate[i].count
+            let openRate = this.cleanData.cleanResponseData.openRate;
+            if (this.time == "today") {
+              openRate = this.cleanData.cleanResponseData.openTodayRate;
+            } else if (this.time == "week") {
+              openRate = this.cleanData.cleanResponseData.openWeekRate;
+            }
+
+            for (let i = 0; i < openRate.length; i++) {
+              let dataObject = {
+                label: openRate[i].status,
+                value: openRate[i].count
               };
               data.push(dataObject);
             }
@@ -96,6 +103,11 @@
               this.setChartData();
             },
             deep: true
+        },
+        time: {
+          handler: function() {
+            this.setChartData();
+          },
         },
       },
     };
