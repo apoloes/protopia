@@ -92,12 +92,15 @@
           setChartData: function() {
             let openCount = this.cleanData.cleanRequestData.openCount;
             let clicksCount = this.cleanData.cleanRequestData.clicksCount;
+            this.dailyRequestRateChartData.chart.subcaption = "Last Month";
             if (this.time == "today") {
               openCount = this.cleanData.cleanRequestData.openTodayCount;
               clicksCount = this.cleanData.cleanRequestData.clicksTodayCount;
+              this.dailyRequestRateChartData.chart.subcaption = "Today";
             } else if (this.time == "week") {
               openCount = this.cleanData.cleanRequestData.openWeekCount;
               clicksCount = this.cleanData.cleanRequestData.clicksWeekCount;
+              this.dailyRequestRateChartData.chart.subcaption = "Last Week";
             }
 
             let categories = [];
