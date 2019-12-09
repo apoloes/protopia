@@ -978,7 +978,7 @@ export default {
           }
         }
       },
-    getSetResponseOpenClickRate: function(){
+    getSetResponseOpenClickRate: function() {
       let numResponses = this.rawResponseData.length;
 
       if (numResponses > 0) {
@@ -1007,82 +1007,44 @@ export default {
         click_week_rate["Clicked"] = 0;
 
         for (let i = 0; i < numResponses; i++) {
-          let date = this.rawResponseData[i].last_event_time.substring(0,10);
+          let date = this.rawResponseData[i].last_event_time.substring(0, 10);
           if (date == this.today) {
-            if (this.rawResponseData[i].opens_count == 0){
+            if (this.rawResponseData[i].opens_count == 0) {
               open_today_rate["Unopened"] += 1
-            }else{
+            } else {
               open_today_rate["Opened"] += 1
             }
-            if (this.rawResponseData[i].clicks_count == 0){
+            if (this.rawResponseData[i].clicks_count == 0) {
               click_today_rate["Unclicked"] += 1
-            }else{
+            } else {
               click_today_rate["Clicked"] += 1
             }
           }
 
           if (date > this.week) {
-            if (this.rawResponseData[i].opens_count == 0){
+            if (this.rawResponseData[i].opens_count == 0) {
               open_week_rate["Unopened"] += 1
-            }else{
+            } else {
               open_week_rate["Opened"] += 1
             }
-            if (this.rawResponseData[i].clicks_count == 0){
+            if (this.rawResponseData[i].clicks_count == 0) {
               click_week_rate["Unclicked"] += 1
-            }else{
+            } else {
               click_week_rate["Clicked"] += 1
             }
           }
 
-          if (this.rawResponseData[i].opens_count == 0){
+          if (this.rawResponseData[i].opens_count == 0) {
             open_rate["Unopened"] += 1
-          }else{
+          } else {
             open_rate["Opened"] += 1
           }
-          if (this.rawResponseData[i].clicks_count == 0){
+          if (this.rawResponseData[i].clicks_count == 0) {
             click_rate["Unclicked"] += 1
-          }else{
+          } else {
             click_rate["Clicked"] += 1
           }
         }
-      },
-      getSetResponseWeekdayCounts: function() {
-      let numResponses = this.rawResponseData.length;
-
-      if (numResponses > 0) {
-        let weekday_count = {};
-
-        for (let i = 0; i < numResponses; i++) {
-          let date = moment(this.rawResponseData[i].last_event_time.substring(0,10), "YYYY-MM-DD").format('dddd');
-          weekday_count[date] = weekday_count[date] || 0;
-          weekday_count[date] += 1;
-        }
-        let weekdays = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
-        for (let i = 0; i < weekdays.length; i++) { 
-          this.cleanData.cleanResponseData.weekdayCount.push({weekday:weekdays[i],count:weekday_count[weekdays[i]]});
-        }
-        
-      }
-      },
-      getSetRequestWeekdayCounts: function() {
-      let numRequests = this.rawResponseData.length;
-
-      if (numRequests > 0) {
-        let weekday_count = {};
-
-        for (let i = 0; i < numRequests; i++) {
-          let date = moment(this.rawRequestData[i].last_event_time.substring(0,10), "YYYY-MM-DD").format('dddd');
-          weekday_count[date] = weekday_count[date] || 0;
-          weekday_count[date] += 1;
-        }
-        let weekdays = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
-        for (let i = 0; i < weekdays.length; i++) { 
-          this.cleanData.cleanRequestData.weekdayCount.push({weekday:weekdays[i],count:weekday_count[weekdays[i]]});
-        }
-      }
-      console.log( this.cleanData.cleanRequestData.weekdayCount);
-      },
-      organizeAllDetails: async function() {
         for (let i in open_today_rate) {
           if (open_today_rate.hasOwnProperty(i)) {
             this.cleanData.cleanResponseData.openTodayRate.push({status:i,count:open_today_rate[i]});
@@ -1115,6 +1077,42 @@ export default {
         }
       }
     },
+      getSetResponseWeekdayCounts: function() {
+      let numResponses = this.rawResponseData.length;
+
+      if (numResponses > 0) {
+        let weekday_count = {};
+
+        for (let i = 0; i < numResponses; i++) {
+          let date = moment(this.rawResponseData[i].last_event_time.substring(0,10), "YYYY-MM-DD").format('dddd');
+          weekday_count[date] = weekday_count[date] || 0;
+          weekday_count[date] += 1;
+        }
+        let weekdays = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+        for (let i = 0; i < weekdays.length; i++) {
+          this.cleanData.cleanResponseData.weekdayCount.push({weekday:weekdays[i],count:weekday_count[weekdays[i]]});
+        }
+
+      }
+      },
+      getSetRequestWeekdayCounts: function() {
+      let numRequests = this.rawResponseData.length;
+
+      if (numRequests > 0) {
+        let weekday_count = {};
+
+        for (let i = 0; i < numRequests; i++) {
+          let date = moment(this.rawRequestData[i].last_event_time.substring(0,10), "YYYY-MM-DD").format('dddd');
+          weekday_count[date] = weekday_count[date] || 0;
+          weekday_count[date] += 1;
+        }
+        let weekdays = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+        for (let i = 0; i < weekdays.length; i++) {
+          this.cleanData.cleanRequestData.weekdayCount.push({weekday:weekdays[i],count:weekday_count[weekdays[i]]});
+        }
+      }
+      console.log( this.cleanData.cleanRequestData.weekdayCount);
+      },
     organizeAllDetails: async function() {
       // top level organization
       //   await this.fetchStudentAskData();
