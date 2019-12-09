@@ -38,7 +38,7 @@
 <!--        <input type="date" :value="endDate" @input="endDate = $event.target.value">-->
         <div class="boxTitle">Daily Open, Click, and Request Rates</div>
         <hr class="boxLine">
-        <dailyrequest-dashboard v-bind:cleanData="cleanData"v-bind:startDate="startDate"v-bind:endDate="endDate"></dailyrequest-dashboard>
+        <dailyrequest-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></dailyrequest-dashboard>
       </div>
 
       <div class="box b">
@@ -59,12 +59,30 @@
       </div>
 
     </div>
+
+    <div class="btn-group">
+      <button
+        type="button"
+        class="btn btn-md light btn__border"
+        v-on:click="time = 'today'"
+      >Today</button>
+      <button
+        type="button"
+        class="btn btn-md light btn__border"
+        v-on:click="time = 'week'"
+      >Week</button>
+      <button
+        type="button"
+        class="btn btn-md light btn__border"
+        v-on:click="time = 'month'"
+      >Month</button>
+    </div>
+
     <div class="bottomDiv">
       <statusrequest-dashboard v-bind:cleanData="cleanData"></statusrequest-dashboard>
       <weekdaycount-dashboard v-bind:cleanData="cleanData"></weekdaycount-dashboard>
       <fromemail-dashboard v-bind:cleanData="cleanData"></fromemail-dashboard>
     </div>
-
 
   </div>
 </template>
@@ -79,7 +97,7 @@
     import RequestWeekdayCount from "./RequestWeekdayCount.vue";
 
     export default {
-        props: ["cleanData", "startDate", "endDate"],
+        props: ["cleanData", "time"],
         components: {
             'dailyrequest-dashboard': DailyRequestRate,
             'hourlyrequest-dashboard': HourlyRequestRate,
@@ -91,6 +109,7 @@
         },
         data () {
             return {
+                time: 'month',
                 childComponents: ['DailyRequestRate.vue','HourlyRequestRate.vue', 'RequestStatusDist.vue', 'RequestFromEmail.vue', 'RequestOpenRate.vue', 'RequestClickRate.vue', 'RequestWeekdayCount.vue']
             }
         },
