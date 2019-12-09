@@ -30,6 +30,7 @@
       <weeklyopens-dashboard v-bind:cleanData="cleanData"></weeklyopens-dashboard>
       <weeklyclicks-dashboard v-bind:cleanData="cleanData"></weeklyclicks-dashboard>
     </div>
+    <monthlycounts-dashboard v-bind:cleanData="cleanData"></monthlycounts-dashboard>
   </div>
 </template>
 
@@ -37,6 +38,7 @@
     import HomeWeeklyEmails from "./HomeWeeklyEmails.vue";
     import HomeWeeklyOpens from "./HomeWeeklyOpens.vue";
     import HomeWeeklyClicks from "./HomeWeeklyClicks.vue";
+    import HomeMonthlyCounts from "./HomeMonthlyCounts.vue";
 
     export default {
         name: "Home",
@@ -45,10 +47,11 @@
             'weeklyemails-dashboard': HomeWeeklyEmails,
             'weeklyopens-dashboard': HomeWeeklyOpens,
             'weeklyclicks-dashboard': HomeWeeklyClicks,
+            'monthlycounts-dashboard': HomeMonthlyCounts,
         },
         data () {
             return {
-                childComponents: ['HomeWeeklyEmails.vue','HomeWeeklyOpens.vue', 'HomeWeeklyClicks.vue']
+                childComponents: ['HomeWeeklyEmails.vue','HomeWeeklyOpens.vue', 'HomeWeeklyClicks.vue', 'HomeMonthlyCounts.vue']
             }
         },
     }
