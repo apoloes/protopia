@@ -84,7 +84,6 @@
               statusCount = this.cleanData.cleanResponseData.statusWeekCount;
             }
 
-            console.log(this.cleanData.cleanResponseData)
             for (var i = 0; i < statusCount.length; i++) {
               var dataObject = {
                 label: statusCount[i].status,
