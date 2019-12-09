@@ -100,9 +100,9 @@
               let clicksObject = {
                 value: this.cleanData.cleanRequestData.hourlyClicksCount[i].counts,
               };
-              avgRequests = avgRequests + this.cleanData.cleanRequestData.hourlyResponseCount[i].counts
+              avgRequests = avgRequests + this.cleanData.cleanRequestData.hourlyRequestCount[i].counts
               let responseObject = {
-                value: this.cleanData.cleanRequestData.hourlyResponseCount[i].counts,
+                value: this.cleanData.cleanRequestData.hourlyRequestCount[i].counts,
               };
               categories.push(categoryObject);
               opens.push(opensObject);
@@ -115,7 +115,7 @@
             this.hourlyRequestRateChartData.dataset[2].data = requests;
             this.hourlyRequestRateChartData.trendlines[0].line[0].startvalue = avgOpens / this.cleanData.cleanRequestData.hourlyOpenCount.length
             this.hourlyRequestRateChartData.trendlines[0].line[1].startvalue = avgClicks / this.cleanData.cleanRequestData.hourlyOpenCount.length
-            this.hourlyRequestRateChartData.trendlines[0].line[2].startvalue = avgRequests / this.cleanData.cleanRequestData.hourlyResponseCount.length
+            this.hourlyRequestRateChartData.trendlines[0].line[2].startvalue = avgRequests / this.cleanData.cleanRequestData.hourlyRequestCount.length
             this.hourlyRequestRateChartData.trendlines[0].line[0].displayvalue = "Avg. Opens: ".concat(Math.round(this.hourlyRequestRateChartData.trendlines[0].line[0].startvalue.toString()))
             this.hourlyRequestRateChartData.trendlines[0].line[1].displayvalue = "Avg. Clicks: ".concat(Math.round(this.hourlyRequestRateChartData.trendlines[0].line[1].startvalue.toString()))
             this.hourlyRequestRateChartData.trendlines[0].line[2].displayvalue = "Avg. Requests: ".concat(Math.round(this.hourlyRequestRateChartData.trendlines[0].line[2].startvalue.toString()))
@@ -127,9 +127,11 @@
                 let clicks = [];
                 let opens = [];
                 let categories = [];
+                let requests = [];
                 for (let i = 0; i < 24; i++){
                     clicks.push({value: "0"});
                     opens.push({value: "0"});
+                    requests.push({value: "0"});
                     categories.push({label: i});
                 }
 
