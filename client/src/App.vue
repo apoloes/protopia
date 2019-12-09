@@ -84,6 +84,7 @@ export default {
             requestCount: [],
             openRate: [],
             clickRate: [],
+            weekdayCount: [],
         },
         cleanResponseData: {
             numResponses: 0,
@@ -115,6 +116,7 @@ export default {
             responseCount: [],
             openRate: [],
             clickRate: [],
+            weekdayCount: [],
         }
       }
     }
@@ -684,6 +686,42 @@ export default {
           }
         }
       },
+      getSetResponseWeekdayCounts: function() {
+      let numResponses = this.rawResponseData.length;
+
+      if (numResponses > 0) {
+        let weekday_count = {};
+
+        for (let i = 0; i < numResponses; i++) {
+          let date = moment(this.rawResponseData[i].last_event_time.substring(0,10), "YYYY-MM-DD").format('dddd');
+          weekday_count[date] = weekday_count[date] || 0;
+          weekday_count[date] += 1;
+        }
+        let weekdays = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+        for (let i = 0; i < weekdays.length; i++) { 
+          this.cleanData.cleanResponseData.weekdayCount.push({weekday:weekdays[i],count:weekday_count[weekdays[i]]});
+        }
+        
+      }
+      },
+      getSetRequestWeekdayCounts: function() {
+      let numRequests = this.rawResponseData.length;
+
+      if (numRequests > 0) {
+        let weekday_count = {};
+
+        for (let i = 0; i < numRequests; i++) {
+          let date = moment(this.rawRequestData[i].last_event_time.substring(0,10), "YYYY-MM-DD").format('dddd');
+          weekday_count[date] = weekday_count[date] || 0;
+          weekday_count[date] += 1;
+        }
+        let weekdays = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+        for (let i = 0; i < weekdays.length; i++) { 
+          this.cleanData.cleanRequestData.weekdayCount.push({weekday:weekdays[i],count:weekday_count[weekdays[i]]});
+        }
+      }
+      console.log( this.cleanData.cleanRequestData.weekdayCount);
+      },
       organizeAllDetails: async function() {
       // top level organization
       //   await this.fetchStudentAskData();
@@ -699,6 +737,8 @@ export default {
         this.getSetResponseEmailCounts();
         this.getSetRequestOpenClickRate();
         this.getSetResponseOpenClickRate();
+        this.getSetResponseWeekdayCounts();
+        this.getSetRequestWeekdayCounts();
     },
   },
   mounted: async function() {

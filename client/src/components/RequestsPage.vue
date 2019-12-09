@@ -41,6 +41,8 @@
        <fromemail-dashboard v-bind:cleanData="cleanData"></fromemail-dashboard>
       
     </div>
+
+    <weekdaycount-dashboard v-bind:cleanData="cleanData"></weekdaycount-dashboard>
     <div id="pieCharts">
       
      
@@ -56,6 +58,7 @@
     import RequestFromEmail from "./RequestFromEmail.vue";
     import RequestOpenRate from "./RequestOpenRate.vue";
     import RequestClickRate from "./RequestClickRate.vue";
+    import RequestWeekdayCount from "./RequestWeekdayCount.vue";
 
     export default {
         props: ["cleanData", "startDate", "endDate"],
@@ -66,10 +69,11 @@
             'fromemail-dashboard': RequestFromEmail,
             'openrate-dashboard': RequestOpenRate,
             'clickrate-dashboard': RequestClickRate,
+            'weekdaycount-dashboard': RequestWeekdayCount,
         },
         data () {
             return {
-                childComponents: ['DailyRequestRate.vue','HourlyRequestRate.vue', 'RequestStatusDist.vue', 'RequestFromEmail.vue', 'RequestOpenRate.vue', 'RequestClickRate.vue']
+                childComponents: ['DailyRequestRate.vue','HourlyRequestRate.vue', 'RequestStatusDist.vue', 'RequestFromEmail.vue', 'RequestOpenRate.vue', 'RequestClickRate.vue', 'RequestWeekdayCount.vue']
             }
         },
         methods: {

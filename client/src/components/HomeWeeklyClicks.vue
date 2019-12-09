@@ -27,6 +27,7 @@
                     "showBorder": "0",
                     "showCanvasBorder": "0",
                     "showAlternateHGridColor": "0",
+                    showDivLineValues: "0",
                     "showvalues": "1",
                     "showLimits": "0",
                     "showDivLineValues": "0",

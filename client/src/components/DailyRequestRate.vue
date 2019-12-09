@@ -6,7 +6,6 @@
         width="100%"
         height="100%"
         data-format="json"
-        dataEmptyMessage="i-https://i.postimg.cc/R0QCk9vV/Rolling-0-9s-99px.gif"
         :data-source="dailyRequestRateChartData"
       >
       </fusioncharts>
