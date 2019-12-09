@@ -92,17 +92,20 @@
     border-radius: 0px !important;
   }
   .vs-sidebar-primary .vs-sidebar-item-active a{
-    color: #9178a0 !important;
+    color: #ae66bd  !important;
     font-weight: bolder;
   }
   .vs-sidebar-primary {
     font-weight: normal;
   }
   .vs-sidebar-primary .vs-sidebar-item-active{
-    border-right: 3px solid #9178a0 !important;
+    border-right: 3px solid #ae66bd !important;
   }
   .vs-button-primary.vs-button-filled:hover {
-    -webkit-box-shadow: 0 8px 25px -8px #9178a0;
-    box-shadow: 0 8px 25px -8px #9178a0;
+    -webkit-box-shadow: 0 8px 25px -8px #ae66bd;
+    box-shadow: 0 8px 25px -8px #ae66bd;
   }
+  /*.sidebarx {*/
+  /*  background-color: #652b8b;*/
+  /*}*/
 </style>

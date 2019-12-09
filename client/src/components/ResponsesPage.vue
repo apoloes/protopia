@@ -1,52 +1,73 @@
 <template>
   <div id="app">
-    <h1 class="globaltitle"><router-link to="/">Protopia</router-link></h1>
-    <h2 class="pagetitle">Responses Page</h2>
-    <div class="parent-card">
-      <div class="widget-card">
-        <p class="card-heading">Monthly Responses: </p>
-
-        <div class="dataCounts">
-          <h1>{{cleanData.cleanResponseData.numResponses}}</h1><vs-icon icon="drafts"></vs-icon>
-        </div>
+    <div class="headerDiv">
+      <div class="title">
+        <h1><router-link to="/">Protopia</router-link></h1>
+        <h2>Responses Page</h2>
       </div>
 
-      <div class="widget-card">
-        <p class="card-heading">Monthly Response Opens: </p>
-        <div class="dataCounts">
-          <h1>{{cleanData.cleanResponseData.numOpens}}</h1><vs-icon icon="drafts"></vs-icon>
+      <div class="parent-card">
+        <div class="widget-card">
+          <p class="card-heading">Monthly Responses</p>
+          <div class="dataCounts">
+            <h1>{{cleanData.cleanResponseData.numResponses}}</h1><vs-icon icon="post_add"></vs-icon>
+          </div>
         </div>
-      </div>
 
-      <div class="widget-card">
-        <p class="card-heading">Monthly Response Clicks: </p>
-        <div class="dataCounts">
-          <h1>{{cleanData.cleanResponseData.numClicks}}</h1><vs-icon icon="touch_app"></vs-icon>
+        <div class="widget-card">
+          <p class="card-heading">Monthly Response Opens</p>
+          <div class="dataCounts">
+            <h1>{{cleanData.cleanResponseData.numOpens}}</h1><vs-icon icon="drafts"></vs-icon>
+          </div>
+        </div>
+
+        <div class="widget-card">
+          <p class="card-heading">Monthly Response Clicks</p>
+          <div class="dataCounts">
+            <h1>{{cleanData.cleanResponseData.numClicks}}</h1><vs-icon icon="touch_app"></vs-icon>
+          </div>
         </div>
       </div>
     </div>
-    <input type="date" :value="responseStartDate"
-           @input="responseStartDate = $event.target.value">
-    to
-    <input type="date" :value="responseEndDate"
-           @input="responseEndDate = $event.target.value">
-    <div id="graphContainer">
-    <dailyresponse-dashboard v-bind:cleanData="cleanData"v-bind:responseStartDate="responseStartDate"v-bind:responseEndDate="responseEndDate"></dailyresponse-dashboard>
-    <hourlyresponse-dashboard v-bind:cleanData="cleanData"></hourlyresponse-dashboard>
+<!--    <input type="date" :value="responseStartDate"-->
+<!--           @input="responseStartDate = $event.target.value">-->
+<!--    to-->
+<!--    <input type="date" :value="responseEndDate"-->
+<!--           @input="responseEndDate = $event.target.value">-->
+    <div class="bodyDiv">
+      <div class="box graph1st">
+        <div class="boxTitle">Daily Open, Click, and Response Rates</div>
+        <hr class="boxLine">
+        <dailyresponse-dashboard v-bind:cleanData="cleanData"v-bind:responseStartDate="responseStartDate"v-bind:responseEndDate="responseEndDate"></dailyresponse-dashboard>
+      </div>
 
-    <div id="pieCharts">
-      <openrate-dashboard v-bind:cleanData="cleanData"></openrate-dashboard>
-      <clickrate-dashboard v-bind:cleanData="cleanData"></clickrate-dashboard>
-      <statusresponse-dashboard v-bind:cleanData="cleanData"></statusresponse-dashboard>
+      <div class="box b">
+        <div class="boxTitle">Open Rate</div>
+        <hr class="boxLine">
+        <openrate-dashboard v-bind:cleanData="cleanData"></openrate-dashboard>
+      </div>
+
+      <div class="box graph2nd">
+        <div class="boxTitle">Hourly Open, Click, and Response Rates</div>
+        <hr class="boxLine">
+        <hourlyresponse-dashboard v-bind:cleanData="cleanData"></hourlyresponse-dashboard>
+      </div>
+
+      <div class="box d">
+        <div class="boxTitle">Click Rate</div>
+        <hr class="boxLine">
+        <clickrate-dashboard v-bind:cleanData="cleanData"></clickrate-dashboard>
+      </div>
+
+       <statusresponse-dashboard v-bind:cleanData="cleanData"></statusresponse-dashboard>
       <fromemail-dashboard v-bind:cleanData="cleanData"></fromemail-dashboard>
-    </div>
-    </div>
 
+    </div>
     <weekdaycount-dashboard v-bind:cleanData="cleanData"></weekdaycount-dashboard>
-    
+
     <div id="pieCharts">
-      
-      
+
+
     </div>
   </div>
 </template>
@@ -88,16 +109,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    
-  }
 
-  #graphContainer {
-  }
-  .card-heading{
-    padding: 5px;
-    font-weight: lighter;
-    font-size: 1.3em;
-    color: black;
   }
   .parent-card{
     /*margin-top: 20px;*/

@@ -34,8 +34,8 @@
                 "bgColor": "#1D1B41",
                 "bgAlpha": "0",
                 "canvasBgAlpha": "0",
-                "doughnutRadius": "105",
-                "pieRadius": "125",
+                // "doughnutRadius": "105",
+                // "pieRadius": "125",
                 "plotBorderAlpha": "0",
                 "toolTipBgcolor": "#9178a0",
                 "toolTipPadding": "7",
@@ -73,7 +73,7 @@
               }
               return comparison;
             }
-            
+
             var data = [];
 
             for (var i = 0; i < this.cleanData.cleanRequestData.emailCount.length; i++) {

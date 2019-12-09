@@ -1,28 +1,61 @@
 <template>
   <div id="app">
-    <h1 class="globaltitle"><router-link to="/">Protopia</router-link></h1>
-    <h2 class="pagetitle">Requests Page</h2>
-    <div class="parent-card">
-
-      <div class="widget-card">
-        <p class="card-heading">Monthly Requests: </p>
-        <div class="dataCounts">
-          <h1>{{cleanData.cleanRequestData.numRequests}}</h1><vs-icon icon="drafts"></vs-icon>
-        </div>
+    <div class="headerDiv">
+      <div class="title">
+        <h1><router-link to="/">Protopia</router-link></h1>
+        <h2>Requests Page</h2>
       </div>
 
-      <div class="widget-card">
-        <p class="card-heading">Monthly Request Opens: </p>
-        <div class="dataCounts">
-          <h1>{{cleanData.cleanRequestData.numOpens}}</h1><vs-icon icon="drafts"></vs-icon>
+      <div class="parent-card">
+        <div class="widget-card">
+          <p class="card-heading">Monthly Requests</p>
+          <div class="dataCounts">
+            <h1>{{cleanData.cleanRequestData.numRequests}}</h1><vs-icon icon="post_add"></vs-icon>
+          </div>
+        </div>
+
+        <div class="widget-card">
+          <p class="card-heading">Monthly Request Opens</p>
+          <div class="dataCounts">
+            <h1>{{cleanData.cleanRequestData.numOpens}}</h1><vs-icon icon="drafts"></vs-icon>
+          </div>
+        </div>
+
+        <div class="widget-card">
+          <p class="card-heading">Monthly Request Clicks</p>
+          <div class="dataCounts">
+            <h1>{{cleanData.cleanRequestData.numClicks}}</h1><vs-icon icon="touch_app"></vs-icon>
+          </div>
         </div>
       </div>
+    </div>
 
-      <div class="widget-card">
-        <p class="card-heading">Monthly Request Clicks: </p>
-        <div class="dataCounts">
-          <h1>{{cleanData.cleanRequestData.numClicks}}</h1><vs-icon icon="touch_app"></vs-icon>
-        </div>
+    <div class="bodyDiv">
+
+      <div class="box graph1st">
+<!--        <input type="date" :value="startDate" @input="startDate = $event.target.value">-->
+<!--        to-->
+<!--        <input type="date" :value="endDate" @input="endDate = $event.target.value">-->
+        <div class="boxTitle">Daily Open, Click, and Request Rates</div>
+        <hr class="boxLine">
+        <dailyrequest-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></dailyrequest-dashboard>
+      </div>
+
+      <div class="box b">
+        <div class="boxTitle">Open Rate</div>
+        <hr class="boxLine">
+        <openrate-dashboard v-bind:cleanData="cleanData"></openrate-dashboard>
+      </div>
+
+      <div class="box graph2nd">
+        <div class="boxTitle">Hourly Open, Click, and Request Rates</div>
+        <hr class="boxLine">
+        <hourlyrequest-dashboard v-bind:cleanData="cleanData"></hourlyrequest-dashboard>
+      </div>
+      <div class="box d">
+        <div class="boxTitle">Click Rate</div>
+        <hr class="boxLine">
+        <clickrate-dashboard v-bind:cleanData="cleanData"></clickrate-dashboard>
       </div>
 
     </div>
@@ -45,18 +78,11 @@
       >Month</button>
     </div>
 
-    <dailyrequest-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></dailyrequest-dashboard>
-    <hourlyrequest-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></hourlyrequest-dashboard>
-
-    <div id="pieCharts">
-      <openrate-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></openrate-dashboard>
-      <clickrate-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></clickrate-dashboard>
-      <statusrequest-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></statusrequest-dashboard>
-      <fromemail-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></fromemail-dashboard>
+    <div class="bottomDiv">
+      <statusrequest-dashboard v-bind:cleanData="cleanData"></statusrequest-dashboard>
+      <weekdaycount-dashboard v-bind:cleanData="cleanData"></weekdaycount-dashboard>
+      <fromemail-dashboard v-bind:cleanData="cleanData"></fromemail-dashboard>
     </div>
-
-    <weekdaycount-dashboard v-bind:cleanData="cleanData"v-bind:time="time"></weekdaycount-dashboard>
-    <div id="pieCharts"></div>
 
   </div>
 </template>
@@ -97,16 +123,11 @@
 </script>
 
 <style scoped>
+
   #pieCharts{
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  .card-heading{
-    padding: 5px;
-    font-weight: lighter;
-    font-size: 1.3em;
-    color: black;
   }
   .parent-card{
     /*margin-top: 20px;*/
@@ -122,5 +143,7 @@
   }
   .widget-card .vs-icon{
     padding-bottom: 4px;
+    padding-left: 4px;
   }
+
 </style>

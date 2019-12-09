@@ -6,7 +6,7 @@
       <div class="widget-card">
         <p class="card-heading">Total Monthly Emails: </p>
         <div class="dataCounts">
-          <h1>{{cleanData.cleanFullData.numTotalEmails}}</h1><vs-icon icon="drafts"></vs-icon>
+          <h1>{{cleanData.cleanFullData.numTotalEmails}}</h1><vs-icon icon="post_add"></vs-icon>
         </div>
       </div>
 
