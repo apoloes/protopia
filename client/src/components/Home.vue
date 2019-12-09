@@ -13,28 +13,54 @@
       <div class="widget-card">
         <p class="card-heading">Total Monthly Opens: </p>
         <div class="dataCounts">
-          <h1>{{cleanData.cleanRequestData.numOpens + cleanData.cleanResponseData.numOpens}}</h1><vs-icon icon="drafts"></vs-icon>
+          <h1>{{cleanData.cleanFullData.numTotalOpens}}</h1><vs-icon icon="drafts"></vs-icon>
         </div>
       </div>
 
       <div class="widget-card">
         <p class="card-heading">Total Monthly Clicks: </p>
         <div class="dataCounts">
-          <h1>{{cleanData.cleanRequestData.numClicks + cleanData.cleanResponseData.numClicks}}</h1><vs-icon icon="touch_app"></vs-icon>
+          <h1>{{cleanData.cleanFullData.numTotalClicks}}</h1><vs-icon icon="touch_app"></vs-icon>
         </div>
       </div>
+
+    </div>
+    <div id="barCharts">
+      <weeklyemails-dashboard v-bind:cleanData="cleanData"></weeklyemails-dashboard>
+      <weeklyopens-dashboard v-bind:cleanData="cleanData"></weeklyopens-dashboard>
+      <weeklyclicks-dashboard v-bind:cleanData="cleanData"></weeklyclicks-dashboard>
     </div>
   </div>
 </template>
 
 <script>
+    import HomeWeeklyEmails from "./HomeWeeklyEmails.vue";
+    import HomeWeeklyOpens from "./HomeWeeklyOpens.vue";
+    import HomeWeeklyClicks from "./HomeWeeklyClicks.vue";
+
     export default {
         name: "Home",
-        props: ["cleanData"]
+        props: ["cleanData"],
+        components: {
+            'weeklyemails-dashboard': HomeWeeklyEmails,
+            'weeklyopens-dashboard': HomeWeeklyOpens,
+            'weeklyclicks-dashboard': HomeWeeklyClicks,
+        },
+        data () {
+            return {
+                childComponents: ['HomeWeeklyEmails.vue','HomeWeeklyOpens.vue', 'HomeWeeklyClicks.vue']
+            }
+        },
     }
 </script>
 
 <style scoped>
+  #barCharts{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+  }
   .card-heading{
     padding: 5px;
     font-weight: lighter;

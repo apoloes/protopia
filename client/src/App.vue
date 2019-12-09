@@ -45,6 +45,11 @@ export default {
       cleanData: {
         cleanFullData: {
           numTotalEmails: '',
+          numTotalOpens: '',
+          numTotalClicks: '',
+          emailsCount: [],
+          opensCount: [],
+          clicksCount: [],
         },
         cleanRequestData: {
             numRequests: '',
@@ -112,6 +117,13 @@ export default {
       getSetRequestsResponses: function() {
         let requests = [];
         let responses = [];
+        let email_count = [];
+        let opens_count = [];
+        let clicks_count = [];
+
+        let total_opens = 0;
+        let total_clicks = 0;
+
         for (let message of this.rawSendGridData) {
             if (message['subject'].includes("Can you help")) {
                 requests.push(message);
@@ -120,7 +132,36 @@ export default {
                 message['subject'].includes("We've received new feedback from a member")) {
                 responses.push(message);
             }
+          let date = message['last_event_time'].substring(0,10);
+          email_count[date] = email_count[date] || 0;
+          email_count[date] += 1;
+          opens_count[date] = opens_count[date] || 0;
+          opens_count[date] += message['opens_count'];
+          clicks_count[date] = clicks_count[date] || 0;
+          clicks_count[date] += message["clicks_count"];
+
+          total_opens = total_opens + message['opens_count'];
+          total_clicks = total_clicks + message['clicks_count'];
+
         }
+
+        for (let i in email_count) {
+          if (email_count.hasOwnProperty(i)) {
+            this.cleanData.cleanFullData.emailsCount.push({date:i,counts:email_count[i]});
+          }
+        }
+        for (let i in opens_count) {
+          if (opens_count.hasOwnProperty(i)) {
+            this.cleanData.cleanFullData.opensCount.push({date:i,counts:opens_count[i]});
+          }
+        }
+        for (let i in clicks_count) {
+          if (clicks_count.hasOwnProperty(i)) {
+            this.cleanData.cleanFullData.clicksCount.push({date:i,counts:clicks_count[i]});
+          }
+        }
+        this.cleanData.cleanFullData.numTotalOpens = total_opens;
+        this.cleanData.cleanFullData.numTotalClicks = total_clicks;
         this.rawRequestData = requests;
         this.rawResponseData = responses;
       },
@@ -359,7 +400,6 @@ export default {
             });
             
             let top5 = [];
-            console.log(sorted);
             for (let i = 0; i < 5; i++){
               this.cleanData.cleanRequestData.emailCount.push({email:sorted[i].label,counts:sorted[i].value});
             }
@@ -402,7 +442,6 @@ export default {
             });
             
             let top5 = [];
-            console.log(sorted);
             for (let i = 0; i < 5; i++){
               this.cleanData.cleanResponseData.emailCount.push({email:sorted[i].label,counts:sorted[i].value});
             }
