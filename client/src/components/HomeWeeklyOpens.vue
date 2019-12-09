@@ -31,7 +31,7 @@
                     "showvalues": "1",
                     "showLimits": "0",
                     "showDivLineValues": "0",
-                    "paletteColors": "#9178a0",
+                    "paletteColors": "#ffc533",
                     "usePlotGradientColor": "0",
                     "divLineColor": "#999999",
                     "divLineDashed": "1",
