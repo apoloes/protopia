@@ -336,17 +336,17 @@ export default {
               }
 
               if (date == this.today) {
-                hourly_today_opens_count[date] = hourly_today_opens_count[date] || 0;
-                hourly_today_opens_count[date] += this.rawRequestData[i].opens_count;
-                hourly_today_clicks_count[date] = hourly_today_clicks_count[date] || 0;
-                hourly_today_clicks_count[date] += this.rawRequestData[i].clicks_count;
+                hourly_today_opens_count[hour] = hourly_today_opens_count[hour] || 0;
+                hourly_today_opens_count[hour] += this.rawRequestData[i].opens_count;
+                hourly_today_clicks_count[hour] = hourly_today_clicks_count[hour] || 0;
+                hourly_today_clicks_count[hour] += this.rawRequestData[i].clicks_count;
               }
 
               if (date > this.week) {
-                hourly_week_opens_count[date] = hourly_week_opens_count[date] || 0;
-                hourly_week_opens_count[date] += this.rawRequestData[i].opens_count;
-                hourly_week_clicks_count[date] = hourly_week_clicks_count[date] || 0;
-                hourly_week_clicks_count[date] += this.rawRequestData[i].clicks_count;
+                hourly_week_opens_count[hour] = hourly_week_opens_count[hour] || 0;
+                hourly_week_opens_count[hour] += this.rawRequestData[i].opens_count;
+                hourly_week_clicks_count[hour] = hourly_week_clicks_count[hour] || 0;
+                hourly_week_clicks_count[hour] += this.rawRequestData[i].clicks_count;
               }
 
                 hourly_opens_count[hour] = hourly_opens_count[hour] || 0;
@@ -498,17 +498,17 @@ export default {
           }
 
           if (date == this.today) {
-            hourly_today_opens_count[date] = hourly_today_opens_count[date] || 0;
-            hourly_today_opens_count[date] += this.rawResponseData[i].opens_count;
-            hourly_today_clicks_count[date] = hourly_today_clicks_count[date] || 0;
-            hourly_today_clicks_count[date] += this.rawResponseData[i].clicks_count;
+            hourly_today_opens_count[hour] = hourly_today_opens_count[hour] || 0;
+            hourly_today_opens_count[hour] += this.rawResponseData[i].opens_count;
+            hourly_today_clicks_count[hour] = hourly_today_clicks_count[hour] || 0;
+            hourly_today_clicks_count[hour] += this.rawResponseData[i].clicks_count;
           }
 
           if (date > this.week) {
-            hourly_week_opens_count[date] = hourly_week_opens_count[date] || 0;
-            hourly_week_opens_count[date] += this.rawResponseData[i].opens_count;
-            hourly_week_clicks_count[date] = hourly_week_clicks_count[date] || 0;
-            hourly_week_clicks_count[date] += this.rawResponseData[i].clicks_count;
+            hourly_week_opens_count[hour] = hourly_week_opens_count[hour] || 0;
+            hourly_week_opens_count[hour] += this.rawResponseData[i].opens_count;
+            hourly_week_clicks_count[hour] = hourly_week_clicks_count[hour] || 0;
+            hourly_week_clicks_count[hour] += this.rawResponseData[i].clicks_count;
           }
 
           hourly_opens_count[hour] = hourly_opens_count[hour] || 0;
